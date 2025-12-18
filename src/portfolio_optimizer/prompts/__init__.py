@@ -1,0 +1,8 @@
+from .prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
+from .prompts_criador_carteira import PROMPT_CRIANDO_CARTEIRA, RECOMENDACAO_SENIOR, PROMPT_AVALIADOR_PESOS_CARTEIRA
+
+__all__ = ["PROMPT_CRIANDO_CARTEIRA", 
+           "RECOMENDACAO_SENIOR",
+           "PROMPT_AVALIADOR_PESOS_CARTEIRA",
+           "PROMPT_ANALISE",
+           "PROMPT_AVALIADOR"]
