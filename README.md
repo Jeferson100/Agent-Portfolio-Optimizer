@@ -4,6 +4,8 @@
 
 ### Visão geral
 
+[![Testes CI e CD](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml/badge.svg)](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml)
+
 
 
 **Agent Portfolio Optimizer** é um projeto em Python para apoio à tomada de decisão em investimentos, focado em ações brasileiras (B3). Ele combina um **roteador de modelos de linguagem (LLM)** com um fluxo de análise fundamentalista automatizado para avaliar empresas, classificar a qualidade dos ativos e gerar insumos para otimização de carteiras.

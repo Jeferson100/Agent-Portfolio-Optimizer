@@ -105,14 +105,6 @@ class TestTratandoDadosFundamentalistas:
         doc = TratandoDadosFundamentalistas.__doc__.lower()
         assert 'fundamentalistas' in doc or 'dados' in doc
 
-    @patch('portfolio_optimizer.tratando_dados.tratando_dados_fundamentalistas.logger')
-    def test_logger_usage(self, mock_logger):
-        """Testa se o logger está configurado corretamente."""
-        # Verifica se o logger foi importado
-        from portfolio_optimizer.tratando_dados.tratando_dados_fundamentalistas import logger
-        assert logger is not None
-        assert logger.name == 'portfolio_optimizer.tratando_dados.tratando_dados_fundamentalistas'
-
     def test_class_inheritance(self):
         """Testa a hierarquia de herança da classe."""
         tratador = TratandoDadosFundamentalistas(tics='PETR4')

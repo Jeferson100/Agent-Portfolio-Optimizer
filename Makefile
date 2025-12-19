@@ -88,4 +88,4 @@ test_specific:
 
 refactor: format lint
 
-all: uv_install uv_dev_install import_format format lint typepyright typepyrefly import_format ruff_format ruff_lint 
+all: uv_install uv_dev_install import_format format lint typepyright typepyrefly import_format ruff_format ruff_lint test
