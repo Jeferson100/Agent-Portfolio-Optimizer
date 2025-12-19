@@ -1,12 +1,13 @@
-
 # coleta_dados
+from .build_langgraph.graph_avaliacao_tics import BuildGraphAvaliacaoTics
+from .build_langgraph.graph_criador_carteira import BuildGraphCriadorCarteira
+from .coleta_dados.dados_docling_async import LinksExtractorDoclingLoaderAsync
 from .coleta_dados.dados_fundamentalistas import DadosFundamentalistas
 from .coleta_dados.dados_indicadores_tecnicos import DadosIndicadoresTecnicos
 from .coleta_dados.dados_noticias_yahoo import DadosNoticiasBuscadorYahoo
 from .coleta_dados.dados_noticias_yahoo_async import DadosNoticiasBuscadorYahooAsync
 from .coleta_dados.dados_text_bs4 import LinksExtractorBS4
 from .coleta_dados.dados_text_html import LinksExtractorHtml
-from .coleta_dados.data_cache import DataCache
 from .coleta_dados.fundamentos.calculo_wacc import CalculoWACC
 from .coleta_dados.fundamentos.calculo_wacc_async import CalculoWACCAsync
 from .coleta_dados.fundamentos.indicadores_financeiros import IndicadoresFinanceiros
@@ -40,8 +41,20 @@ from .coleta_dados.fundamentos.valuation_metodo_gordon_async import (
 from .coleta_dados.fundamentos.variacao_receita import VariacaoReceita
 from .coleta_dados.fundamentos.variacao_receita_async import VariacaoReceitaAsync
 from .coleta_dados.verificador_ticks import VerificadorTicks
-from .coleta_dados.dados_docling_async import LinksExtractorDoclingLoaderAsync
-
+from .prompts.prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
+from .prompts.prompts_criador_carteira import (
+    PROMPT_AVALIADOR_PESOS_CARTEIRA,
+    PROMPT_CRIANDO_CARTEIRA,
+    RECOMENDACAO_SENIOR,
+)
+from .roteador_llms.roteador_llms import LlmRouter
+from .state_otputs.output_classicacao_tics import SeniorAvaliador, TickerLevel
+from .state_otputs.output_criador_carteira import CarteiraWeights
+from .state_otputs.state_classificacao_tics import StateClassification
+from .state_otputs.state_criador_carteira import StateCarteira
+from .tratando_dados.tratando_dados_fundamentalistas import (
+    TratatandoDadosFundamentalistas,
+)
 
 ## Tratando dados
 from .tratando_dados.tratando_dados_indicadores import TratandoDadosIndicadores
@@ -52,38 +65,13 @@ from .tratando_dados.tratando_dados_valuation import TratandoDadosValuation
 from .tratando_dados.tratando_dados_valuation_comparacao import (
     TratandoDadosValuationComparacao,
 )
-
-from .tratando_dados.tratando_dados_fundamentalistas import (
-    TratatandoDadosFundamentalistas,
-)
-
-from .roteador_llms.roteador_llms import LlmRouter
-
-from .state_otputs.state_criador_carteira import StateCarteira
-from .state_otputs.state_classificacao_tics import StateClassification
-from .state_otputs.output_criador_carteira import CarteiraWeights
-from .state_otputs.output_classicacao_tics import TickerLevel, SeniorAvaliador
-
-from .prompts.prompts_criador_carteira import (
-     PROMPT_CRIANDO_CARTEIRA,
-     RECOMENDACAO_SENIOR,
-     PROMPT_AVALIADOR_PESOS_CARTEIRA,
-    
-)
-
-from .prompts.prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
-
-from .build_langgraph.graph_avaliacao_tics import BuildGraphAvaliacaoTics
-from .build_langgraph.graph_criador_carteira import BuildGraphCriadorCarteira
-
 from .utils.funcoes_utilitarias import (
-    tratando_resposta_router_llm, 
-    normalizar_pesos, 
-    transformando_data_frame_para_markdown)
-
+    normalizar_pesos,
+    transformando_data_frame_para_markdown,
+    tratando_resposta_router_llm,
+)
 
 __all__ = [
-    
     "DadosFundamentalistas",
     "VerificadorTicks",
     "DadosNoticiasBuscadorYahoo",
@@ -128,6 +116,5 @@ __all__ = [
     "BuildGraphCriadorCarteira",
     "tratando_resposta_router_llm",
     "normalizar_pesos",
-    "transformando_data_frame_para_markdown"
-
+    "transformando_data_frame_para_markdown",
 ]

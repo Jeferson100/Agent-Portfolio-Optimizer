@@ -14,6 +14,9 @@ uv_install:
 	uv pip install --upgrade pip && \
 		uv pip install -r requirements.txt
 
+uv_dev_install:
+	uv pip install -e ".[dev]"
+
 install:
 	pip install --upgrade pip && \
 		pip install -r requirements.txt
@@ -55,9 +58,34 @@ create_environment:
 	@echo ">>>   Windows: .\.venv\Scripts\activate"
 	@echo ">>>   Unix/macOS: source ./.venv/bin/activate"
 
+## Run tests
 test:
-	uv run -m pytest -vv --cov=tests/test_*.py
+	python scripts/run_tests.py
+
+test_verbose:
+	uv run pytest -v
+
+test_coverage:
+	python scripts/run_tests.py --coverage
+
+test_unit:
+	python scripts/run_tests.py --unit
+
+test_integration:
+	python scripts/run_tests.py --integration
+
+test_fast:
+	python scripts/run_tests.py --fast
+
+test_all:
+	python scripts/run_tests.py --all
+
+test_watch:
+	uv run pytest-watch
+
+test_specific:
+	uv run pytest $(TEST_PATH)
 
 refactor: format lint
 
-all: uv_install format lint typepyright typepyrefly import_format ruff_format ruff_lint test
+all: uv_install format lint typepyright typepyrefly import_format ruff_format ruff_lint test_coverage

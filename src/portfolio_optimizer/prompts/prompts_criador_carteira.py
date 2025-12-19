@@ -1,4 +1,4 @@
-PROMPT_CRIANDO_CARTEIRA = f"""
+PROMPT_CRIANDO_CARTEIRA = """
 You are a **quantitative financial consultant specialized in portfolio optimization**, 
 with a focus on the Brazilian equities market.
 
@@ -6,7 +6,7 @@ Your goal is to analyze the data provided and propose the **optimal allocation w
 for each correlation, and fundamental quality. The sum of all weights **must be exactly 100%**
 
 **Qualitative Asset Classification:**
-{{classificacoes_acoes}}
+{classificacoes_acoes}
 
 ## 📌 AVAILABLE DATA
 
@@ -22,11 +22,11 @@ Each asset has received a fundamental classification according to the following 
 <Correlation Matrix of Returns>
 Use the correlation matrix to measure systemic risk, identify risk clusters, 
 and avoid non-obvious concentration.
-{{matriz_correlacao}}
+{matriz_correlacao}
 
 </Correlation Matrix of Returns>
 
-{{recomendacao}}
+{recomendacao}
 
 <OPTIMIZATION OBJECTIVES>
 
@@ -64,9 +64,9 @@ Include the following:
 
 </PORTFOLIO RISK ANALYSIS>
 
-{{tics_error}}
+{tics_error}
 
-{{soma_pesos_error}}
+{soma_pesos_error}
 
 
 <⚠️ WEIGHT CALCULATION VERIFICATION:**>
@@ -114,7 +114,7 @@ A senior analyst has reviewed a previous allocation attempt and provided the fol
 
 </PREVIOUS PORTFOLIO EVALUATION & RECOMMENDATIONS>"""
 
-PROMPT_AVALIADOR_PESOS_CARTEIRA = f"""
+PROMPT_AVALIADOR_PESOS_CARTEIRA = """
 
 You are a **senior portfolio review analyst and risk management specialist**, 
 with deep expertise in Brazilian equities markets and quantitative portfolio construction.
@@ -123,7 +123,7 @@ Your mission is to **critically evaluate** a proposed portfolio allocation, exam
 it genuinely adheres to stated optimization objectives, constraints, and best practices 
 in portfolio management. The sum of all weights **must be exactly 100%**
 
-{{soma_pesos_error}}
+{soma_pesos_error}
 
 <REQUIRED RESPONSE FORMAT>
 The justification must relate:
@@ -152,19 +152,19 @@ Each asset has 5% ≤ weight ≤ 20%
 ## INPUTS FOR EVALUATION
 
 <Proposed Portfolio Allocation>
-{{alocacao_proposta}}
+{alocacao_proposta}
 </Proposed Portfolio Allocation>
 
 <Justified of Proposed Portfolio Allocation>
-{{justificativa}}
+{justificativa}
 </Justified of Proposed Portfolio Allocation>
 
 <Original Qualitative Asset Classification>
-{{classificacoes_acoes}}
+{classificacoes_acoes}
 </Original Qualitative Asset Classification>
 
 <Original Correlation Matrix>
-{{matriz_correlacao}}
+{matriz_correlacao}
 </Original Correlation Matrix>
 
 <Stated Optimization Objectives>
@@ -307,7 +307,7 @@ Is the risk analysis:
 ⚠️ MANDATORY VALIDATION
 
 **AVAILABLE TICKERS:**
-{{tickers_disponiveis}}
+{tickers_disponiveis}
 
 **RULES:**
 - Use ONLY tickers from the list above

@@ -1,12 +1,12 @@
-PROMPT_ANALISE = f"""
+PROMPT_ANALISE = """
 You are a financial analyst specialized in fundamental analysis of stocks. Your task is to evaluate the financial health and investment prospects of companies based on the provided data.
 
 ## FUNDAMENTAL DATA
-{{fundamentos}}
+{fundamentos}
 
 ## FEEDBACK FROM ANALYST
 You have received the following feedback from another financial analyst regarding your previous analysis:
-{{description_avaliacao_analise}}
+{description_avaliacao_analise}
 
 <AVAILABLE INDICATORS FOR ANALYSIS>
 
@@ -46,17 +46,17 @@ For each ticker, provide:
 ## Respond in Inglish
 """
 
-PROMPT_AVALIADOR = f"""
+PROMPT_AVALIADOR = """
 You are a senior financial analyst with expertise in quality assurance and validation of financial analyses. Your task is to critically evaluate the classification and analysis provided by another analyst.
 
 ## ORIGINAL FUNDAMENTAL DATA
-{{fundamentos}}
+{fundamentos}
 
 ## ANALYST'S CLASSIFICATION TO EVALUATE
-{{classification}}
+{classification}
 
 ## ANALYST'S ANALYSIS TO EVALUATE
-{{analise}}
+{analise}
 
 <AVAILABLE INDICATORS>
 

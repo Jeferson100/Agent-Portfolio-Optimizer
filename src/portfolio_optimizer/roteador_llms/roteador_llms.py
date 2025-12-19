@@ -1,4 +1,3 @@
-import json
 import logging
 from typing import Any, Dict, Optional, Union
 
@@ -6,12 +5,12 @@ from pydantic import BaseModel
 
 from .roteador_cerebras import RouterCerebras
 from .roteador_groq import RouterGroq
-from .roteador_nvidia import RouterNvidia
 from .roteador_huggingface import RouterPydanticAI
+from .roteador_nvidia import RouterNvidia
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 class AllProvidersFailedError(Exception):
     """Exceção levantada quando todos os provedores LLM falham"""
@@ -58,7 +57,7 @@ class LlmRouter:
             "gpt-oss-120b",
             "llama-4-scout-17b-16e-instruct",
             "qwen-3-32b",
-            #"llama3.1-8b",
+            # "llama3.1-8b",
             "llama-4-maverick-17b-128e-instruct",
         ]
 
@@ -81,7 +80,7 @@ class LlmRouter:
             except (ConnectionError, TimeoutError, ValueError) as e:
                 logger.warning("Falha no modelo Groq %s: %s", model, e)
                 continue
-            except Exception as e:  # pylint: disable=broad-except
+            except Exception as e:  # pylint: disable=broad-exception-caught
                 logger.warning("Falha no modelo Groq %s: %s", model, e)
                 continue
 
@@ -155,36 +154,34 @@ class LlmRouter:
         Método principal que implementa o sistema de fallback
         """
         logger.info("Iniciando roteamento LLM")
-        
+
         providers = [
             ("Nvidia", self.try_nvidia_models),
             ("Cerebras", self.try_cerebras_models),
             ("Groq", self.try_groq_models),
             ("HuggingFace", self.try_huggingface_models),
         ]
-        
+
         errors = {}
-        
+
         for provider_name, provider_func in providers:
             try:
-                logger.info(f"🔄 Tentando {provider_name}...")
+                logger.info("🔄 Tentando provider_name=%s...",provider_name)
                 response = await provider_func()
-                
-                # Valida se a resposta é válida
+
                 if response is not None:
-                    logger.info(f"✅ {provider_name} respondeu com sucesso")
+                    logger.info("✅ provider_name=%s respondeu com sucesso", provider_name)
                     return response
-                
-                # Se retornou None, considera como falha
+
                 error_msg = f"{provider_name} retornou None"
-                logger.warning(f"⚠️ {error_msg}")
+                logger.warning("⚠️ error_msg=%s", error_msg)
                 errors[provider_name] = error_msg
-                
-            except Exception as e:
+
+            except Exception as e: # pylint: disable=broad-except
                 error_msg = str(e)
-                logger.warning(f"❌ {provider_name} falhou: {error_msg}")
+                logger.warning("❌ provider_name=%s falhou: error_msg=%s", provider_name, error_msg)
                 errors[provider_name] = error_msg
-        
+
         # Se todos falharam
         error_summary = " | ".join([f"{k}: {v}" for k, v in errors.items()])
         raise AllProvidersFailedError(

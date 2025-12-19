@@ -11,9 +11,7 @@ from .outros_ativos_nao_operecionais import OutrosAtivosNaoOperacionais
 from .passivos_menos_divida import PassivoTotalMenosDivida
 from .passivos_menos_divida_async import PassivoTotalMenosDividaAsync
 from .valuation_fluxo_caixa_descontado import ValuationFluxoCaixaDescontado
-from .valuation_fluxo_caixa_descontado_async import (
-    ValuationFluxoCaixaDescontadoAsync,
-)
+from .valuation_fluxo_caixa_descontado_async import ValuationFluxoCaixaDescontadoAsync
 from .valuation_metodo_gordon import ValuationModoloGordon
 from .valuation_metodo_gordon_async import ValuationModoloGordonAsync
 from .variacao_receita import VariacaoReceita

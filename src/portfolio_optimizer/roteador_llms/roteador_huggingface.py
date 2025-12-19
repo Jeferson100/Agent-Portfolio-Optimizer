@@ -6,7 +6,9 @@ from pydantic import BaseModel
 from pydantic_ai import Agent  # pylint: disable=E0401,E0611
 
 # pylint: disable=E0401,E0611 #type:ignore;
-from pydantic_ai.models.huggingface import HuggingFaceModel  # pylint: disable=E0401,E0611 #type:ignore;
+from pydantic_ai.models.huggingface import (
+    HuggingFaceModel,
+)  # pylint: disable=E0401,E0611 #type:ignore;
 
 load_dotenv()
 

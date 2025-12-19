@@ -1,10 +1,11 @@
 import logging
 from typing import Any, Optional
 
-from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from langchain_nvidia_ai_endpoints import ChatNVIDIA  # pylint: disable=import-error
 from pydantic import BaseModel
 
 logging.basicConfig(level=logging.INFO)
+
 logger = logging.getLogger(__name__)
 
 
@@ -43,17 +44,19 @@ class RouterNvidia:
 
         try:
             llm = ChatNVIDIA(model=self.model_llm)
-            llm_strutured = llm.with_structured_output( # type:ignore
+            llm_strutured = llm.with_structured_output(  # type:ignore
                 self.strutured_output  # type:ignore
             )
 
             response = await llm_strutured.ainvoke(  # type:ignore
                 [{"role": "user", "content": self.messages}]
             )  # type:ignore
-            
+
             if response is None:
-                logger.warning(f"Resposta nula recebida do modelo Nvidia. O modelo {self.model_llm} pode não suportar saída estruturada.")
-            
+                logger.warning(
+                    "Resposta nula recebida do modelo Nvidia. O modelo model_llm=%s pode não suportar saída estruturada.",self.model_llm
+                )
+
             return response  # type:ignore
 
         except Exception as e:  # pylint: disable=broad-exception-caught

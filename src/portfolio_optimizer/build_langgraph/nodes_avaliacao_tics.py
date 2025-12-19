@@ -1,80 +1,86 @@
+from typing import Any, Dict, Literal
 
-from typing import Dict, Any, Literal
-from ..tratando_dados.tratando_dados_fundamentalistas import TratatandoDadosFundamentalistas
-from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 from ..prompts.prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
 from ..roteador_llms.roteador_llms import LlmRouter
-from ..state_otputs.output_classicacao_tics import TickerLevel, SeniorAvaliador
+from ..state_otputs.output_classicacao_tics import SeniorAvaliador, TickerLevel
+from ..tratando_dados.tratando_dados_fundamentalistas import (
+    TratatandoDadosFundamentalistas,
+)
+from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 
 
 async def get_data_fundamentalistas(state) -> Dict[str, str]:
-    
     tic = state.get("tic")
-    
+
     data_inicio = state.get("data_inicio")
-    
+
     data_fim = state.get("data_fim")
-    
-    trat  = TratatandoDadosFundamentalistas(tic, data_inicio, data_fim)
-    
+
+    trat = TratatandoDadosFundamentalistas(tic, data_inicio, data_fim)
+
     dados = await trat.coleta_dados_fundamentalistas()
-    
+
     dados_markdow = dados.to_markdown()
-    
-    return {
-        "dados_fundamentalistas": dados_markdow
-    }
-    
+
+    return {"dados_fundamentalistas": dados_markdow}
+
+
 async def analista_fundamentalista(state) -> Dict[Any, Any]:
     data = state.get("dados_fundamentalistas")
-    
+
     description_avaliacao_analise = state.get("description_avaliacao_analise")
-    
-    prompt_formatted = PROMPT_ANALISE.format(fundamentos = data, 
-                                             description_avaliacao_analise=description_avaliacao_analise)
+
+    prompt_formatted = PROMPT_ANALISE.format(
+        fundamentos=data, description_avaliacao_analise=description_avaliacao_analise
+    )
     llm = LlmRouter(
         prompt_formatted,
-        strutured_output= TickerLevel #type:ignore
+        strutured_output=TickerLevel,  # type:ignore
     )
-    
-    response= await llm.llm_router()
-    
+
+    response = await llm.llm_router()
+
     response_trat = tratando_resposta_router_llm(response, TickerLevel)
-    
-    return {"classification": response_trat.get("classification"), "analysis": response_trat.get("analysis")}
-    
+
+    return {
+        "classification": response_trat.get("classification"),
+        "analysis": response_trat.get("analysis"),
+    }
+
+
 async def avaliador_analista_fundamentalista(state) -> Dict[Any, Any]:
     data = state.get("dados_fundamentalistas")
     classification = state.get("classification")
     analise = state.get("analysis")
     interacao = state.get("interacao", 0)
-    
+
     prompt_formatted = PROMPT_AVALIADOR.format(
-        fundamentos = data,
-        classification= classification,
-        analise= analise
+        fundamentos=data, classification=classification, analise=analise
     )
-    
+
     llm = LlmRouter(
         prompt_formatted,
-        strutured_output= SeniorAvaliador #type:ignore
+        strutured_output=SeniorAvaliador,  # type:ignore
     )
-    
-    response= await llm.llm_router()
-    
+
+    response = await llm.llm_router()
+
     response_trat = tratando_resposta_router_llm(response, SeniorAvaliador)
-    
+
     new_interacao = interacao + 1
-    
+
     return {
         "avaliacao_analise": response_trat.get("avaliacao_analise"),
-        "description_avaliacao_analise": response_trat.get("description_avaliacao_analise"),
-        "interacao": new_interacao
+        "description_avaliacao_analise": response_trat.get(
+            "description_avaliacao_analise"
+        ),
+        "interacao": new_interacao,
     }
-    
+
+
 def should_continue(state) -> Literal["END", "analise_fundamentalista"]:
     avaliacao = state.get("avaliacao_analise")
     interacao = state.get("interacao")
-    if avaliacao or interacao >=3:
+    if avaliacao or interacao >= 3:
         return "END"
     return "analise_fundamentalista"
