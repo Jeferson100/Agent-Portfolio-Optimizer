@@ -54,7 +54,8 @@ class RouterNvidia:
 
             if response is None:
                 logger.warning(
-                    "Resposta nula recebida do modelo Nvidia. O modelo model_llm=%s pode não suportar saída estruturada.",self.model_llm
+                    "Resposta nula recebida do modelo Nvidia. O modelo model_llm=%s pode não suportar saída estruturada.",
+                    self.model_llm,
                 )
 
             return response  # type:ignore

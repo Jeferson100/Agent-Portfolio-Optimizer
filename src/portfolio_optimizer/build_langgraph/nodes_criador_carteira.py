@@ -153,7 +153,10 @@ def verifica_tics_selecionados(state):
 
     if tics_comparados:
         tics_comparados_s = ",".join(tics_comparados)
-        logger.info("Os seguintes tickers não foram encontrados: tics_comparados_s = %s", tics_comparados_s)
+        logger.info(
+            "Os seguintes tickers não foram encontrados: tics_comparados_s = %s",
+            tics_comparados_s,
+        )
         return {
             "tics_error": f"""
                                 <🚨 PREVIOUS TICKER SELECTION ERROR DETECTED:**>

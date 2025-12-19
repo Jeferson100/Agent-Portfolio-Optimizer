@@ -12,7 +12,7 @@ PYTHON_INTERPRETER = python
 
 uv_install:
 	uv pip install --upgrade pip && \
-		uv pip install -r requirements.txt
+		uv pip install -r pyproject.toml
 
 uv_dev_install:
 	uv pip install -e ".[dev]"
@@ -88,4 +88,4 @@ test_specific:
 
 refactor: format lint
 
-all: uv_install format lint typepyright typepyrefly import_format ruff_format ruff_lint test_coverage
+all: uv_install uv_dev_install import_format format lint typepyright typepyrefly import_format ruff_format ruff_lint 

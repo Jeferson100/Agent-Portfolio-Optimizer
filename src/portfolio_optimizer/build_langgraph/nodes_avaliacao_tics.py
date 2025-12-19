@@ -4,7 +4,7 @@ from ..prompts.prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
 from ..roteador_llms.roteador_llms import LlmRouter
 from ..state_otputs.output_classicacao_tics import SeniorAvaliador, TickerLevel
 from ..tratando_dados.tratando_dados_fundamentalistas import (
-    TratatandoDadosFundamentalistas,
+    TratandoDadosFundamentalistas,
 )
 from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 
@@ -16,13 +16,13 @@ async def get_data_fundamentalistas(state) -> Dict[str, str]:
 
     data_fim = state.get("data_fim")
 
-    trat = TratatandoDadosFundamentalistas(tic, data_inicio, data_fim)
+    trat = TratandoDadosFundamentalistas(tic, data_inicio, data_fim)
 
     dados = await trat.coleta_dados_fundamentalistas()
 
     dados_markdow = dados.to_markdown()
 
-    return {"dados_fundamentalistas": dados_markdow}
+    return {"dados_fundamentalistas": str(dados_markdow)}
 
 
 async def analista_fundamentalista(state) -> Dict[Any, Any]:

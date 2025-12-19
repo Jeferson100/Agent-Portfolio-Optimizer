@@ -1,0 +1,7 @@
+[MASTER]
+# Adiciona a pasta src ao sys.path para que os imports sejam encontrados
+init-hook='import sys, os; sys.path.append(os.path.join(os.getcwd(), "src"))'
+
+[MESSAGES CONTROL]
+# Opcional: desabilitar avisos de importação se o init-hook falhar em algum ambiente
+# disable=import-error

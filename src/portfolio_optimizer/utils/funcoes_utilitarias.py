@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import Any
+from typing import Any, Dict
 
 import pandas as pd
 
@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def tratando_resposta_router_llm(response: Any, model_class=None) -> dict:
+def tratando_resposta_router_llm(response: Any, model_class=None) -> Dict[Any, Any]:
     """
     Extrai os campos definidos na model_class (Pydantic) da resposta, independentemente do tipo retornado.
     """
@@ -17,7 +17,7 @@ def tratando_resposta_router_llm(response: Any, model_class=None) -> dict:
         response = response.output
 
     if model_class and hasattr(response, "dict"):
-        return response.dict()
+        return response.dict()  # type: ignore
 
     if isinstance(response, dict):
         if model_class and hasattr(model_class, "__fields__"):
@@ -31,8 +31,8 @@ def tratando_resposta_router_llm(response: Any, model_class=None) -> dict:
                 return {
                     field: response_json.get(field) for field in model_class.__fields__
                 }
-            return response_json
-        except Exception: # # pylint: disable=broad-exception-caught
+            return response_json  # type: ignore
+        except Exception:  # # pylint: disable=broad-exception-caught
             return {}
 
     if model_class and hasattr(model_class, "__fields__"):
@@ -64,7 +64,9 @@ def normalizar_pesos(
 
     # Se já está dentro da tolerância, retorna o original
     if diferenca <= tolerancia:
-        logger.info("✓ Pesos já somam total_atual = %.2f%% (dentro da tolerância)",total_atual)
+        logger.info(
+            "✓ Pesos já somam total_atual = %.2f%% (dentro da tolerância)", total_atual
+        )
         return weights_dict
 
     # Normalização proporcional (melhor que distribuir igualmente)
@@ -74,10 +76,10 @@ def normalizar_pesos(
     }
 
     logger.warning(
-    "⚠ Pesos ajustados: %.2f%% → %.2f%% (fator: %.4f)",
-    total_atual,
-    target_sum,
-    fator_normalizacao
+        "⚠ Pesos ajustados: %.2f%% → %.2f%% (fator: %.4f)",
+        total_atual,
+        target_sum,
+        fator_normalizacao,
     )
 
     soma_final = sum(weights_normalizados.values())

@@ -1,5 +1,5 @@
 import warnings
-from typing import Dict
+from typing import Dict, cast
 
 import pandas as pd
 import yfinance as yf
@@ -59,4 +59,4 @@ class DadosIndicadoresTecnicos:
         returno = pd_indicadores.drop(columns=list_colunas_total_nan).dropna()
         if returno.shape[0] >= 30:
             returno = returno[-30:]
-        return returno
+        return cast(pd.DataFrame, returno)

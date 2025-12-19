@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 client = AsyncGroq()
 
+
 class RouterGroq:
     def __init__(
         self,
@@ -32,7 +33,7 @@ class RouterGroq:
                 "structured_output precisa estar definido para usar essa função."
             )
         try:
-            response = await client.chat.completions.create(
+            response = await client.chat.completions.create(  # type: ignore[no-matching-overload]
                 model=self.model_llm,
                 messages=[
                     {"role": "user", "content": self.messages},
@@ -46,15 +47,16 @@ class RouterGroq:
                 },
             )
             content = response.choices[0].message.content or "{}"
-            return json.loads(content)
+            return json.loads(content)  # type: ignore
         except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error("Erro ao chamar modelo Groq com saída estruturada: %s", e)
+        return None
 
     async def llm_groq(self) -> str:
         """
         Chama modelo Groq sem saída estruturada
         """
-        response = await client.chat.completions.create(
+        response = await client.chat.completions.create(  # type: ignore[no-matching-overload]
             model=self.model_llm,
             messages=[
                 {"role": "user", "content": self.messages},

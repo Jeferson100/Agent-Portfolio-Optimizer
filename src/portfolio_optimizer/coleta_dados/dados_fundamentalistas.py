@@ -1,9 +1,8 @@
 import asyncio
 import time
 import warnings
-from typing import Optional
+from typing import Optional, cast
 from urllib.error import HTTPError
-from typing import cast
 
 import pandas as pd
 
@@ -86,7 +85,7 @@ class DadosFundamentalistas:
             ]
         if self.data_fim:
             dados_capex_tic = dados_capex_tic[dados_capex_tic["datas"] <= self.data_fim]
-        return cast(pd.DataFrame, dados_capex_tic) 
+        return cast(pd.DataFrame, dados_capex_tic)
 
     async def dados_fluxo_caixa(self) -> pd.DataFrame:
         url = "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/fluxo_caixa.csv"
@@ -111,7 +110,7 @@ class DadosFundamentalistas:
             dados_fluxo_caixa_tic = dados_fluxo_caixa_tic[
                 dados_fluxo_caixa_tic["datas"] <= self.data_fim
             ]
-        return cast(pd.DataFrame, dados_fluxo_caixa_tic)  
+        return cast(pd.DataFrame, dados_fluxo_caixa_tic)
 
     async def dados_precos_relativos(self) -> pd.DataFrame:
         url = "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/precos_relativos.csv"
@@ -121,16 +120,17 @@ class DadosFundamentalistas:
         dados_precos_relativos_tic = dados_precos_relativos[
             dados_precos_relativos["tic"] == self.tic
         ][1:].copy()
-        
+
         if isinstance(dados_precos_relativos_tic, pd.DataFrame):
             dados_precos_relativos_tic["datas"] = pd.to_datetime(
-                dados_precos_relativos_tic["datas"], format="%d/%m/%Y")
-        
+                dados_precos_relativos_tic["datas"], format="%d/%m/%Y"
+            )
+
         dados_precos_relativos_tic = cast(pd.DataFrame, dados_precos_relativos_tic)
 
-        if "Unnamed: 0" in dados_precos_relativos_tic.columns: 
+        if "Unnamed: 0" in dados_precos_relativos_tic.columns:
             dados_precos_relativos_tic = dados_precos_relativos_tic.drop(
-                    columns="Unnamed: 0"
+                columns="Unnamed: 0"
             )
         if self.data_inicio:
             dados_precos_relativos_tic = dados_precos_relativos_tic[
@@ -140,7 +140,7 @@ class DadosFundamentalistas:
             dados_precos_relativos_tic = dados_precos_relativos_tic[
                 dados_precos_relativos_tic["datas"] <= self.data_fim
             ]
-        return cast(pd.DataFrame, dados_precos_relativos_tic) 
+        return cast(pd.DataFrame, dados_precos_relativos_tic)
 
     async def dados_resumo_balanco(self) -> pd.DataFrame:
         url = "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/resumo_balanco.csv"
@@ -154,7 +154,7 @@ class DadosFundamentalistas:
             dados_resumo_balanco_tic["datas"] = pd.to_datetime(
                 dados_resumo_balanco_tic["datas"], format="%d/%m/%Y"
             )
-        
+
         dados_resumo_balanco_tic = cast(pd.DataFrame, dados_resumo_balanco_tic)
 
         if "Unnamed: 0" in dados_resumo_balanco_tic.columns:
@@ -179,9 +179,13 @@ class DadosFundamentalistas:
         dados_retornos_margens_tic = dados_retornos_margens[
             dados_retornos_margens["tic"] == self.tic
         ].copy()
-        dados_retornos_margens_tic["datas"] = pd.to_datetime(
-            dados_retornos_margens_tic["datas"], format="%d/%m/%Y"
-        )
+
+        if isinstance(dados_retornos_margens_tic, pd.DataFrame):
+            dados_retornos_margens_tic["datas"] = pd.to_datetime(
+                dados_retornos_margens_tic["datas"], format="%d/%m/%Y"
+            )
+
+        dados_retornos_margens_tic = cast(pd.DataFrame, dados_retornos_margens_tic)
 
         if "Unnamed: 0" in dados_retornos_margens_tic.columns:
             dados_retornos_margens_tic = dados_retornos_margens_tic.drop(
@@ -195,7 +199,7 @@ class DadosFundamentalistas:
             dados_retornos_margens_tic = dados_retornos_margens_tic[
                 dados_retornos_margens_tic["datas"] <= self.data_fim
             ]
-        return cast(pd.DataFrame, dados_retornos_margens_tic) 
+        return cast(pd.DataFrame, dados_retornos_margens_tic)
 
     async def dados_fundamentalistas_completo(self) -> pd.DataFrame:
         resultados = await asyncio.gather(

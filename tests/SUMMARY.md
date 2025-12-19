@@ -25,18 +25,50 @@ tests/
 ├── test_roteador_llms/           # ⚠️ Testes para roteador de LLMs (problemas de import)
 │   ├── __init__.py
 │   └── test_roteador_llms.py     # Testes para LlmRouter (13 testes)
-└── test_build_langgraph/         # ⚠️ Testes para build langgraph (problemas de import)
-    └── __init__.py
+└── test_build_langgraph/         # ✅ Testes para build langgraph (funcionando)
+    ├── __init__.py
+    ├── test_graph_builders.py       # ✅ Testes para builders de grafo (8 testes)
+    ├── test_node_functions.py       # ✅ Testes para funções dos nós (15 testes)
+    └── test_integration_build_langgraph.py # ✅ Testes de integração (4 testes)
 ```
 
 ## Status dos Testes
 
-### ✅ Funcionando Corretamente (37 testes)
+### ✅ Funcionando Corretamente (59 testes passando + 5 pulados)
 
-1. **test_coleta_dados/test_data_cache.py** - 16 testes
-   - Testa todas as funcionalidades da classe DataCache
-   - Inclui testes para cache, limpeza, e métodos de obtenção de dados
-   - Usa mocks apropriados para APIs externas
+1. **test_coleta_dados/** - 23 testes
+   - `DataCache`: 16 testes para cache de dados financeiros
+   - `VerificadorTicks`: 7 testes para validação de tickers
+
+2. **test_state_outputs/** - 14 testes  
+   - `CarteiraWeights`: 10 testes para modelo Pydantic
+   - `StateCarteira`: 4 testes para TypedDict
+
+3. **test_build_langgraph/** - 27 testes (22 passando + 5 pulados)
+   - `BuildGraphCriadorCarteira`: 4 testes para construção de grafos
+   - `BuildGraphAvaliacaoTics`: 4 testes para construção de grafos
+   - `NodeFunctions`: 15 testes para funções dos nós (10 passando + 5 pulados)
+   - `Integration`: 4 testes de integração
+
+#### Detalhes dos Testes build_langgraph
+
+**test_graph_builders.py** - 8 testes
+- Testa inicialização das classes BuildGraph
+- Verifica construção e compilação de grafos
+- Testa independência entre instâncias
+- Usa mocks para evitar dependências complexas
+
+**test_node_functions.py** - 15 testes (10 passando + 5 pulados)
+- Testa função `should_continue` com diferentes cenários
+- Testa função `verifica_tics_selecionados` com tickers válidos/inválidos
+- Testes assíncronos pulados (precisam pytest-asyncio)
+- Usa try/except para lidar com imports opcionais
+
+**test_integration_build_langgraph.py** - 4 testes
+- Testa importação dos módulos
+- Verifica coexistência de diferentes builders
+- Testa integração das funções dos nós
+- Workflow completo de verificação de tickers
 
 2. **test_coleta_dados/test_verificador_ticks.py** - 7 testes
    - Testa validação de tickers
@@ -162,10 +194,18 @@ python -m pytest tests/test_coleta_dados/ tests/test_state_outputs/ --cov=src/po
 
 ## Cobertura Atual
 
-- **Módulos testados**: 4 de ~15 módulos principais
-- **Linhas cobertas**: ~200 linhas de código
-- **Tipos de teste**: Unitários, integração, mocks
+- **Módulos testados**: 7 de ~15 módulos principais
+- **Linhas cobertas**: 546 de 1306 linhas (42% de cobertura)
+- **Testes executados**: 59 passando + 5 pulados = 64 testes
+- **Tipos de teste**: Unitários, integração, mocks, assíncronos
 - **Qualidade**: Testes bem estruturados com fixtures apropriadas
+
+### Cobertura por Módulo
+- **build_langgraph**: 100% (graph builders), 46% (nodes criador), 26% (nodes avaliacao)
+- **coleta_dados**: 87% (data_cache), 100% (verificador_ticks)
+- **state_outputs**: 100% (todos os módulos)
+- **utils**: 18% (funcoes_utilitarias - problemas de import)
+- **roteador_llms**: 18-46% (vários módulos - problemas de import)
 
 ## Próximos Passos
 

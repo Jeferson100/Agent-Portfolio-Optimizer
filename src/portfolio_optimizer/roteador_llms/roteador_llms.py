@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
+
 class AllProvidersFailedError(Exception):
     """Exceção levantada quando todos os provedores LLM falham"""
 
@@ -61,7 +62,7 @@ class LlmRouter:
             "llama-4-maverick-17b-128e-instruct",
         ]
 
-    async def try_groq_models(self) -> Optional[Union[Dict[str, Any], str]]:
+    async def try_groq_models(self) -> Dict[str, Any] | str | None:
         """
         Tenta usar modelos Groq em ordem de prioridade
         """
@@ -73,7 +74,7 @@ class LlmRouter:
                 if self.strutured_output:
                     result = await llm_response.llm_structured_groq()
                 else:
-                    result = await llm_response.llm_groq()
+                    result = await llm_response.llm_groq()  # type:ignore
 
                 logger.info("Sucesso com modelo Groq: %s", model)
                 return result
@@ -83,6 +84,7 @@ class LlmRouter:
             except Exception as e:  # pylint: disable=broad-exception-caught
                 logger.warning("Falha no modelo Groq %s: %s", model, e)
                 continue
+        return None
 
     async def try_huggingface_models(self) -> Any:
         """
@@ -126,7 +128,7 @@ class LlmRouter:
                 logger.warning("Falha no modelo Nvidia %s: %s", model, e)
                 continue
 
-    async def try_cerebras_models(self) -> Any:
+    async def try_cerebras_models(self) -> Any:  # type: ignore
         """
         Tenta usar modelos Cerebras em ordem de prioridade
         """
@@ -139,7 +141,7 @@ class LlmRouter:
                 if self.strutured_output:
                     result = await llm_response.get_response_cerebras_structured_async()
                 else:
-                    result = await llm_response.get_response_cerebras_async()
+                    result = await llm_response.get_response_cerebras_async()  # type:ignore
 
                 logger.info("Sucesso com modelo Cerebras: %s", model)
 
@@ -148,6 +150,7 @@ class LlmRouter:
             except Exception as e:  # pylint: disable=broad-except
                 logger.warning("Falha no modelo Cerebras %s: %s", model, e)
                 continue
+        return None
 
     async def llm_router(self) -> Union[Dict[str, Any], str, Any]:
         """
@@ -166,20 +169,24 @@ class LlmRouter:
 
         for provider_name, provider_func in providers:
             try:
-                logger.info("🔄 Tentando provider_name=%s...",provider_name)
+                logger.info("🔄 Tentando provider_name=%s...", provider_name)
                 response = await provider_func()
 
                 if response is not None:
-                    logger.info("✅ provider_name=%s respondeu com sucesso", provider_name)
+                    logger.info(
+                        "✅ provider_name=%s respondeu com sucesso", provider_name
+                    )
                     return response
 
                 error_msg = f"{provider_name} retornou None"
                 logger.warning("⚠️ error_msg=%s", error_msg)
                 errors[provider_name] = error_msg
 
-            except Exception as e: # pylint: disable=broad-except
+            except Exception as e:  # pylint: disable=broad-except
                 error_msg = str(e)
-                logger.warning("❌ provider_name=%s falhou: error_msg=%s", provider_name, error_msg)
+                logger.warning(
+                    "❌ provider_name=%s falhou: error_msg=%s", provider_name, error_msg
+                )
                 errors[provider_name] = error_msg
 
         # Se todos falharam

@@ -76,3 +76,17 @@ addopts = "-v --cov=agente_investimento"
 permissive-ignores = true
 use-untyped-imports = true
 
+[tool.mypy]
+python_version = "3.12"  
+mypy_path = "src"
+packages = ["portfolio_optimizer"]
+explicit_package_bases = true
+namespace_packages = true
+
+# Opções adicionais recomendadas
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+

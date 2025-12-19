@@ -8,7 +8,7 @@ from ..coleta_dados import DadosFundamentalistas
 logger = logging.getLogger(__name__)
 
 
-class TratatandoDadosFundamentalistas:
+class TratandoDadosFundamentalistas:
     """
     Classe para tratamento e processamento de dados fundamentalistas de ações.
 
@@ -83,10 +83,13 @@ class TratatandoDadosFundamentalistas:
             data_inicio = df_dados["datas"].iloc[-4].strftime("%Y-%m-%d")
             df_data_inicio = df_dados.loc[df_dados.datas >= data_inicio]
             return df_data_inicio
-        except Exception as e: # pylint: disable=broad-exception-caught
+        except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error(
-                "Erro ao coletar dados fundamentalistas para tics = %s: e = %s",self.tics, e
+                "Erro ao coletar dados fundamentalistas para tics = %s: e = %s",
+                self.tics,
+                e,
             )
+            return None
 
     async def completando_datas_faltantes(self) -> pd.DataFrame:
         """
@@ -121,7 +124,10 @@ class TratatandoDadosFundamentalistas:
 
         ultima_data = df["datas"].max()
 
-        data_fim_dt = pd.to_datetime(self.data_fim)  # type:ignore
+        if self.data_fim is None:
+            data_fim_dt = pd.Timestamp.now()
+        else:
+            data_fim_dt = pd.to_datetime(self.data_fim)  # type:ignore
 
         if data_fim_dt <= ultima_data:
             return df
@@ -251,4 +257,5 @@ class TratatandoDadosFundamentalistas:
             >>> df_final = await tratador.coleta_dados_fundamentalistas()
         """
         dados = await self.deslocar_dados()
-        return dados[1:]
+        dados_selecionados: pd.DataFrame = dados.iloc[1:]
+        return dados_selecionados

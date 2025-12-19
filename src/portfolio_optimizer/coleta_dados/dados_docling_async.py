@@ -17,7 +17,8 @@ class LinksExtractorDoclingLoaderAsync:
         async def process_single_link(link: str) -> str:
             try:
                 docs = await self.load(link)
-                return docs[0].page_content
+                content = docs[0].page_content
+                return str(content) if content is not None else ""
             except Exception as e:  # pylint: disable=broad-exception-caught
                 print(f"Erro ao carregar o link: {link} - {str(e)}")
                 return ""
