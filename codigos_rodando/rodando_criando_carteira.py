@@ -46,7 +46,7 @@ def correlacao(tics:List[str]):
 
 logger.info("Iniciando avaliação das ações. Carregando dados...")
 
-with open("avaliacao_acoes.json", "r") as f:
+with open("../data/results_tics.json", "r") as f:
     response = json.load(f)
 
 logger.info("Dados carregados com sucesso. Transformando em DataFrame...")
@@ -81,5 +81,5 @@ if __name__ == "__main__":
     
     logger.info(f"Resultado da Carteira: {resultado_carteira}")
     
-    with open("carteira_resultado.json", "w") as f:
+    with open("../data/carteira_resultado.json", "w") as f:
         json.dump(resultado_carteira, f)

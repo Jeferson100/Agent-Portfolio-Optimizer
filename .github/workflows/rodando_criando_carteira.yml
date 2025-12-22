@@ -1,7 +1,9 @@
-name: Rodando Avaliação TICS
+name: Rodando Criando Carteira
 on: 
-  schedule:
-    - cron: "0 6 20 1,4,7,9 *"
+  workflow_run:
+    workflows: ["Rodando Avaliação TICS"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
@@ -40,7 +42,7 @@ jobs:
           source .venv/bin/activate
           make uv_install
 
-      - name: Rodando coleta
+      - name: Rodando Criando Carteira
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -53,7 +55,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          uv run rodando_avaliacao_tics.py
+          uv run rodando_criando_carteira.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
