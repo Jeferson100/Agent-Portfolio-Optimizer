@@ -79,6 +79,8 @@ async def main():
 
 if __name__ == "__main__":
     results_tics = asyncio.run(main())
+    import sys
+    sys.path.append('..')
 
     with open("../data/results_tics.json", "w") as f:
         json.dump(results_tics, f)
