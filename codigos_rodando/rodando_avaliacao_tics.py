@@ -26,8 +26,8 @@ graph_tics = BuildGraphAvaliacaoTics()
 graph_build = graph_tics.compile()
 
 
-tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",] 
-tics_2 = ["BBAS3", "GGBR4", "RENT3", "LREN3",
+tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",
+        "BBAS3", "GGBR4", "RENT3", "LREN3",
         "PSSA3", "B3SA3", "BBSE3", "BRAP4", "VIVT3",
         "CSNA3", "BRKM5", "CSUD3", "CGAS3", "CMIG3",
         "WEGE3", "ENBR3", "EGIE3", "ELET3","PRIO3",
