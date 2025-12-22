@@ -34,10 +34,10 @@ jobs:
       - name: Criar ambiente virtual
         run: |
           uv venv
-          source .venv/bin/activate
 
       - name: Instalar as bibliotecas
         run: |
+          source .venv/bin/activate
           make uv_install
 
       - name: Rodando coleta
