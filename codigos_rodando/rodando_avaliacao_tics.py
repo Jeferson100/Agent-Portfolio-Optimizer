@@ -3,7 +3,6 @@ import time
 import logging
 import os
 from phoenix.otel import register
-import phoenix as px
 from openinference.instrumentation.langchain import LangChainInstrumentor
 from portfolio_optimizer import BuildGraphAvaliacaoTics, StateClassification
 import json

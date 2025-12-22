@@ -24,7 +24,6 @@ dependencies = [
     "matplotlib>=3.10.7",
     "openinference-instrumentation-langchain>=0.1.56",
     "pandas>=2.3.3",
-    "phoenix>=0.9.1",
     "pydantic-ai>=1.18.0",
     "python-bcb>=0.3.3",
     "scikit-learn>=1.7.2",
