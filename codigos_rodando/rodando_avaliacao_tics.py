@@ -79,8 +79,12 @@ async def main():
 
 if __name__ == "__main__":
     results_tics = asyncio.run(main())
+    
     import sys
     sys.path.append('..')
+    
+    # Criar o diretório se não existir
+    os.makedirs("../data", exist_ok=True)
 
     with open("../data/results_tics.json", "w") as f:
         json.dump(results_tics, f)
