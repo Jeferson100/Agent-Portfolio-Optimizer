@@ -53,7 +53,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          python rodando_avaliacao_tics.py
+          uv run rodando_avaliacao_tics.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
