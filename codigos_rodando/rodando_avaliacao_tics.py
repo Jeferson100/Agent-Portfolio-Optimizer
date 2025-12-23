@@ -6,6 +6,8 @@ from phoenix.otel import register
 from openinference.instrumentation.langchain import LangChainInstrumentor
 from portfolio_optimizer import BuildGraphAvaliacaoTics, StateClassification
 import json
+import datetime
+import pandas as pd 
 
 
 logging.basicConfig(level=logging.INFO)
@@ -34,8 +36,14 @@ tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",
         "PSSA3", "MDIA3", "MGLU3", "MRVE3", "NTCO3",
         "IRBR3","FIQE3","FLRY3"]
 
+data_atual = datetime.datetime.now()
+data_atual_str = data_atual.strftime('%Y-%m-%d')
+trimestres = pd.date_range(end=data_atual, periods=9, freq='QE')  
+data_inicio_str = trimestres[0].strftime('%Y-%m-%d')
 
-async def _invoke_tic(tic: str, data_inicio: str = "2023-01-01", data_fim: str = "2025-01-01"):
+
+
+async def _invoke_tic(tic: str, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
     try:
         start = time.time()
         logger.info(f"🚀 Iniciando {tic}")
@@ -59,7 +67,9 @@ async def _invoke_tic(tic: str, data_inicio: str = "2023-01-01", data_fim: str =
         logger.error(f"❌ Erro ao processar {tic}: {e}")
         return None
 
-async def run_all_tics(tics, data_inicio: str = "2023-01-01", data_fim: str = "2025-01-01"):
+logger.info(f"Data de início definida como: {data_inicio_str}")
+
+async def run_all_tics(tics, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
     start_total = time.time()
     
     tasks = [_invoke_tic(tic, data_inicio, data_fim) for tic in tics]

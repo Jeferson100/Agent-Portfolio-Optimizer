@@ -11,10 +11,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import yfinance as yf
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-with open("carteira_resultado.json", "r") as f:
-    carteira_resultado = json.load(f)
     
 def markowitz_opt(returns: pd.DataFrame):
     # === Estatísticas ===
@@ -176,27 +177,78 @@ def compute_metrics(price_df):
         }
     return pd.DataFrame(metrics).T
 
+
+def normalizar_pesos(weights_dict, target_sum=100, tolerancia=0.01):
+    """
+    Normaliza os pesos para somarem exatamente o target_sum.
+    
+    Args:
+        weights_dict: Dicionário com os pesos {ticker: peso}
+        target_sum: Soma alvo (padrão: 100)
+        tolerancia: Tolerância para considerar soma correta (padrão: 0.01)
+    
+    Returns:
+        Dicionário com pesos normalizados
+    """
+    total_atual = sum(weights_dict.values())
+    diferenca = abs(total_atual - target_sum)
+    
+    # Se já está dentro da tolerância, retorna o original
+    if diferenca <= tolerancia:
+        logger.info(f"✓ Pesos já somam {total_atual:.2f}% (dentro da tolerância)")
+        return weights_dict
+    
+    # Normalização proporcional (melhor que distribuir igualmente)
+    fator_normalizacao = target_sum / total_atual
+    weights_normalizados = {
+        ticker: peso * fator_normalizacao 
+        for ticker, peso in weights_dict.items()
+    }
+    
+    # Log da correção
+    logger.warning(
+        f"⚠ Pesos ajustados: {total_atual:.2f}% → {target_sum:.2f}% "
+        f"(fator: {fator_normalizacao:.4f})"
+    )
+    
+    # Verificação final
+    soma_final = sum(weights_normalizados.values())
+    logger.info(f"✓ Soma final: {soma_final:.4f}%")
+    
+    return weights_normalizados
+
 class ComputandoMetricas:
     def __init__(self, data_inicio, 
                  data_fim, 
-                 tics_selecionados, 
-                 pesos_carteira, 
+                 carteira,
                  valor_investido=1000):
         self.data_inicio = data_inicio
         self.data_fim = data_fim
-        self.tics_selecionados = tics_selecionados
-        self.pesos_carteira = pesos_carteira
+        self.carteira = carteira
         self.valor_investido = valor_investido
         self.ibov, self.df = self.carregando_dados()
+        self.tics_selecionados, self.pesos_carteira = self.ajustando_pesos_carteira()
+    
         
     def carregando_dados(self):
+        tics_selecionados = [tic if tic.endswith(".SA") else f"{tic}.SA" for tic in self.carteira.keys()]
         ibov = yf.download("^BVSP", start=self.data_inicio, end=self.data_fim)["Close"]
-        df = yf.download(self.tics_selecionados, start=self.data_inicio, end=self.data_fim)["Close"]
+        df = yf.download(tics_selecionados, start=self.data_inicio, end=self.data_fim)["Close"]
+        df.dropna(axis=1, how='all', inplace=True)
         return ibov, df
     
     def cumulative_returns(self):
         return (self.df.apply(daily_returns)+1).cumprod()
     
+    def ajustando_pesos_carteira(self):
+        dict_carteiras = self.carteira.copy()
+        tic_validos = list(self.df.columns)
+        carteira_valida = {key: value for key, value in dict_carteiras.items() if key + ".SA" in tic_validos}
+        carteira_pesos_acoes_validos = normalizar_pesos(carteira_valida)
+        tics_selecionados = list(carteira_pesos_acoes_validos.keys())
+        pesos = list(carteira_pesos_acoes_validos.values()) 
+        return tics_selecionados, pesos
+        
     def computando_marcowitz(self):
         weights_markowitz, markowitz_cr = markowitz_opt(self.df.pct_change().dropna())
         return weights_markowitz, markowitz_cr
@@ -255,25 +307,28 @@ class ComputandoMetricas:
         selic_acumulada =  ((selic/100 + 1).cumprod())*self.valor_investido
         return selic_acumulada
     
-    def print_results(self):
-        metrics = self.metrica_comparacao_carteira_ibov_retornos_markowitz()
+    def print_results(self, save_path="../data/"):
+        import os
+        from datetime import datetime
         
+        # Criar diretório se não existir
+        os.makedirs(save_path, exist_ok=True)
+    
+        
+        metrics = self.metrica_comparacao_carteira_ibov_retornos_markowitz()
         retorno_acumulado_monetario = self.data_frame_comparacao_retorno_monetario()
         
         print("\n" + "="*40)
-        
         print("📊 Métricas de Comparação das Carteiras")
-        
         print("="*40)
-        #display(metrics.style.format("{:.2%}").set_caption("Métricas das Carteiras").background_gradient(cmap="Blues"))
-        print(metrics.style.set_caption("Métricas das Carteiras").background_gradient(cmap="Blues"))
-
         
-        # ===============================================================
-        # Gráfico
-        # ===============================================================
-        
-
+        # Salvar métricas em CSV
+        metrics_file = os.path.join(save_path, "metricas.csv")
+        metrics.to_csv(metrics_file)
+        print(f"✅ Métricas salvas em: {metrics_file}")
+    
+        display(metrics.style.set_caption("Métricas das Carteiras").background_gradient(cmap="Blues"))
+    
         plt.figure(figsize=(10, 6))
         cores = {'IBOV': '#1f77b4', 'Carteira': '#2ca02c', 'Markowitz': '#d62728', 'Selic': "#d66427"}
 
@@ -298,24 +353,29 @@ class ComputandoMetricas:
         plt.legend()
         plt.xlabel("Data")
         plt.ylabel("Retorno Monetário da Carteira")
-        plt.title(f"Retorno Monetário da Carteira vs Ibov vs Markowiz (Valor inicial de R$ {self.valor_investido})")
-        #plt.ylim(bottom=0, top=self.valor_investido * 2)
+        plt.title(f"Retorno Monetário da Carteira vs Ibov vs Markowitz (Valor inicial de R$ {self.valor_investido})")
+        
+        # Salvar gráfico
+        grafico_file = os.path.join(save_path, f"grafico_retornos.png")
+        plt.savefig(grafico_file, dpi=300, bbox_inches='tight')
+        print(f"✅ Gráfico salvo em: {grafico_file}")
+        
         plt.show()
         
+        # Salvar retornos acumulados em CSV
+        retornos_file = os.path.join(save_path, f"retornos_acumulados.csv")
+        retorno_acumulado_monetario.to_csv(retornos_file)
+        print(f"✅ Retornos acumulados salvos em: {retornos_file}")
+        
+        print("\n" + "="*40)
+        
         return retorno_acumulado_monetario
+
+with open("../data/carteira_resultado.json", "r") as f:
+    carteira_resultado = json.load(f)
+    
+comp = ComputandoMetricas("2025-01-01", "2025-12-31",carteira_resultado['tickers_weights'] ,100000)
+
+ibov, df = comp.carregando_dados()
     
 
-tics_selecionados = list(carteira_resultado['tickers_weights'].keys())
-
-tics_selecionados_sa = [tic + ".SA" if not tic.endswith(".SA") else tic for tic in tics_selecionados]
-print(tics_selecionados_sa)
-
-df = yf.download(tics_selecionados_sa, start="2025-01-01")["Close"]
-
-pesos = list(carteira_resultado['tickers_weights'].values()) 
-
-comp = ComputandoMetricas("2025-01-01", "2025-12-31", tics_selecionados_sa, pesos, 100000)
-
-carteira_tempo = comp.print_results()
-
-carteira_tempo.to_csv("avaliacao_carteira.csv")
