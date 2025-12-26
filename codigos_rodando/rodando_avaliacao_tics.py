@@ -36,9 +36,17 @@ tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",
         "PSSA3", "MDIA3", "MGLU3", "MRVE3", "NTCO3",
         "IRBR3","FIQE3","FLRY3"]
 
+pd_tic = pd.read_csv(
+            "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/setor.csv"
+        )
+tics = pd_tic['tic'].unique().tolist()
+
 data_atual = datetime.datetime.now()
+
 data_atual_str = data_atual.strftime('%Y-%m-%d')
+
 trimestres = pd.date_range(end=data_atual, periods=9, freq='QE')  
+
 data_inicio_str = trimestres[0].strftime('%Y-%m-%d')
 
 

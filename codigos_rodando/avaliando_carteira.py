@@ -244,6 +244,11 @@ class ComputandoMetricas:
         dict_carteiras = self.carteira.copy()
         tic_validos = list(self.df.columns)
         carteira_valida = {key: value for key, value in dict_carteiras.items() if key + ".SA" in tic_validos}
+        carteira_valida = {
+            key: value for key, value in dict_carteiras.items()
+            if (key.endswith(".SA") and key in tic_validos) or 
+            (not key.endswith(".SA") and key + ".SA" in tic_validos)
+        } 
         carteira_pesos_acoes_validos = normalizar_pesos(carteira_valida)
         tics_selecionados = list(carteira_pesos_acoes_validos.keys())
         pesos = list(carteira_pesos_acoes_validos.values()) 
@@ -376,6 +381,6 @@ with open("../data/carteira_resultado.json", "r") as f:
     
 comp = ComputandoMetricas("2025-01-01", "2025-12-31",carteira_resultado['tickers_weights'] ,100000)
 
-ibov, df = comp.carregando_dados()
+comp.print_results(save_path="../data/")
     
 
