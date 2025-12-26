@@ -8,6 +8,7 @@ from portfolio_optimizer import BuildGraphAvaliacaoTics, StateClassification
 import json
 import datetime
 import pandas as pd 
+from utils import run_all_tics
 
 
 logging.basicConfig(level=logging.INFO)
@@ -23,13 +24,8 @@ tracer_provider = register(
 
 LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
 
-graph_tics = BuildGraphAvaliacaoTics()
-
-graph_build = graph_tics.compile()
-
-
-tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",
-        "BBAS3", "GGBR4", "RENT3", "LREN3",
+tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",]
+["BBAS3", "GGBR4", "RENT3", "LREN3",
         "PSSA3", "B3SA3", "BBSE3", "BRAP4", "VIVT3",
         "CSNA3", "BRKM5", "CSUD3", "CGAS3", "CMIG3",
         "WEGE3", "ENBR3", "EGIE3", "ELET3","PRIO3",
@@ -50,8 +46,7 @@ trimestres = pd.date_range(end=data_atual, periods=9, freq='QE')
 data_inicio_str = trimestres[0].strftime('%Y-%m-%d')
 
 
-
-async def _invoke_tic(tic: str, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
+"""async def _invoke_tic(tic: str, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
     try:
         start = time.time()
         logger.info(f"🚀 Iniciando {tic}")
@@ -86,12 +81,14 @@ async def run_all_tics(tics, data_inicio: str = data_inicio_str, data_fim: str =
     elapsed_total = time.time() - start_total
     logger.info(f"⏱️  Tempo total: {elapsed_total:.2f}s")
     
-    return dict(zip(tics, results_list))
+    return dict(zip(tics, results_list))"""
 
 
 async def main():
     results_tics = await run_all_tics(
-        tics
+        tics,
+        data_inicio=data_inicio_str,
+        data_fim=data_atual_str
         )
     return results_tics 
 
