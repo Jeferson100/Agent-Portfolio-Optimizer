@@ -1,4 +1,4 @@
-name: Rodando Avaliação Carteiras Históricos
+name: Rodando Avaliação Tics Históricos
 on: 
   workflow_dispatch:
 
