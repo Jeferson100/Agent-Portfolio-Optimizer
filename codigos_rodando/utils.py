@@ -72,6 +72,7 @@ def correlacao(tics:List[str], data_inicio: str, data_fim: str):
     tics_yf = [tic + ".SA" for tic in tics]
 
     df = yf.download(tics_yf, start=data_inicio, end=data_fim, interval="1mo")["Close"]
+    
     returns = df.pct_change()[4:]
     # Calcula a matriz de correlação
     correlacao = returns.corr()

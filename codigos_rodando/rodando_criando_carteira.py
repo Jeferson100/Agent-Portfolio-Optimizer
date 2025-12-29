@@ -11,8 +11,6 @@ from typing import List
 import yfinance as yf
 import pandas as pd
 
-
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -50,6 +48,14 @@ with open("../data/results_tics.json", "r") as f:
     response = json.load(f)
 
 logger.info("Dados carregados com sucesso. Transformando em DataFrame...")
+
+classificacao_boa = [
+   "good",
+   "excellent",
+   #"fair"
+]
+
+response = {k: v for k, v in response.items() if v is not None and v.get('classification').lower() in classificacao_boa}
 
 response_markdown = transformando_data_frame_para_markdown(response)
 
