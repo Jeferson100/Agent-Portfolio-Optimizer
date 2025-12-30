@@ -11,6 +11,7 @@ import pandas as pd
 import time
 from IPython.display import display, Markdown
 from utils import correlacao, transformando_data_frame_para_markdown
+import asyncio
 
 tracer_provider = register(
   project_name="Agente-Criador-Carteira",
@@ -55,14 +56,14 @@ for datas, dict_tics in results_dict.items():
 
         graph_weights_build = gaph_weights.compile()
             
-        response_pesos = await graph_weights_build.ainvoke(
+        response_pesos = asyncio.run(graph_weights_build.ainvoke(
                 StateCarteira({
                 "justification" : "",
                 "avaliacao_acoes": dados_markdown,
                 "correlacao_acoes": correlacao_tics,
                 "interacao" : 0,
                 "tics" : tics
-                }))
+                })))
             
         results_pesos[f"{datas}"] = response_pesos
             
