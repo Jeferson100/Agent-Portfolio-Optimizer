@@ -10,7 +10,7 @@ import yfinance as yf
 import pandas as pd
 import time
 from IPython.display import display, Markdown
-from utils import correlacao, transformando_data_frame_para_markdown
+from utils import correlacao, transformando_data_frame_para_markdown, selecionar_tics_bom_excelente
 import asyncio
 
 tracer_provider = register(
@@ -29,11 +29,6 @@ logger = logging.getLogger(__name__)
 with open("../data/avaliacao_tics_historico.json", "r") as f:
     results_dict = json.load(f)
 
-classificacao_boa = [
-   "good",
-   "excellent",
-   #"fair"
-]
 
 results_pesos = {}
 
@@ -41,14 +36,19 @@ for datas, dict_tics in results_dict.items():
     display(Markdown(f"## Iniciando o processo para o periodo de {datas}"))
     try:
         start = time.time()
+        
+        datas_split = datas.split('_to_')
+        
+        start_data = datas_split[0]
+        end_data = datas_split[1]
     
         logger.info(f"Processando período: {datas}")
         
-        response = {k: v for k, v in dict_tics.items() if v is not None and v.get('classification').lower() in classificacao_boa}
+        response = selecionar_tics_bom_excelente(dict_tics)
 
         dados_markdown = transformando_data_frame_para_markdown(response)
             
-        correlacao_tics = correlacao(list(response.keys()))
+        correlacao_tics = correlacao(list(response.keys()), start_data, end_data)
         
         tics = list(response.keys())
         

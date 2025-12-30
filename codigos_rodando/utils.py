@@ -461,3 +461,18 @@ def sequencia_datas(start, end, freq="QS"):
     
     return datas_dict
     
+
+def selecionar_tics_bom_excelente(dict_tics):
+    classificacao_boa = [
+   "good", "excellent",
+    ]
+    response = {}
+    for k, v in dict_tics.items():
+        try:
+            if v is not None and v.get('classification').lower() in classificacao_boa:
+                response[k] = v
+        except Exception as e:
+            continue
+            logger.error(f"Erro ao processar {k}: {e}")
+    
+    return response
