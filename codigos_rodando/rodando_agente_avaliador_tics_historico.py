@@ -35,7 +35,7 @@ tics = ["VALE3", "PETR4", "ITUB4", "BBDC4", "ABEV3",
 pd_tic = pd.read_csv(
             "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/setor.csv"
         )
-#tics = pd_tic['tic'].unique().tolist()
+tics = pd_tic['tic'].unique().tolist()
 
 sequencia_datas = sequencia_datas(start="2023-01-01", end="2025-12-31", freq="QS")
 

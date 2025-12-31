@@ -46,44 +46,6 @@ trimestres = pd.date_range(end=data_atual, periods=9, freq='QE')
 data_inicio_str = trimestres[0].strftime('%Y-%m-%d')
 
 
-"""async def _invoke_tic(tic: str, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
-    try:
-        start = time.time()
-        logger.info(f"🚀 Iniciando {tic}")
-        
-        result = await graph_build.ainvoke(
-            StateClassification({
-                "tic": tic,
-                "data_inicio": data_inicio,
-                "data_fim": data_fim,
-                "avaliacao_analise": "",
-                "description_avaliacao_analise": "",
-                "interacao": 0,
-            })
-        )
-        
-        elapsed = time.time() - start
-        logger.info(f"✅ {tic} concluído em {elapsed:.2f}s")
-        return result
-        
-    except Exception as e:
-        logger.error(f"❌ Erro ao processar {tic}: {e}")
-        return None
-
-logger.info(f"Data de início definida como: {data_inicio_str}")
-
-async def run_all_tics(tics, data_inicio: str = data_inicio_str, data_fim: str = data_atual_str):
-    start_total = time.time()
-    
-    tasks = [_invoke_tic(tic, data_inicio, data_fim) for tic in tics]
-    results_list = await asyncio.gather(*tasks, return_exceptions=True)
-    
-    elapsed_total = time.time() - start_total
-    logger.info(f"⏱️  Tempo total: {elapsed_total:.2f}s")
-    
-    return dict(zip(tics, results_list))"""
-
-
 async def main():
     results_tics = await run_all_tics(
         tics,

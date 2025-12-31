@@ -230,8 +230,8 @@ def compute_metrics(price_df):
         p = price_df[col].dropna()
         #dr = daily_returns_carteira(p, pesos)
         metrics[col] = {
-            "ann_vol": annualized_volatility(p),
-            "ann_mean_ret": annualized_mean_return(p),
+            "retorno_medio_anual": annualized_mean_return(p),
+            "volatilidade_anual": annualized_volatility(p),
             "cagr": cagr(p),
             "max_drawdown": max_drawdown(p),
             "avg_drawdown": avg_drawdown(p),
@@ -476,3 +476,60 @@ def selecionar_tics_bom_excelente(dict_tics):
             logger.error(f"Erro ao processar {k}: {e}")
     
     return response
+
+def verificando_valores_nulos(pesos_carteiras, precos_carteira):
+    #dict_keys = pesos_carteiras[values]['tickers_weights'].copy()
+    null = precos_carteira.isna().any()
+    list_name_null = precos_carteira.loc[:,null].columns.to_list()
+    
+    dict_keys = {
+        (key if key.endswith(".SA") else f"{key}.SA"): value 
+        for key, value in pesos_carteiras.items()
+    }
+    valor_do_tic_null = 0
+    for tic in list_name_null:
+        valor_do_tic_null += dict_keys[tic]
+        dict_keys.pop(tic)  
+    
+    quantidade_sobrou = len(dict_keys)
+    
+    if quantidade_sobrou == 0:
+        return {}  # Evitar divisão por zero
+    
+    valor_para_cada_tic = valor_do_tic_null / quantidade_sobrou
+    
+    dict_com_novos_valores = {}
+    for key, value in dict_keys.items():
+        dict_com_novos_valores[key] = value + valor_para_cada_tic
+    
+    return dict_com_novos_valores
+
+
+def daily_returns(prices):
+    return prices.pct_change()[1:]
+
+def cumulative_returns(df):
+    return (df.apply(daily_returns)+1).cumprod()
+
+def retorno_carteira_monetario(df, pesos, valor_investido):
+    pesos_frac = [p/100 for p in pesos]
+    valor_investido_carteira = [valor_investido * peso for peso in pesos_frac]
+    retorno_carteira = (cumulative_returns(df) * valor_investido_carteira).sum(axis=1)
+    return retorno_carteira
+
+def retorno_percentual_acao_individual(pesos_carteiras, precos_carteira):
+    """pesos_frac = [p/100 for p in pesos_carteiras[chaves[keys]].values()]
+    valor_investido_carteira = [1000 * peso for peso in pesos_frac]
+    retorno_carteira = (cumulative_returns(precos_carteira[chaves[keys]]) * valor_investido_carteira)"""
+    
+    
+    pesos_frac = [p/100 for p in pesos_carteiras.values()]
+    valor_investido_carteira = [1000 * peso for peso in pesos_frac]
+    
+    # Usar diretamente precos_df (já é o DataFrame correto)
+    retorno_carteira = cumulative_returns(precos_carteira) * valor_investido_carteira
+    
+    retorno_percentual = retorno_carteira.apply(
+        lambda x: (x.iloc[-1] - x.iloc[0]) / x.iloc[0] * 100
+    )
+    return retorno_percentual

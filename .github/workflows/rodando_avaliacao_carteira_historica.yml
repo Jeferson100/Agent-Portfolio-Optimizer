@@ -1,7 +1,7 @@
-name: Rodando Carteira Historica
+name: Rodando Avaliação Carteira Historica
 on: 
   workflow_run:
-    workflows: ["Rodando Avaliação Tics Históricos"]
+    workflows: ["Rodando Carteira Historica"]
     types:
       - completed
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          uv run rodando_criando_carteira_historico.py
+          uv run rodando_avaliacao_carteira_historica.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
