@@ -37,7 +37,7 @@ pd_tic = pd.read_csv(
         )
 tics = pd_tic['tic'].unique().tolist()
 
-sequencia_datas = sequencia_datas(start="2023-01-01", end="2025-12-31", freq="QS")
+sequencia_datas = sequencia_datas(start="2020-01-01", end="2025-12-31", freq="QS")
 
 results_dict = {}
 

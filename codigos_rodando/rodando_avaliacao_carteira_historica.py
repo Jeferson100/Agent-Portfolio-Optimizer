@@ -20,13 +20,14 @@ with open("../data/pesos_carteira_historico.json", "r") as f:
 valor_investido = 1000   
 
 save_path = "../data/"
-    
-precos_carteira = {}
+
+
+
+logger.info("Gerando pesos marcowitz...")
+
 pesos_carteira_marcowitz = {}
 
-for key, value in results_dict.items():
-
-    #acoes = list(pesos_carteiras[value]['tickers_weights'].keys())
+for key, value in results_dict.items(): 
     
     acoes = list(value['tickers_weights'].keys())
     
@@ -37,16 +38,9 @@ for key, value in results_dict.items():
     start = data_split[0]
     
     end = data_split[1]
-        
-    logger.info(f"Baixando dados de {start} a {end}, para as acoes {acoes_sa}")
-    
-    precos_carteira[f"{end}"] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
-    
-    pesos = list(value['tickers_weights'].values())
-    
     try:
     
-        comp = ComputandoMetricas(str(start), str(end), value['tickers_weights'],valor_investido)
+        comp = ComputandoMetricas(str(start), str(end), value['tickers_weights'],1000)
             
         weights_markowitz, _ = comp.computando_marcowitz()
             
@@ -56,8 +50,42 @@ for key, value in results_dict.items():
     except Exception as e:
         logger.error(f"Erro ao computar Markowitz para o período {start} a {end}: {e}")
         continue
+    
+    
+logger.info("Coletando dados das ações da carteira e do markowitz para o proximo periodo")    
 
+    
+precos_carteira = {}
 
+for key, value in results_dict.items():
+    
+    acoes = list(value['tickers_weights'].keys())
+    
+    acoes_sa = [acao if acao.endswith(".SA") else f"{acao}.SA"  for acao in acoes]
+    
+    data_split = key.split("_to_")
+
+    start = data_split[1]
+    
+    data = pd.Timestamp(start)
+    
+    end = data + pd.DateOffset(months=3)
+    
+    end = end.strftime("%Y-%m-%d")
+    
+    date_now = datetime.datetime.now().strftime("%Y-%m-%d")
+    
+    if end > date_now:
+        logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
+        end = date_now
+
+        
+    logger.info(f"Baixando dados da carteira de {start} a {end}, para as acoes {acoes_sa}")
+    
+    precos_carteira[f"{start}"] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
+    
+    pesos = list(value['tickers_weights'].values())
+    
 precos_carteira_marcowitz = {}
 
 for key, value in pesos_carteira_marcowitz.items():
@@ -65,10 +93,22 @@ for key, value in pesos_carteira_marcowitz.items():
     acoes_sa = [acao if acao.endswith(".SA") else f"{acao}.SA"  for acao in acoes]
     
     data_split = key.split("_to_")
-    start = data_split[0]
-    end = data_split[1]
-    logger.info(f"Baixando dados de {start} a {end}, para as acoes {acoes_sa}")
-    precos_carteira_marcowitz[f'{end}'] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
+
+    start = data_split[1]
+    
+    data = pd.Timestamp(start)
+    
+    end = data + pd.DateOffset(months=3)
+    
+    end = end.strftime("%Y-%m-%d")
+    
+    date_now = datetime.datetime.now().strftime("%Y-%m-%d")
+    
+    if end > date_now:
+        logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
+        end = date_now
+    logger.info(f"Baixando dados de marcowitz {start} a {end}, para as acoes {acoes_sa}")
+    precos_carteira_marcowitz[f'{start}'] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
     
     
 carteira = pd.DataFrame()
@@ -146,10 +186,12 @@ for key, value in results_dict.items():
     interacoes = interacoes + 1
     
 
-datas_lista = list(results_dict.keys())
+#datas_lista = list(results_dict.keys())
+datas_lista = list(precos_carteira.keys())
 
-start_bove = datas_lista[0].split("_to_")[0]
-end_bove = datas_lista[-1].split("_to_")[1]
+start_bove = datas_lista[0]
+
+end_bove = datas_lista[-1]
 
 selic = get_selic_multiplos_periodos(start_bove, end_bove)
 
