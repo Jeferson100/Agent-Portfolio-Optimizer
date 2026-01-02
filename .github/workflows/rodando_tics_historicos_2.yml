@@ -1,10 +1,10 @@
-name: Rodando Carteira Historica
+name: Rodando Avaliação Tics Historicos 2
 on: 
-  workflow_run:
-    workflows: ["Rodando Avaliação Tics Historicos 3"]
-    types:
-      - completed
-  workflow_dispatch:
+    workflow_run:
+        workflows: ["Rodando Avaliação Tics Historicos 1"]
+        types:
+            - completed
+    workflow_dispatch:
 
 jobs:
   build:
@@ -42,7 +42,7 @@ jobs:
           source .venv/bin/activate
           make uv_install
 
-      - name: Rodando Criando Carteira
+      - name: Rodando coleta
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          uv run rodando_criando_carteira_historico.py
+          uv run rodando_agente_avaliador_tics_historico_2.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"

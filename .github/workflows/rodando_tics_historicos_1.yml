@@ -1,4 +1,4 @@
-name: Rodando Avaliação Tics Históricos
+name: Rodando Avaliação Tics Historicos 1
 on: 
   workflow_dispatch:
 
@@ -51,7 +51,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          uv run rodando_agente_avaliador_tics_historico.py
+          uv run rodando_agente_avaliador_tics_historico_1.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
