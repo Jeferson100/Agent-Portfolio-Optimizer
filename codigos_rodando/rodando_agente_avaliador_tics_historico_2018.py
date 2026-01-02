@@ -36,12 +36,11 @@ tics = ["VALE3", "PETR4", "ITUB4", "BBDC4", "ABEV3",
 pd_tic = pd.read_csv(
             "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/setor.csv"
         )
-
 tics = pd_tic['tic'].unique().tolist()
 
-start_data = "2017-01-01"
+start_data = "2018-01-01"
 
-end_data = "2019-12-31"
+end_data = "2018-12-31"
 
 sequencia_datas = sequencia_datas(start=start_data, end=end_data, freq="QS")
 
@@ -65,7 +64,7 @@ for data_inicio, data_fim in sequencia_datas.items():
     except Exception as e:
         logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")
         
-with open("../data/avaliacao_tics_historico_1.json", "w") as f:
+with open("../data/avaliacao_tics_historico_2018.json", "w") as f:
     json.dump(results_dict, f)
     
 logger.info("Processo concluído para todos os períodos.")

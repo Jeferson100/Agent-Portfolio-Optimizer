@@ -8,35 +8,61 @@
 
 
 
-**Agent Portfolio Optimizer** é um projeto em Python para apoio à tomada de decisão em investimentos, focado em ações brasileiras (B3). Ele combina um **roteador de modelos de linguagem (LLM)** com um fluxo de análise fundamentalista automatizado para avaliar empresas, classificar a qualidade dos ativos e gerar insumos para otimização de carteiras.
+**Agent Portfolio Optimizer** é um projeto em Python para apoio à tomada de decisão em investimentos, focado em ações brasileiras (B3). Ele combina LLMs com um fluxo de análise fundamentalista automatizado para avaliar empresas, classificar a qualidade dos ativos e apos isso construir uma carteira de ações brasileiras.
 
 
 
-O projeto integra múltiplos provedores de LLM (NVIDIA, Groq, HuggingFace, Cerebras) com fallback automático, utilizando dados fundamentalistas históricos para construir uma análise estruturada e revisada por um "analista sênior" virtual.
+# Principais funcionalidades
 
 
+## Agente Avaliação TICS
 
-### Principais funcionalidades
+O agente [Avaliação TICS](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_avaliacao_tics.py) recebe os dados fundamentais de uma empresa e retorna uma classificação e uma análise textual curta. O fluxo é o seguinte:
+
+![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer\image\agente_avaliador_tics.png")
+
+- O primeiro node [Coleta fundamentalistas](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) obtem os seguintes dados fundamentais da empresa:
+
+  - Receita líquida
+  - EBITDA
+  - Lucro por ação
+  - Alavancagem financeira
+  - Margem líquida
+  - P/L
+  - P/VPA
+  - Fluxo de caixa operacional
+  - Divida líquida/EBITDA
+  - Variação de caixa equivalentes
+
+- O segundo node [Analise fundamentalista](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) recebe os dados fundamentais e retorna uma classificação e uma análise textual curta indicando por que essa classificação foi dada. O node pode classificar o ativo como `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`.
+
+- O terceiro node é chamado de [Avaliação Analise](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py), esse node vai avaliar a resposta do node de análise fundamentalista. Ele recebe a classificação e a análise e retorna uma validação booleana indicando se a análise foi adequada.
+
+Esse fluxo é executado até 3 vezes, dependendo da qualidade da análise fundamentalista.
 
 
+## Agente Criador de Carteira de Ações
 
-- **Roteador de LLMs com fallback (`LlmRouter`)**:
+ Esse agente [Agente Criador de Carteira de Ações](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e cria uma carteira de ações brasileiras. O fluxo é o seguinte:
 
-  - Tenta sequencialmente diferentes provedores/modelos (NVIDIA, Cerebras, Groq, HuggingFace).
+![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer\image\agente_criador_carteira.png")
 
-  - Suporta **saída estruturada com Pydantic** (classificações, textos de análise, flags de validação etc.).
+Para diminuir a janela de contexto do agente,só ativos com classificação `Excellent` ou `Good` serão considerados, alem disso é passado para o agente como entrada a correlação entre os ativos.
 
-  - Trata respostas em múltiplos formatos (string, dict, objetos) e normaliza para dicionário.
+- O primeiro node [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restricoes:
 
+  - Os ativos devem ter classificação `Excellent` ou `Good`.
+  - O ativo de maior peso deve ser de 20% da carteira.
+  - O ativo de menor peso deve ser de 5% da carteira.
+  - O peso total da carteira deve ser de 100%.
+  - Deve-se priorizar a diversificação da carteira.
 
+- O segundo node [verify_weight-sum](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se o peso total da carteira foi de 100%. Se não for, ele retorna um erro.
 
-- **Análise fundamentalista automatizada**:
+- O terceiro node [verifica_tics_selecionados](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se os ativos indicados pelo analista criador de carteira de ações existem ou se ele não inventou, indicando uma alucinação. 
 
-  - Coleta dados fundamentalistas de ações brasileiras (por ticker, intervalo de datas) via módulos em `src/portfolio_optimizer`.
+- O quarto node [analista_avaliador_peso_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py)
 
-  - Constrói tabelas em formato markdown com indicadores como **receita líquida, EBITDA, lucro por ação, alavancagem financeira, margem líquida, P/L, P/VP**, entre outros.
-
-  - Usa um LLM para gerar, para cada ticker, uma **classificação** (`Excellent`, `Good`, `Fair`, `Poor`, `Very Poor`) e uma **análise textual curta**.
 
 
 

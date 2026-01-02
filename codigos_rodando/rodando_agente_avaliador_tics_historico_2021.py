@@ -38,9 +38,11 @@ pd_tic = pd.read_csv(
         )
 tics = pd_tic['tic'].unique().tolist()
 
-end = datetime.datetime.now().strftime("%Y-%m-%d")
+start_data = "2021-01-01"
 
-sequencia_datas = sequencia_datas(start="2023-01-01", end=end, freq="QS")
+end_data = "2021-12-31"
+
+sequencia_datas = sequencia_datas(start=start_data, end=end_data, freq="QS")
 
 results_dict = {}
 
@@ -62,8 +64,7 @@ for data_inicio, data_fim in sequencia_datas.items():
     except Exception as e:
         logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")
         
-with open("../data/avaliacao_tics_historico_2.json", "w") as f:
+with open("../data/avaliacao_tics_historico_2021.json", "w") as f:
     json.dump(results_dict, f)
     
 logger.info("Processo concluído para todos os períodos.")
-    

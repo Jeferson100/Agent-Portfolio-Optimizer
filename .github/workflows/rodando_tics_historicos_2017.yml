@@ -1,10 +1,10 @@
-name: Rodando Avaliação Tics Historicos 2
+name: Rodando Avaliação Tics Historicos 2017
 on: 
-    workflow_run:
-        workflows: ["Rodando Avaliação Tics Historicos 1"]
-        types:
-            - completed
-    workflow_dispatch:
+  workflow_run:
+    workflows: ["Rodando Avaliação Tics Historicos 2016"]
+    types:
+      - completed
+  workflow_dispatch:
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ./codigos_rodando
           pwd
-          uv run rodando_agente_avaliador_tics_historico_2.py
+          uv run rodando_agente_avaliador_tics_historico_2017.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
