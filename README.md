@@ -19,7 +19,7 @@
 
 O agente [Avaliação TICS](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_avaliacao_tics.py) recebe os dados fundamentais de uma empresa e retorna uma classificação e uma análise textual curta. O fluxo é o seguinte:
 
-![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer\image\agente_avaliador_tics.png")
+![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/agente_avaliador_tics.png)
 
 - O primeiro node [Coleta fundamentalistas](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) obtem os seguintes dados fundamentais da empresa:
 
@@ -45,7 +45,7 @@ Esse fluxo é executado até 3 vezes, dependendo da qualidade da análise fundam
 
  Esse agente [Agente Criador de Carteira de Ações](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e cria uma carteira de ações brasileiras. O fluxo é o seguinte:
 
-![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer\image\agente_criador_carteira.png")
+![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/agente_criador_carteira.png)
 
 Para diminuir a janela de contexto do agente,só ativos com classificação `Excellent` ou `Good` serão considerados, alem disso é passado para o agente como entrada a correlação entre os ativos.
 

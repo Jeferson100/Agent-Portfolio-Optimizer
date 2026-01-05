@@ -43,11 +43,11 @@ start_data = "2024-01-01"
 
 end_data = "2024-12-31"
 
-sequencia_datas = sequencia_datas(start=start_data, end=end_data, freq="QS")
+sequencia = sequencia_datas(start=start_data, end=end_data, freq="QS")
 
 results_dict = {}
 
-for data_inicio, data_fim in sequencia_datas.items():
+for data_inicio, data_fim in sequencia.items():
     display(Markdown(f"## Iniciando o processo para o periodo de {data_inicio} a {data_fim}"))
     try:
         start_time = time.time()

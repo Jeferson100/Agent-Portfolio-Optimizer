@@ -441,24 +441,25 @@ class ComputandoMetricas:
     
 
 def sequencia_datas(start, end, freq="QS"):
+    
     data_hoje = datetime.datetime.now().strftime("%Y-%m-%d")
+    
     periodo_datas = pd.date_range(start=start, end=data_hoje, freq=freq)
     
     datas_dict = {}
     
     for data in periodo_datas:
-        novos_trimestres = pd.date_range(start=data, periods=8, freq='Q')
+        novos_trimestres = pd.date_range(end=data, periods=8, freq='QS')
         data_inicio = novos_trimestres[0].strftime("%Y-%m-%d")
         data_fim = novos_trimestres[-1].strftime("%Y-%m-%d")
-        
         if data_fim > data_hoje:
             data_fim = data_hoje
             datas_dict[data_inicio] = data_fim
-            return datas_dict
+        else:
+            datas_dict[data_inicio] = data_fim
         
-        datas_dict[data_inicio] = data_fim
-        
-    
+    datas_dict = {k: v for k, v in datas_dict.items() if v <= end}
+
     return datas_dict
     
 
