@@ -1,27 +1,30 @@
-## Agent Portfolio Optimizer
+# Agent Portfolio Optimizer
+
+|||
+|-----------|-----------|
+| **Testing**  | [![Testes CI e CD](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml/badge.svg)](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml) ||
+| **Tecnologias**  | ![Python](https://img.shields.io/badge/Python-3.12%2B-blue?style=flat&logo=python) [![LangGraph](https://img.shields.io/badge/LangGraph-gray?style=flat&logo=langgraph&logoColor=white)](https://langchain-ai.github.io/langgraph/) [![LangChain](https://img.shields.io/badge/LangChain-gray?style=flat&logo=langchain&logoColor=white)](https://www.langchain.com/)  ![Pydantic](https://img.shields.io/badge/Pydantic-gray?style=flat&logo=pydantic&logoColor=purple) [![HuggingFace](https://img.shields.io/badge/HuggingFace-gray?style=flat&logo=huggingface)](https://huggingface.co/)  ![NVIDIA](https://img.shields.io/badge/-NVIDIA-gray?logo=nvidia) [![Cerebras](https://img.shields.io/badge/-Cerebras-gray?logo=cerebras/)](https://www.cerebras.ai/) [![Groq](https://img.shields.io/badge/Groq-gray?style=flat&logo=groq&logoColor=white)](https://groq.com/) ![Pandas](https://img.shields.io/badge/pandas-gray?style=flat&logo=pandas&logoColor=150458)
+||
+
+## Visão geral
+
+**Agent Portfolio Optimizer** é uma solução inteligente em Python que automatiza a análise fundamentalista de ações brasileiras (B3) utilizando Large Language Models (LLMs). O sistema avalia empresas, classifica ativos por qualidade e constrói carteiras otimizadas através de uma arquitetura multi-agente baseada em **LangGraph**, onde cada agente especializado contribui para decisões de investimento fundamentadas e diversificadas. 
+
+Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` mantendo o maior peso de 20% da carteira para um unio ativo.
+
+## Carteria de ações para a data 
 
 
 
-### Visão geral
+## Fluxo geral
 
-[![Testes CI e CD](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml/badge.svg)](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml)
-
-
-
-**Agent Portfolio Optimizer** é um projeto em Python para apoio à tomada de decisão em investimentos, focado em ações brasileiras (B3). Ele combina LLMs com um fluxo de análise fundamentalista automatizado para avaliar empresas, classificar a qualidade dos ativos e apos isso construir uma carteira de ações brasileiras.
-
-
-
-# Principais funcionalidades
-
-
-## Agente Avaliação TICS
+### Agente Avaliação TICS
 
 O agente [Avaliação TICS](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_avaliacao_tics.py) recebe os dados fundamentais de uma empresa e retorna uma classificação e uma análise textual curta. O fluxo é o seguinte:
 
 ![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/agente_avaliador_tics.png)
 
-- O primeiro node [Coleta fundamentalistas](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) obtem os seguintes dados fundamentais da empresa:
+- O primeiro node [Coleta fundamentalistas](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) obtém os seguintes dados fundamentais da empresa:
 
   - Receita líquida
   - EBITDA
@@ -31,8 +34,10 @@ O agente [Avaliação TICS](https://github.com/Jeferson100/Agent-Portfolio-Optim
   - P/L
   - P/VPA
   - Fluxo de caixa operacional
-  - Divida líquida/EBITDA
+  - Dívida líquida/EBITDA
   - Variação de caixa equivalentes
+
+  Além disso, são obtidos os dados fundamentais de 8 trimestres anteriores.
 
 - O segundo node [Analise fundamentalista](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_avaliacao_tics.py) recebe os dados fundamentais e retorna uma classificação e uma análise textual curta indicando por que essa classificação foi dada. O node pode classificar o ativo como `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`.
 
@@ -40,16 +45,15 @@ O agente [Avaliação TICS](https://github.com/Jeferson100/Agent-Portfolio-Optim
 
 Esse fluxo é executado até 3 vezes, dependendo da qualidade da análise fundamentalista.
 
+### Agente Criador de Carteira de Ações
 
-## Agente Criador de Carteira de Ações
-
- Esse agente [Agente Criador de Carteira de Ações](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e cria uma carteira de ações brasileiras. O fluxo é o seguinte:
+Esse agente [Agente Criador de Carteira de Ações](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/graph_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e cria uma carteira de ações brasileiras. O fluxo é o seguinte:
 
 ![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/agente_criador_carteira.png)
 
-Para diminuir a janela de contexto do agente,só ativos com classificação `Excellent` ou `Good` serão considerados, alem disso é passado para o agente como entrada a correlação entre os ativos.
+Para diminuir a janela de contexto do agente, só ativos com classificação `Excellent` ou `Good` serão considerados, além disso é passado para o agente como entrada a correlação entre os ativos.
 
-- O primeiro node [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restricoes:
+- O primeiro node [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restrições:
 
   - Os ativos devem ter classificação `Excellent` ou `Good`.
   - O ativo de maior peso deve ser de 20% da carteira.
@@ -57,241 +61,139 @@ Para diminuir a janela de contexto do agente,só ativos com classificação `Exc
   - O peso total da carteira deve ser de 100%.
   - Deve-se priorizar a diversificação da carteira.
 
-- O segundo node [verify_weight-sum](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se o peso total da carteira foi de 100%. Se não for, ele retorna um erro.
+- O segundo node [verify_weight_sum](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se o peso total da carteira foi de 100%. Se não for, ele retorna um erro.
 
-- O terceiro node [verifica_tics_selecionados](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se os ativos indicados pelo analista criador de carteira de ações existem ou se ele não inventou, indicando uma alucinação. 
+- O terceiro node [verifica_tics_selecionados](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) verifica se os ativos indicados pelo analista criador de carteira de ações existem ou se ele não inventou, indicando uma alucinação.
 
-- O quarto node [analista_avaliador_peso_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py)
+- O quarto node [analista_avaliador_peso_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py) recebe a carteira e retorna uma avaliação de qualidade da carteira. Ele retorna um campo booleano de validação e um texto explicando se a carteira é consistente e o que pode ser melhorado.
 
+O fluxo é executado até 3 vezes, tentando melhorar a qualidade da carteira.
 
+## Roteador de LLMs (`LlmRouter`)
 
+O projeto implementa um sistema inteligente de roteamento de LLMs que permite usar múltiplos provedores com fallback automático:
 
-- **Validação por analista sênior virtual**:
+- **Provedores suportados**:
+  - **NVIDIA**: modelos via `langchain-nvidia-ai-endpoints`
+  - **Groq**: modelos via `groq`
+  - **Cerebras**: modelos via `cerebras-cloud-sdk`
+  - **HuggingFace**: modelos via `pydantic-ai`
 
-  - Um segundo agente LLM revisa a classificação e a análise do primeiro analista.
+- **Funcionalidades**:
+  - Tenta sequencialmente diferentes provedores/modelos em caso de falha
+  - Suporta **saída estruturada com Pydantic** para garantir respostas consistentes
+  - Trata respostas em múltiplos formatos (string, dict, objetos) e normaliza para dicionário
+  - Logging detalhado para debugging e monitoramento
 
-  - Retorna um campo booleano de validação e um texto explicando se a análise é consistente e o que pode ser melhorado.
-
-  - Possibilidade de iterações sucessivas até que a análise seja considerada adequada ou até um número máximo de interações.
-
-
-
-- **Orquestração com LangGraph**:
-
-  - Usa `StateGraph` para compor o fluxo:
-
-    - coleta de dados fundamentalistas,
-
-    - análise fundamentalista,
-
-    - avaliação do analista,
-
-    - decisão condicional de encerrar ou refazer a análise.
-
-  - Permite executar o grafo para **um ticker** ou **listas de tickers** em paralelo (por exemplo, VALE3, PETR4, ITUB4, etc.).
-
-
-
-- **Segundo fluxo: construção de carteira de ações brasileiras**:
-
-  - A partir das classificações e análises fundamentalistas, o projeto executa um segundo fluxo que **seleciona e monta uma carteira de ações da B3**.
-
-  - Esse fluxo considera um conjunto de tickers elegíveis, aplica filtros de qualidade (classificação mínima, consistência de análise, período de dados) e pode integrar métricas de risco/retorno.
-
-  - O resultado é uma **carteira sugerida**, com lista de ativos e pesos/participações, que pode ser ajustada conforme o perfil do investidor e restrições adicionais (número máximo de ativos, limites por setor, etc.).
-
-
-
-### Detalhes dos agentes
-
-
-
-- **Agente de coleta de dados**:
-
-  - Recebe como estado os campos `tic`, `data_inicio` e `data_fim`.
-
-  - Usa classes de tratamento de dados (por exemplo, `TratatandoDadosFundamentalistasComparacao`) para buscar e consolidar a série histórica do ticker.
-
-  - Retorna o estado enriquecido com `dados_fundamentalistas` em formato markdown (tabela de indicadores).
-
-
-
-- **Agente analista fundamentalista**:
-
-  - Lê `dados_fundamentalistas` e, opcionalmente, um feedback anterior (`description_avaliacao_analise`).
-
-  - Monta um prompt rico com a tabela de fundamentos e instruções de classificação.
-
-  - Chama o `LlmRouter` com um modelo de saída estruturada `TickerLevel` (campos `classification` e `analysis`).
-
-  - Normaliza a resposta (independente do provedor) via função de tratamento para garantir um dicionário padrão.
-
-
-
-- **Agente avaliador sênior**:
-
-  - Recebe o mesmo `dados_fundamentalistas`, mais `classification` e `analysis` vindos do agente anterior.
-
-  - Usa o `LlmRouter` com o modelo `SeniorAvaliador`, que retorna:
-
-    - `avaliacao_analise` (True/False),
-
-    - `description_avaliacao_analise` (feedback curto, em inglês),
-
-    - além de atualizar o contador de interações (`interacao`).
-
-  - Esse feedback alimenta a próxima rodada de análise, caso o grafo decida continuar.
-
-
-
-- **Função de decisão (`should_continue`)** (análise fundamentalista):
-
-  - Lê `avaliacao_analise` e `interacao` do estado global.
-
-  - Se a análise foi aprovada ou o número máximo de interações foi atingido, retorna `END`.
-
-  - Caso contrário, direciona o fluxo de volta para o agente analista, permitindo refinamento iterativo.
-
-
-
-- **Agente de construção de carteira (segundo fluxo)**:
-
-  - Consome o conjunto de estados finais por ticker (classificação, análise, validação, indicadores).
-
-  - Aplica regras como:
-
-    - filtrar apenas tickers com classificação mínima (por exemplo, `Good` ou `Excellent`),
-
-    - excluir ativos reprovados pelo avaliador sênior,
-
-    - limitar concentração por ativo/setor.
-
-  - Produz uma sugestão de **lista de ativos e pesos** que pode ser usada como ponto de partida para otimização quantitativa adicional.
-
-
-
-- **Agentes de criação e validação de pesos da carteira** (fluxo `graph_weights`):
-
-  - O estado desse fluxo é descrito por `StateCarteira`, contendo pesos por ticker, justificativa, correlações, erros de soma/tickers e contador de iterações.
-
-  - O grafo é construído com `StateGraph(StateCarteira)` e os seguintes nós:
-
-    - `analista_criador_carteira`: usa o LLM com o prompt de otimização para propor uma nova alocação (`tickers_weights` + `justification`), a partir das classificações fundamentalistas, correlações e feedback anterior.
-
-    - `verify_weight_sum`: verifica e normaliza a soma dos pesos para 100%, ajustando proporcionalmente e registrando mensagens de erro em `soma_weights_error`, se necessário.
-
-    - `verifica_tics_selecionados`: garante que todos os tickers alocados pertencem à lista de tickers válidos (`tics`), registrando eventuais erros em `tics_error`.
-
-    - `analista_avaliador_peso_carteira`: agente avaliador de carteira que analisa a alocação proposta, gera um relatório detalhado de riscos/violação de restrições e atualiza `analise_avaliador_weights` e `interacao`.
-
-  - O fluxo é definido da seguinte forma:
-
-    - ponto de entrada em `analista_criador_carteira`;
-
-    - `analista_criador_carteira` → `verify_weight_sum` → `verifica_tics_selecionados`;
-
-    - uma função de decisão (`should_continue`, específica desse fluxo) avalia `tics_error` e `interacao` para decidir entre encerrar (`END`) ou enviar o estado para `analista_avaliador_peso_carteira`;
-
-    - se houver nova iteração, `analista_avaliador_peso_carteira` → `analista_criador_carteira`, criando um ciclo de refinamento até que os pesos estejam corretos e os tickers sejam válidos ou o limite de interações seja atingido.
-
-
+- **Vantagens**:
+  - Redundância: se um provedor falhar, tenta automaticamente o próximo
+  - Flexibilidade: permite escolher modelos específicos por provedor
+  - Robustez: garante que o sistema continue funcionando mesmo com problemas em um provedor
 
 ### Tecnologias e bibliotecas
 
-
-
-- **Python 3.11+** (ver `pyproject.toml`).
-
-- **Pydantic / Pydantic AI** para modelos de saída estruturada.
-
-- **LangGraph** para orquestração do fluxo de agentes/tools.
-
+- **Python 3.12+** (ver `pyproject.toml`)
+- **Pydantic / Pydantic AI** para modelos de saída estruturada
+- **LangGraph** para orquestração do fluxo de agentes/tools
 - **Clientes de LLM**:
+  - `langchain-nvidia-ai-endpoints` (NVIDIA)
+  - `groq` (Groq)
+  - `cerebras.cloud.sdk` (Cerebras)
+  - modelos HuggingFace via `pydantic_ai`
+- **Pandas / NumPy** para manipulação de dados financeiros
+- **yfinance** para coleta de dados de mercado
+- **dotenv** para gerenciamento de variáveis de ambiente
+- **Arize Phoenix** para observabilidade e rastreamento de LLMs
 
-  - `langchain-nvidia-ai-endpoints` (NVIDIA),
+### Estrutura do projeto
 
-  - `groq` (Groq),
-
-  - `cerebras.cloud.sdk` (Cerebras),
-
-  - modelos HuggingFace via `pydantic_ai`.
-
-- **Pandas / NumPy** para manipulação de dados financeiros.
-
-- **dotenv** para gerenciamento de variáveis de ambiente.
-
-
-
-### Estrutura do projeto (resumo)
-
-
-
-- `notebooks/create_agent_portfolio_optmizer.ipynb`: notebook principal de experimentação, onde são definidos:
-
-  - o roteador de LLMs,
-
-  - os prompts de análise e validação,
-
-  - o grafo de LangGraph para análise fundamentalista,
-
-  - o fluxo de construção de carteira com base nas avaliações dos tickers,
-
-  - exemplos de execução para múltiplos tickers.
-
-- `src/portfolio_optimizer/`: módulos de **coleta** e **tratamento** de dados (fundamentalistas, técnicos, valuation, notícias etc.) utilizados como base para as análises.
-
-
-
-### Como o fluxo funciona (alto nível)
-
-
-
-1. **Entrada do usuário**: ticker(s) de ações, data inicial e final.
-
-2. **Coleta de dados**: o agente busca e consolida os dados fundamentalistas dos tickers no período solicitado.
-
-3. **Análise inicial**: um LLM avalia cada empresa e produz uma classificação de qualidade com justificativa.
-
-4. **Revisão sênior**: outro LLM verifica se a análise faz sentido à luz dos indicadores e aponta ajustes se necessário.
-
-5. **Iteração / encerramento**: dependendo da avaliação, o fluxo encerra ou refaz a análise até atingir um limite de interações.
-
-6. **Saída**: um dicionário/estado final com classificação, análise, feedback e metadados por ticker, pronto para ser usado em estratégias de **otimização de carteiras**.
-
-7. **Construção de carteira** (segundo fluxo): a partir das saídas do passo 6, o notebook pode selecionar os melhores ativos e construir uma carteira de ações brasileiras, atribuindo pesos e aplicando regras de diversificação.
-
-
-
-### Pré-requisitos e configuração (resumo)
+```
+Agent-Portfolio-Optimizer/
+├── src/
+│   └── portfolio_optimizer/
+│       ├── build_langgraph/          # Grafos LangGraph dos agentes
+│       │   ├── graph_avaliacao_tics.py
+│       │   ├── graph_criador_carteira.py
+│       │   ├── nodes_avaliacao_tics.py
+│       │   └── nodes_criador_carteira.py
+│       ├── coleta_dados/             # Módulos de coleta de dados
+│       │   ├── dados_fundamentalistas.py
+│       │   ├── dados_indicadores_tecnicos.py
+│       │   └── ...
+│       ├── roteador_llms/            # Sistema de roteamento de LLMs
+│       │   ├── roteador_llms.py
+│       │   ├── roteador_nvidia.py
+│       │   ├── roteador_groq.py
+│       │   ├── roteador_cerebras.py
+│       │   └── roteador_huggingface.py
+│       ├── prompts/                  # Prompts dos agentes
+│       │   ├── prompts_avaliador_tics.py
+│       │   └── prompts_criador_carteira.py
+│       ├── state_otputs/             # Modelos Pydantic de saída
+│       │   ├── output_classicacao_tics.py
+│       │   └── output_criador_carteira.py
+│       ├── tratando_dados/           # Tratamento e processamento de dados
+│       └── utils/                    # Funções utilitárias
+├── notebooks/                        # Notebooks de experimentação
+│   ├── create_agent_portfolio_optmizer.ipynb
+│   └── chamando_agentes.ipynb
+├── codigos_rodando/                 # Scripts prontos para execução
+│   ├── rodando_avaliacao_tics.py
+│   ├── rodando_criando_carteira.py
+│   └── ...
+├── tests/                            # Testes automatizados
+│   ├── test_build_langgraph/
+│   ├── test_roteador_llms/
+│   └── ...
+├── data/                             # Dados e resultados
+│   ├── avaliacao_tics_historico.json
+│   └── carteira_resultado.json
+└── pyproject.toml                    # Configuração do projeto
+```
 
 
+### Arquitetura do sistema
 
-- Ter Python instalado e as dependências do projeto (via `uv`, `poetry` ou `pip` conforme seu fluxo).
+O sistema é construído sobre uma arquitetura de agentes multi-etapa:
 
-- Configurar no arquivo `.env` (veja `.env_example`, se existir) as chaves dos provedores de LLM, por exemplo:
+1. **Camada de coleta de dados**: Módulos especializados coletam dados fundamentalistas, técnicos e de mercado
+2. **Camada de processamento**: Dados são tratados e formatados para análise
+3. **Camada de agentes LLM**: Agentes especializados analisam e tomam decisões usando LLMs
+4. **Camada de orquestração**: LangGraph coordena o fluxo entre agentes
+5. **Camada de roteamento**: Sistema de fallback garante disponibilidade dos LLMs
 
-  - `CEREBRAS_API_KEY`
+### Contribuindo
 
-  - chaves da NVIDIA, Groq, HuggingFace, etc.
+Contribuições são bem-vindas! Por favor:
 
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
+Certifique-se de que os testes passam antes de submeter:
+```bash
+pytest
+ruff check .
+mypy src/
+```
 
-### Uso básico
+### Licença
 
+Este projeto está licenciado sob a licença especificada no arquivo `LICENSE`.
 
+### Links úteis
 
-- Abrir o notebook `notebooks/create_agent_portfolio_optmizer.ipynb`.
+- [Documentação do LangGraph](https://langchain-ai.github.io/langgraph/)
+- [Documentação do Pydantic](https://docs.pydantic.dev/)
+- [Repositório no GitHub](https://github.com/Jeferson100/Agent-Portfolio-Optimizer)
 
-- Garantir que o diretório `src` esteja no `PYTHONPATH` (o próprio notebook já faz isso com `sys.path.insert`).
+### Avisos importantes
 
-- Executar as células na ordem, ajustando:
+⚠️ **Este projeto é para fins educacionais e de pesquisa. Não constitui aconselhamento financeiro.**
 
-  - lista de tickers (`tics` ou `list_tics`),
-
-  - datas `data_inicio` e `data_fim`,
-
-  - provedores/modelos preferidos no `LlmRouter`.
-
-
-
-A partir desse fluxo, você obtém uma **camada de análise fundamentalista assistida por LLMs**, bem como um **segundo fluxo de construção de carteira de ações brasileiras**, que juntos podem ser usados para montar carteiras de investimento mais robustas e alinhadas ao seu perfil de risco.
+- As análises geradas por LLMs podem conter erros ou alucinações
+- Sempre valide os resultados antes de tomar decisões de investimento
+- O desempenho passado não garante resultados futuros
+- Consulte um profissional de investimentos qualificado antes de investir

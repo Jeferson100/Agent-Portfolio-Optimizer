@@ -1,4 +1,4 @@
-from utils import sequencia_datas, run_all_tics, BuildGraphAvaliacaoTics, StateClassification
+from utils import sequencia_datas, run_all_tics, rodando_tics
 import json
 import logging
 import pandas as pd
@@ -46,7 +46,7 @@ sequencia = sequencia_datas(start=start_data, end=end_data, freq="QS")
 
 results_dict = {}
 
-for data_inicio, data_fim in sequencia.items():
+"""for data_inicio, data_fim in sequencia.items():
     display(Markdown(f"## Iniciando o processo para o periodo de {data_inicio} a {data_fim}"))
     try:
         start_time = time.time()
@@ -62,7 +62,9 @@ for data_inicio, data_fim in sequencia.items():
         
         
     except Exception as e:
-        logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")
+        logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")"""
+
+results_dict = asyncio.run(rodando_tics(sequencia, tics))
         
 with open("../data/avaliacao_tics_historico_2025.json", "w") as f:
     json.dump(results_dict, f)

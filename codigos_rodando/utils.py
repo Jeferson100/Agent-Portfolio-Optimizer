@@ -16,6 +16,7 @@ from scipy.optimize import minimize
 from IPython.display import display
 import matplotlib.pyplot as plt
 import datetime
+import time
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,6 +24,41 @@ logger = logging.getLogger(__name__)
 graph_tics = BuildGraphAvaliacaoTics()
 
 graph_build = graph_tics.compile()
+
+
+async def classificar_tics(tic, data_inicio, data_fim):
+    
+    response = await graph_build.ainvoke(
+            StateClassification(
+                {
+                    "tic": tic,
+                    "data_inicio": data_inicio,
+                    "data_fim": data_fim,
+                    "avaliacao_analise": "",
+                    "description_avaliacao_analise": "",
+                    "interacao": 0,
+                }
+            )
+        )
+
+    return response
+
+async def rodando_tics(sequencia_datas, tics):
+    result_tics_datas = {}
+    for data_inicio, data_fim in sequencia_datas.items():
+        results_tics = {}
+        for tic in tics:
+            try:
+                results_tics[tic] = await classificar_tics(tic, data_inicio, data_fim)
+            except Exception as e:
+                logger.error(f"❌ Erro ao processar {tic}: {e}")
+                results_tics[tic] = {}
+            time.sleep(1)
+            logger.info(f"✅ {tic} concluído para a {data_inicio} ate {data_fim}!")
+        result_tics_datas[f"{data_inicio}_to_{data_fim}"] = results_tics
+        logger.info(f"Conclusao para as datas:{data_inicio} e {data_fim}")
+    return result_tics_datas
+    
 
 async def _invoke_tic(tic: str, data_inicio: str, data_fim: str):
     try:
