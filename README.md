@@ -10,10 +10,50 @@
 
 **Agent Portfolio Optimizer** é uma solução inteligente em Python que automatiza a análise fundamentalista de ações brasileiras (B3) utilizando Large Language Models (LLMs). O sistema avalia empresas, classifica ativos por qualidade e constrói carteiras otimizadas através de uma arquitetura multi-agente baseada em **LangGraph**, onde cada agente especializado contribui para decisões de investimento fundamentadas e diversificadas. 
 
-Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` mantendo o maior peso de 20% da carteira para um unio ativo.
+Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` tendo como restrição que ativos de maior peso devem ser de 20% da carteira e ativos de menor peso devem ser de 5% da carteira.
 
-## Carteria de ações para a data 
 
+## Carteria de ações para o trimestre
+
+
+
+Aqui estão uma tabela com os resultados da carteira de ações para o trimestre atual. A carteira 
+
+
+### Tabela Resultados
+|        |   preco_inicial(2026-01-02) |   preco_atual(2026-01-05) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
+|:-------|----------------------------:|--------------------------:|-----------------:|-------------------------:|-------------------------------:|-------------------------------:|-----------------------------:|
+| MULT3  |                       27.04 |                     27.33 |             0.18 |                     0.29 |                         0.0107 |                            180 |                       181.93 |
+| BMOB3  |                       22    |                     22.15 |             0.09 |                     0.15 |                         0.0068 |                             90 |                        90.61 |
+| ALOS3  |                       28.55 |                     28.64 |             0.09 |                     0.09 |                         0.0032 |                             90 |                        90.29 |
+| CLSC4  |                      124.95 |                    123.13 |             0.07 |                    -1.82 |                        -0.0146 |                             70 |                        68.98 |
+| CGRA4  |                       27.3  |                     27.43 |             0.07 |                     0.13 |                         0.0048 |                             70 |                        70.34 |
+| WEGE3  |                       48.25 |                     48.08 |             0.07 |                    -0.17 |                        -0.0035 |                             70 |                        69.76 |
+| ALPA3  |                       10.38 |                     10.72 |             0.07 |                     0.34 |                         0.0328 |                             70 |                        72.3  |
+| ENEV3  |                       20.02 |                     20.1  |             0.07 |                     0.08 |                         0.004  |                             70 |                        70.28 |
+| FIQE3  |                        4.89 |                      4.89 |             0.07 |                     0    |                         0      |                             70 |                        70    |
+| SBSP3  |                      133.07 |                    131.26 |             0.07 |                    -1.81 |                        -0.0136 |                             70 |                        69.05 |
+| IGTI11 |                       25.31 |                     25.6  |             0.05 |                     0.29 |                         0.0115 |                             50 |                        50.58 |
+| CMIG4  |                       11.16 |                     11.19 |             0.05 |                     0.03 |                         0.0027 |                             50 |                        50.14 |
+| PRIO3  |                       41.76 |                     41.15 |             0.05 |                    -0.61 |                        -0.0146 |                             50 |                        49.27 |
+### Comentário sobre a carteira
+A carteira de investimentos apresentou uma variação positiva no período analisado, de 2 a 5 de janeiro de 2026. Considerando um investimento inicial de R$ 1000 em cada ativo proporcionalmente à sua participação na carteira, o valor total investido inicialmente seria de R$ 1000. Após a variação dos preços, o valor total da carteira passou para R$ 1003,83.
+
+A análise da performance geral da carteira revela que os ativos com maior peso na composição da carteira foram fundamentais para o resultado observado. MULT3, com 18% de participação, contribuiu significativamente para o resultado positivo, apresentando uma valorização de 1,07%. Outros ativos como BMOB3, ALOS3 e CGRA4 também apresentaram desempenhos positivos, com valorizações de 0,68%, 0,32% e 0,48%, respectivamente.
+
+No entanto, alguns ativos apresentaram desempenhos negativos, como CLSC4 (-1,46%), WEGE3 (-0,35%) e SBSP3 (-1,36%), o que foi parcialmente compensado pelos ganhos observados nos demais ativos. É importante notar que a diversificação da carteira ajudou a mitigar as perdas, uma vez que os ativos com desempenhos negativos não foram capazes de arrastar a carteira para um resultado negativo.
+
+A carteira apresentou uma leve valorização de 0,383% no período, o que pode ser considerado um resultado satisfatório, dado o contexto de curto prazo e a composição da carteira. A variação positiva foi influenciada principalmente pelos ativos com maior peso e valorização no período.
+
+Ao analisar a contribuição individual dos ativos para o resultado geral, observa-se que MULT3 foi o principal contribuinte positivo, com um ganho de R$ 1,93 para cada R$ 1000 investidos inicialmente. Outros ativos, como BMOB3 e ALPA3, também apresentaram contribuições positivas, embora menores.
+
+Já os ativos que apresentaram desempenhos negativos, como CLSC4 e SBSP3, reduziram o resultado geral da carteira. No entanto, a magnitude dessas perdas foi limitada pela diversificação e pela participação desses ativos na carteira.
+
+Em resumo, a performance da carteira no período analisado pode ser considerada satisfatória, uma vez que apresentou uma valorização, ainda que modesta. A diversificação da carteira e a contribuição positiva de alguns ativos com maior peso foram fundamentais para esse resultado. É importante manter o monitoramento da carteira e ajustar a composição, se necessário, para garantir que os objetivos de investimento sejam alcançados.
+
+Considerando o curto período de análise, é razoável esperar que a carteira continue a apresentar variações, tanto positivas quanto negativas. Portanto, é fundamental manter uma estratégia de investimento diversificada e ajustada aos objetivos e tolerância ao risco do investidor.
+
+A análise da carteira sugere que a estratégia de investimento atual está funcionando de forma relativamente eficaz, mas é sempre prudente realizar ajustes e otimizações para maximizar os retornos e minimizar os riscos. Além disso, é essencial manter-se atento às condições de mercado e realizar análises periódicas para garantir que a carteira continue a atender às necessidades e objetivos do investidor.
 
 
 ## Fluxo geral
@@ -90,7 +130,7 @@ O projeto implementa um sistema inteligente de roteamento de LLMs que permite us
   - Flexibilidade: permite escolher modelos específicos por provedor
   - Robustez: garante que o sistema continue funcionando mesmo com problemas em um provedor
 
-### Tecnologias e bibliotecas
+## Tecnologias e bibliotecas
 
 - **Python 3.12+** (ver `pyproject.toml`)
 - **Pydantic / Pydantic AI** para modelos de saída estruturada
@@ -105,7 +145,7 @@ O projeto implementa um sistema inteligente de roteamento de LLMs que permite us
 - **dotenv** para gerenciamento de variáveis de ambiente
 - **Arize Phoenix** para observabilidade e rastreamento de LLMs
 
-### Estrutura do projeto
+## Estrutura do projeto
 
 ```
 Agent-Portfolio-Optimizer/
@@ -150,46 +190,11 @@ Agent-Portfolio-Optimizer/
 │   └── carteira_resultado.json
 └── pyproject.toml                    # Configuração do projeto
 ```
+## Licença
 
+Este projeto está licenciado sob a licença especificada no arquivo [LICENSE](LICENSE).
 
-### Arquitetura do sistema
-
-O sistema é construído sobre uma arquitetura de agentes multi-etapa:
-
-1. **Camada de coleta de dados**: Módulos especializados coletam dados fundamentalistas, técnicos e de mercado
-2. **Camada de processamento**: Dados são tratados e formatados para análise
-3. **Camada de agentes LLM**: Agentes especializados analisam e tomam decisões usando LLMs
-4. **Camada de orquestração**: LangGraph coordena o fluxo entre agentes
-5. **Camada de roteamento**: Sistema de fallback garante disponibilidade dos LLMs
-
-### Contribuindo
-
-Contribuições são bem-vindas! Por favor:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-Certifique-se de que os testes passam antes de submeter:
-```bash
-pytest
-ruff check .
-mypy src/
-```
-
-### Licença
-
-Este projeto está licenciado sob a licença especificada no arquivo `LICENSE`.
-
-### Links úteis
-
-- [Documentação do LangGraph](https://langchain-ai.github.io/langgraph/)
-- [Documentação do Pydantic](https://docs.pydantic.dev/)
-- [Repositório no GitHub](https://github.com/Jeferson100/Agent-Portfolio-Optimizer)
-
-### Avisos importantes
+## Avisos importantes
 
 ⚠️ **Este projeto é para fins educacionais e de pesquisa. Não constitui aconselhamento financeiro.**
 
