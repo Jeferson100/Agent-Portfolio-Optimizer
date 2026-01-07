@@ -79,6 +79,9 @@ async def _invoke_tic(tic: str, data_inicio: str, data_fim: str):
         elapsed = time.time() - start
         logger.info(f"✅ {tic} concluído em {elapsed:.2f}s")
         return result
+    except KeyError as e:
+        logger.error(f"❌ Tic nao encontrado {tic} para {data_inicio} a {data_fim}")
+        return None
         
     except Exception as e:
         logger.error(f"❌ Erro ao processar {tic}: {e}")
