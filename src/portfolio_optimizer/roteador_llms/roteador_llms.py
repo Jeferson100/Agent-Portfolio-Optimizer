@@ -47,10 +47,12 @@ class LlmRouter:
         ]
 
         self.nvidia_models = nvidia_models or [
-            "qwen/qwq-32b",
+            "qwen/qwen3-235b-a22b",
+            "qwen/qwen3-next-80b-a3b-instruct",
+            "deepseek-ai/deepseek-v3.2",
+            "nvidia/nemotron-3-nano-30b-a3b",
             "moonshotai/kimi-k2-instruct",
             "openai/gpt-oss-20b",
-            "microsoft/phi-4-mini-instruct",
             "nvidia/nemotron-4-mini-hindi-4b-instruct",
         ]
         self.cerebras_models = cerebras_models or [

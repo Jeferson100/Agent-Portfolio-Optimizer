@@ -103,27 +103,6 @@ Para diminuir a janela de contexto do agente, só ativos com classificação `Ex
 
 O fluxo é executado até 3 vezes, tentando melhorar a qualidade da carteira.
 
-## Roteador de LLMs (`LlmRouter`)
-
-O projeto implementa um sistema inteligente de roteamento de LLMs que permite usar múltiplos provedores com fallback automático:
-
-- **Provedores suportados**:
-  - **NVIDIA**: modelos via `langchain-nvidia-ai-endpoints`
-  - **Groq**: modelos via `groq`
-  - **Cerebras**: modelos via `cerebras-cloud-sdk`
-  - **HuggingFace**: modelos via `pydantic-ai`
-
-- **Funcionalidades**:
-  - Tenta sequencialmente diferentes provedores/modelos em caso de falha
-  - Suporta **saída estruturada com Pydantic** para garantir respostas consistentes
-  - Trata respostas em múltiplos formatos (string, dict, objetos) e normaliza para dicionário
-  - Logging detalhado para debugging e monitoramento
-
-- **Vantagens**:
-  - Redundância: se um provedor falhar, tenta automaticamente o próximo
-  - Flexibilidade: permite escolher modelos específicos por provedor
-  - Robustez: garante que o sistema continue funcionando mesmo com problemas em um provedor
-
 ## Tecnologias e bibliotecas
 
 - **Python 3.12+** (ver `pyproject.toml`)

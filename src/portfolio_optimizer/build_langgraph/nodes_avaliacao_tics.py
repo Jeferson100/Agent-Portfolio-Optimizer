@@ -8,8 +8,7 @@ from ..tratando_dados.tratando_dados_fundamentalistas import (
 )
 from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 
-import time
-
+import asyncio
 
 async def get_data_fundamentalistas(state) -> Dict[str, str]:
     tic = state.get("tic")
@@ -44,7 +43,7 @@ async def analista_fundamentalista(state) -> Dict[Any, Any]:
 
     response_trat = tratando_resposta_router_llm(response, TickerLevel)
     
-    time.sleep(2)
+    await asyncio.sleep(2)
 
     return {
         "classification": response_trat.get("classification"),
@@ -69,7 +68,7 @@ async def avaliador_analista_fundamentalista(state) -> Dict[Any, Any]:
 
     response = await llm.llm_router()
 
-    time.sleep(2)
+    await asyncio.sleep(2)
 
     response_trat = tratando_resposta_router_llm(response, SeniorAvaliador)
 

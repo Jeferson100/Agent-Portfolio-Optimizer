@@ -9,7 +9,7 @@ from ..prompts.prompts_criador_carteira import (
 from ..roteador_llms.roteador_llms import LlmRouter
 from ..state_otputs.output_criador_carteira import CarteiraWeights
 from ..utils import normalizar_pesos, tratando_resposta_router_llm
-import time
+import asyncio
 
 logging.basicConfig(level=logging.INFO)
 
@@ -49,7 +49,7 @@ async def analista_criador_carteira(state):
 
     response = await llm.llm_router()
     
-    time.sleep(2)
+    await asyncio.sleep(2)
 
     response_trat = tratando_resposta_router_llm(response, CarteiraWeights)
 
@@ -94,7 +94,7 @@ async def analista_avaliador_peso_carteira(state):
     )
     response = await llm.llm_router()
     
-    time.sleep(2)
+    await asyncio.sleep(2)
 
     new_interacao = interacao + 1
 
