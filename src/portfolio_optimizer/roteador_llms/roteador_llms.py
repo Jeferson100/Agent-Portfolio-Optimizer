@@ -35,7 +35,6 @@ class LlmRouter:
         self.strutured_output = strutured_output
         self.groq_models = groq_models or [
             "moonshotai/kimi-k2-instruct-0905",
-            "moonshotai/kimi-k2-instruct",
             "meta-llama/llama-4-scout-17b-16e-instruct",
             "openai/gpt-oss-120b",
         ]
@@ -58,10 +57,10 @@ class LlmRouter:
         self.cerebras_models = cerebras_models or [
             "qwen-3-235b-a22b-instruct-2507",
             "gpt-oss-120b",
-            "llama-4-scout-17b-16e-instruct",
+            "OpenAI GPT OSS",
             "qwen-3-32b",
-            # "llama3.1-8b",
-            "llama-4-maverick-17b-128e-instruct",
+            
+            
         ]
 
     async def try_groq_models(self) -> Dict[str, Any] | str | None:

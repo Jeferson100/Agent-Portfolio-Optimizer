@@ -1,4 +1,4 @@
-from utils import sequencia_datas, run_all_tics, BuildGraphAvaliacaoTics, StateClassification
+from utils import sequencia_datas, run_all_tics, rodando_tics_sem_sequencia
 import json
 import logging
 import pandas as pd
@@ -29,23 +29,17 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-tics = ["VALE3", "PETR4", "ITUB4", "BBDC4", "ABEV3", 
-        "MGLU3", "BBAS3", "GGBR4", "RENT3", "LREN3",
-        "PSSA3", "BRAP4", "VIVT3"]
-
 pd_tic = pd.read_csv(
             "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/setor.csv"
         )
 tics = pd_tic['tic'].unique().tolist()
 
-start_data = "2015-01-01"
+start_data = "2013-04-01"
 
-end_data = "2015-12-31"
+end_data = "2015-01-01"
 
-sequencia = sequencia_datas(start=start_data, end=end_data, freq="QS")
-results_dict = {}
 
-for data_inicio, data_fim in sequencia.items():
+"""for data_inicio, data_fim in sequencia.items():
     display(Markdown(f"## Iniciando o processo para o periodo de {data_inicio} a {data_fim}"))
     try:
         start_time = time.time()
@@ -61,9 +55,12 @@ for data_inicio, data_fim in sequencia.items():
         
         
     except Exception as e:
-        logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")
+        logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")"""
         
-with open("../data/avaliacao_tics_historico_2015.json", "w") as f:
+results_dict = asyncio.run(rodando_tics_sem_sequencia(start_data, end_data, tics))
+        
+        
+with open(f"../data/avaliacao_historicos_tics/avaliacao_tics_historico_{start_data}_to_{end_data}.json", "w") as f:
     json.dump(results_dict, f)
     
 logger.info("Processo concluído para todos os períodos.")
