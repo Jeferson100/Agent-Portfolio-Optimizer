@@ -1,4 +1,4 @@
-from utils import sequencia_datas, run_all_tics, rodando_tics_sem_sequencia
+from ..utils import sequencia_datas, run_all_tics, rodando_tics_sem_sequencia
 import json
 import logging
 import pandas as pd
@@ -37,25 +37,6 @@ tics = pd_tic['tic'].unique().tolist()
 start_data = "2013-07-01"
 
 end_data = "2015-04-01"
-
-
-"""for data_inicio, data_fim in sequencia.items():
-    display(Markdown(f"## Iniciando o processo para o periodo de {data_inicio} a {data_fim}"))
-    try:
-        start_time = time.time()
-        results_tics = asyncio.run(run_all_tics(
-            tics,
-            data_inicio=data_inicio,
-            data_fim=data_fim
-            ))
-        
-        logger.info(f"Avaliação das acoes foi concluído para {data_inicio} a {data_fim}")    
-        
-        results_dict[f"{data_inicio}_to_{data_fim}"] = results_tics
-        
-        
-    except Exception as e:
-        logger.error(f"Erro ao processar {data_inicio} a {data_fim}: {e}")"""
         
 results_dict = asyncio.run(rodando_tics_sem_sequencia(start_data, end_data, tics))
         
