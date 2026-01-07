@@ -1,4 +1,4 @@
-from ..utils import sequencia_datas, run_all_tics, rodando_tics_sem_sequencia
+from utils import sequencia_datas, run_all_tics, rodando_tics_sem_sequencia
 import json
 import logging
 import pandas as pd
