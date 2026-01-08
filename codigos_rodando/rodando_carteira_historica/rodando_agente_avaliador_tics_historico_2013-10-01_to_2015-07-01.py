@@ -42,7 +42,7 @@ end_data = "2015-07-01"
 results_dict = asyncio.run(rodando_tics_sem_sequencia(start_data, end_data, tics))
         
         
-with open(f"../data/avaliacao_historicos_tics/avaliacao_tics_historico_{start_data}_to_{end_data}.json", "w") as f:
+with open(f"../../data/avaliacao_historicos_tics/avaliacao_tics_historico_{start_data}_to_{end_data}.json", "w") as f:
     json.dump(results_dict, f)
     
 logger.info("Processo concluído para todos os períodos.")
