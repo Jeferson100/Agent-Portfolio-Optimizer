@@ -9,7 +9,7 @@ class TickerLevel(BaseModel):
     )
     analysis: str = Field(
         description="Arguments justifying the classification given to the ticker.",
-        max_length=1000,
+        max_length=2000,
     )
 
 
@@ -22,5 +22,5 @@ class SeniorAvaliador(BaseModel):
 
     description_avaliacao_analise: str = Field(
         description="Detailed description of the avaliation. Why you think that.",
-        max_length=1000,
+        max_length=2000,
     )

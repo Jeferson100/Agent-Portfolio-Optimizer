@@ -67,16 +67,20 @@ dependencies = [
     { name = "langchain-nvidia-ai-endpoints" },
     { name = "langgraph" },
     { name = "matplotlib" },
+    { name = "openai" },
     { name = "openinference-instrumentation-langchain" },
     { name = "pandas" },
     { name = "pydantic-ai" },
     { name = "python-bcb" },
+    { name = "retrying" },
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "selenium" },
     { name = "sidrapy" },
     { name = "tabulate" },
     { name = "tavily-python" },
+    { name = "tdqm" },
+    { name = "tqdm" },
     { name = "unidecode" },
     { name = "webdriver-manager" },
     { name = "yfinance" },
@@ -116,6 +120,7 @@ requires-dist = [
     { name = "langgraph", specifier = "==1.0.3" },
     { name = "matplotlib", specifier = ">=3.10.7" },
     { name = "mypy", marker = "extra == 'dev'", specifier = "==1.15.0" },
+    { name = "openai", specifier = ">=2.12.0" },
     { name = "openinference-instrumentation-langchain", specifier = ">=0.1.56" },
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "pydantic-ai", specifier = ">=1.18.0" },
@@ -126,6 +131,7 @@ requires-dist = [
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = "==0.21.1" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==4.0.0" },
     { name = "python-bcb", specifier = ">=0.3.3" },
+    { name = "retrying", specifier = ">=1.4.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = "==0.9.6" },
     { name = "scikit-learn", specifier = ">=1.7.2" },
     { name = "scipy", specifier = ">=1.15.3" },
@@ -133,6 +139,8 @@ requires-dist = [
     { name = "sidrapy", specifier = ">=0.1.4" },
     { name = "tabulate", specifier = ">=0.9.0" },
     { name = "tavily-python", specifier = ">=0.7.13" },
+    { name = "tdqm", specifier = ">=0.0.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
     { name = "unidecode", specifier = ">=1.4.0" },
     { name = "webdriver-manager", specifier = ">=4.0.2" },
     { name = "yfinance", specifier = ">=0.2.66" },
@@ -5317,6 +5325,15 @@ wheels = [
 ]
 
 [[package]]
+name = "retrying"
+version = "1.4.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c8/5a/b17e1e257d3e6f2e7758930e1256832c9ddd576f8631781e6a072914befa/retrying-1.4.2.tar.gz", hash = "sha256:d102e75d53d8d30b88562d45361d6c6c934da06fab31bd81c0420acb97a8ba39", size = 11411 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/f3/6cd296376653270ac1b423bb30bd70942d9916b6978c6f40472d6ac038e7/retrying-1.4.2-py3-none-any.whl", hash = "sha256:bbc004aeb542a74f3569aeddf42a2516efefcdaff90df0eb38fbfbf19f179f59", size = 10859 },
+]
+
+[[package]]
 name = "rich"
 version = "14.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -5960,6 +5977,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/b9/a6/e67590625bccd6979
 wheels = [
     { url = "https://files.pythonhosted.org/packages/88/bf/a89c2fa0450143a6c648b8aa8b938ec2257e064f288768ae429a4b0aef30/tavily_python-0.7.15-py3-none-any.whl", hash = "sha256:a44329699ca9df041ae341d8aca9e26fbd222edc2c17ecf855fcaa9970d9e863", size = 18208 },
 ]
+
+[[package]]
+name = "tdqm"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5a/38/58c9e22b95e98666fe29f35e217ab6126a03798dadf3f4f8f3e5f898510b/tdqm-0.0.1.tar.gz", hash = "sha256:f050004a76b1d22f70b78209b48781353c82440215b6ba7d22b1f499b05a0101", size = 1388 }
 
 [[package]]
 name = "temporalio"

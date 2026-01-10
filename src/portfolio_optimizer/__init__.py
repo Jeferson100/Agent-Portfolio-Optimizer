@@ -35,6 +35,13 @@ from .utils.funcoes_utilitarias import (
     tratando_resposta_router_llm,
 )
 
+from .roteador_llms.roteador_api_nvidia import RouterApiNvidia
+from .roteador_llms.roteador_cerebras import RouterCerebras
+from .roteador_llms.roteador_groq import RouterGroq
+from .roteador_llms.roteador_huggingface import RouterPydanticAI
+from .roteador_llms.roteador_langchain_nvidia import RouterLangChainNvidia
+from .roteador_llms.roteador_openai_nvidia import RouterOpenaiNvidia
+
 __all__ = [
     "DadosFundamentalistas",
     "VerificadorTicks",
@@ -63,4 +70,10 @@ __all__ = [
     "tratando_resposta_router_llm",
     "normalizar_pesos",
     "transformando_data_frame_para_markdown",
+    "RouterApiNvidia",
+    "RouterCerebras",
+    "RouterGroq",
+    "RouterLangChainNvidia",
+    "RouterOpenaiNvidia",
+    "RouterPydanticAI",
 ]

@@ -17,6 +17,7 @@ from IPython.display import display
 import matplotlib.pyplot as plt
 import datetime
 import time
+from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -61,7 +62,7 @@ async def rodando_tics(sequencia_datas, tics):
 
 async def rodando_tics_sem_sequencia(data_inicio, data_fim, tics):
     results_tics = {}
-    for tic in tics:
+    for tic in tqdm(tics):
         try:
             results_tics[tic] = await classificar_tics(tic, data_inicio, data_fim)
         except Exception as e:

@@ -86,6 +86,6 @@ async def avaliador_analista_fundamentalista(state) -> Dict[Any, Any]:
 def should_continue(state) -> Literal["END", "analise_fundamentalista"]:
     avaliacao = state.get("avaliacao_analise")
     interacao = state.get("interacao")
-    if avaliacao or interacao >= 3:
+    if avaliacao or interacao >= 4:
         return "END"
     return "analise_fundamentalista"

@@ -17,6 +17,7 @@ from IPython.display import display
 import matplotlib.pyplot as plt
 import datetime
 import time
+from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -50,24 +51,24 @@ async def rodando_tics(sequencia_datas, tics):
         for tic in tics:
             try:
                 results_tics[tic] = await classificar_tics(tic, data_inicio, data_fim)
+                logger.info(f"✅ {tic} concluído para a {data_inicio} ate {data_fim}!")
             except Exception as e:
                 logger.error(f"❌ Erro ao processar {tic}: {e}")
                 results_tics[tic] = {}
             time.sleep(1)
-            logger.info(f"✅ {tic} concluído para a {data_inicio} ate {data_fim}!")
         result_tics_datas[f"{data_inicio}_to_{data_fim}"] = results_tics
         logger.info(f"Conclusao para as datas:{data_inicio} e {data_fim}")
     return result_tics_datas
 
 async def rodando_tics_sem_sequencia(data_inicio, data_fim, tics):
     results_tics = {}
-    for tic in tics:
+    for tic in tqdm(tics):
         try:
             results_tics[tic] = await classificar_tics(tic, data_inicio, data_fim)
+            logger.info(f"✅ {tic} concluído!")
         except Exception as e:
             logger.error(f"❌ Erro ao processar {tic}: {e}")
             results_tics[tic] = None
-        logger.info(f"✅ {tic} concluído!")
     return results_tics
     
 
