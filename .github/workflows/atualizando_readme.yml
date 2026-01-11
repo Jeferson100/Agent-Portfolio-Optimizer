@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
     steps:
       - name: Copia os arquivos do repo
         uses: actions/checkout@v4
@@ -70,5 +73,6 @@ jobs:
                   echo "No changes to commit"
                   exit 0
               fi
-              git commit -m "Avaliação TICS: $(date +'%Y-%m-%d')"
+              git commit -m "Atualizando Readme: $(date +'%Y-%m-%d')"
+              git pull --rebase https://Jeferson100:${{ secrets.AGENT_PORTFOLIO_OPTIMIZER }}@github.com/Jeferson100/Agent-Portfolio-Optimizer.git main
               git push https://Jeferson100:${{ secrets.AGENT_PORTFOLIO_OPTIMIZER }}@github.com/Jeferson100/Agent-Portfolio-Optimizer.git HEAD:main
