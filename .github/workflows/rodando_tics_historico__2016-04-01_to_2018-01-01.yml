@@ -1,9 +1,9 @@
-name: Rodando Avaliação Tics Historicos 2014-07-01_to_2016-04-01
-on: 
+name: Rodando Avaliação Tics Historicos 2016-04-01_to_2018-01-01
+on:
     workflow_run:
-        workflows: ["Rodando Avaliação Tics Historicos 2014-04-01_to_2016-01-01"]
-        types:
-            - completed
+            workflows: ["Rodando Avaliação Tics Historicos 2016-01-01_to_2017-10-01"]
+            types:
+                    - completed
     workflow_dispatch:
 
 jobs:
@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ./codigos_rodando/rodando_carteira_historica
           pwd
-          uv run rodando_agente_avaliador_tics_historico_2014-07-01_to_2016-04-01.py
+          uv run rodando_agente_avaliador_tics_historico_2016-04-01_to_2018-01-01.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
