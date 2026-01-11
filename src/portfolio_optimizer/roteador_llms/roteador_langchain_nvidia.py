@@ -3,7 +3,6 @@ from typing import Any, Optional
 
 from langchain_nvidia_ai_endpoints import ChatNVIDIA  # pylint: disable=import-error
 from pydantic import BaseModel
-
 from retrying import retry
 
 logging.basicConfig(level=logging.INFO)
@@ -21,8 +20,8 @@ class RouterLangChainNvidia:
         self.messages = messages
         self.model_llm = model_llm
         self.strutured_output = strutured_output
-    
-    #@retry(stop_max_attempt_number=2, wait_fixed=2000)
+
+    # @retry(stop_max_attempt_number=2, wait_fixed=2000)
     async def llm_nvidia(self) -> Optional[str]:
         """
         Chama modelo Nvidia via LangChain
@@ -35,8 +34,8 @@ class RouterLangChainNvidia:
         except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error("Erro no llm_nvidia: %s", e)
             raise
-    
-    #@retry(stop_max_attempt_number=2, wait_fixed=2000)
+
+    # @retry(stop_max_attempt_number=2, wait_fixed=2000)
     async def llm_nvidia_structured(self) -> Optional[Any] | BaseModel:
         """
         Chama modelo Nvidia via LangChain com saída estruturada

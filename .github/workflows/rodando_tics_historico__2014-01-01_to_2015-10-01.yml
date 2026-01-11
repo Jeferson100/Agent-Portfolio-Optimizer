@@ -1,7 +1,7 @@
 name: Rodando Avaliação Tics Historicos 2014-01-01_to_2015-10-01
 on: 
     workflow_run:
-        workflows: ["Rodando Avaliação Tics Historicos 2014-01-01_to_2015-10-01"]
+        workflows: ["Rodando Avaliação Tics Historicos 2013-10-01_to_2015-07-01"]
         types:
             - completed
     workflow_dispatch:

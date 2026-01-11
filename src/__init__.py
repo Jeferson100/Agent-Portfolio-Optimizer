@@ -13,7 +13,15 @@ from portfolio_optimizer.prompts.prompts_criador_carteira import (
     PROMPT_CRIANDO_CARTEIRA,
     RECOMENDACAO_SENIOR,
 )
+from portfolio_optimizer.roteador_llms.roteador_api_nvidia import RouterApiNvidia
+from portfolio_optimizer.roteador_llms.roteador_cerebras import RouterCerebras
+from portfolio_optimizer.roteador_llms.roteador_groq import RouterGroq
+from portfolio_optimizer.roteador_llms.roteador_huggingface import RouterPydanticAI
+from portfolio_optimizer.roteador_llms.roteador_langchain_nvidia import (
+    RouterLangChainNvidia,
+)
 from portfolio_optimizer.roteador_llms.roteador_llms import LlmRouter
+from portfolio_optimizer.roteador_llms.roteador_openai_nvidia import RouterOpenaiNvidia
 from portfolio_optimizer.state_otputs.output_classicacao_tics import (
     SeniorAvaliador,
     TickerLevel,
@@ -31,13 +39,6 @@ from portfolio_optimizer.utils.funcoes_utilitarias import (
     transformando_data_frame_para_markdown,
     tratando_resposta_router_llm,
 )
-
-from portfolio_optimizer.roteador_llms.roteador_api_nvidia import RouterApiNvidia
-from portfolio_optimizer.roteador_llms.roteador_cerebras import RouterCerebras
-from portfolio_optimizer.roteador_llms.roteador_groq import RouterGroq
-from portfolio_optimizer.roteador_llms.roteador_huggingface import RouterPydanticAI
-from portfolio_optimizer.roteador_llms.roteador_langchain_nvidia import RouterLangChainNvidia
-from portfolio_optimizer.roteador_llms.roteador_openai_nvidia import RouterOpenaiNvidia
 
 # from .portfolio_optimizer import *  # noqa: F403, F401
 

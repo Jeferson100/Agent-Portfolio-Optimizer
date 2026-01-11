@@ -1,3 +1,4 @@
+import asyncio
 from typing import Any, Dict, Literal
 
 from ..prompts.prompts_avaliador_tics import PROMPT_ANALISE, PROMPT_AVALIADOR
@@ -8,7 +9,6 @@ from ..tratando_dados.tratando_dados_fundamentalistas import (
 )
 from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 
-import asyncio
 
 async def get_data_fundamentalistas(state) -> Dict[str, str]:
     tic = state.get("tic")
@@ -42,7 +42,7 @@ async def analista_fundamentalista(state) -> Dict[Any, Any]:
     response = await llm.llm_router()
 
     response_trat = tratando_resposta_router_llm(response, TickerLevel)
-    
+
     await asyncio.sleep(2)
 
     return {

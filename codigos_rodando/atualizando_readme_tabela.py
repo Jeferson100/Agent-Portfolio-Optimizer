@@ -3,6 +3,7 @@ import logging
 import warnings
 from langchain_nvidia_ai_endpoints import ChatNVIDIA 
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -20,6 +21,9 @@ except UnicodeDecodeError:
     with open('../README.md', 'r', encoding='latin-1') as file:
         readme_content = file.readlines()
         
+with open("../data/resultado_carteira_futuro/variacao_carteira_porcentagem.json", "r") as f:
+    variacao_carteira_porcentagem = json.load(f)
+        
 logger.info("Arquivo README.md carregado com sucesso.")
 
 
@@ -28,9 +32,15 @@ carteira_atual_markdown = carteira_atual.to_markdown()
 PROMPT = """
 You are a senior investment analyst specialized in stock portfolio analysis.
 
-## Context
+</Context>
 You will receive data from a stock portfolio for the current quarter with the following information:
 {carteira}
+
+The variation of the portfolio in this period is {variacao_carteira_porcentagem}%.
+
+The value invested of R$1,000 is for portfolio total.
+
+</Context>
 
 <Your Task>
 Develop an objective commentary on the portfolio's performance, analyzing:
@@ -53,7 +63,7 @@ Develop an objective commentary on the portfolio's performance, analyzing:
 </Format>
 """
 
-PROMPT_FORMATADO = PROMPT.format(carteira=carteira_atual_markdown)
+PROMPT_FORMATADO = PROMPT.format(carteira=carteira_atual_markdown, variacao_carteira_porcentagem=variacao_carteira_porcentagem)
 
 llm = ChatNVIDIA(model="meta/llama-4-maverick-17b-128e-instruct")
 

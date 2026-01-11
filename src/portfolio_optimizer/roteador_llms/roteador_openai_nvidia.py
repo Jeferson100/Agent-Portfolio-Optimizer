@@ -1,10 +1,10 @@
 import logging
+import os
 from typing import Any, Dict, Optional
 
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from pydantic import BaseModel
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -12,8 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 client = AsyncOpenAI(
-    base_url="https://integrate.api.nvidia.com/v1",
-    api_key=os.getenv("NVIDIA_API_KEY")
+    base_url="https://integrate.api.nvidia.com/v1", api_key=os.getenv("NVIDIA_API_KEY")
 )
 
 
@@ -44,12 +43,14 @@ class RouterOpenaiNvidia:
                 messages=[
                     {"role": "user", "content": self.messages},
                 ],
-                response_format=self.strutured_output, # type: ignore
+                response_format=self.strutured_output,  # type: ignore
             )
             content = response.choices[0].message.parsed or "{}"
             return content  # type: ignore
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Erro ao chamar modelo Openai Nvidia com saída estruturada: %s", e)
+            logger.error(
+                "Erro ao chamar modelo Openai Nvidia com saída estruturada: %s", e
+            )
         return None
 
     async def llm_openai_nvidia(self) -> str:

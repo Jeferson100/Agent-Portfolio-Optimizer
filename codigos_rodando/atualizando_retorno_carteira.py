@@ -63,11 +63,16 @@ df_carteira['valor_inicial_investido_1000'] = (df_carteira['pesos_carteira']*100
 
 df_carteira['valor_atual_investido_1000'] = round((df_carteira['diferenca_inicio_atual(em %)'] + 1) * df_carteira['valor_inicial_investido_1000'],2)
 
+variacao_carteira_porcentagem = (round((df_carteira['valor_atual_investido_1000'].sum() - df_carteira['valor_inicial_investido_1000'].sum())/df_carteira['valor_inicial_investido_1000'].sum(),4))*100
+
 logger.info("Valores computados com sucesso.")
 
 with open("../data/resultado_carteira_futuro/trimestre_atual.json", "w") as f:
     json.dump(trimestre_atual,f)
-    
+
+with open("../data/resultado_carteira_futuro/variacao_carteira_porcentagem.json", "w") as f:
+    json.dump(variacao_carteira_porcentagem,f)    
+
 df_carteira.to_csv('../data/resultado_carteira_futuro/resultado_carteira_atual.csv')
 
 logger.info("Arquivo salvo com sucesso.")
