@@ -40,6 +40,7 @@ for datas, dict_tics in results_dict.items():
         datas_split = datas.split('_to_')
         
         start_data = datas_split[0]
+        
         end_data = datas_split[1]
     
         logger.info(f"Processando período: {datas}")

@@ -2,11 +2,11 @@ import logging
 import os
 from typing import Any, Dict, Optional
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
-load_dotenv()
+# load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
