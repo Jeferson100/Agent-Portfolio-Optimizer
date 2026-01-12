@@ -1,7 +1,7 @@
 name: Atualizando Retorno Carteira
 on: 
     schedule:
-      - cron: "0 18 * * *"
+      - cron: "0 21 * * *"
   
     workflow_dispatch:
 
