@@ -3,7 +3,6 @@ from typing import Any, Optional
 
 from langchain_nvidia_ai_endpoints import ChatNVIDIA  # pylint: disable=import-error
 from pydantic import BaseModel
-from retrying import retry
 
 logging.basicConfig(level=logging.INFO)
 

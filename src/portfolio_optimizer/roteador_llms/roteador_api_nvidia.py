@@ -2,18 +2,14 @@ import json
 import logging
 import os
 import re
-from typing import Any, Optional, Type, TypeVar
+from typing import Any, Optional
 
 import httpx
 import requests
 from pydantic import BaseModel, ValidationError
-from retrying import retry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-
-# T = TypeVar("T", bound=BaseModel)
 
 
 class RouterApiNvidia:
@@ -56,15 +52,14 @@ class RouterApiNvidia:
         }
 
         if self.strutured_output:
-
-            payload["messages"].append(
+            payload["messages"].append(  # type: ignore
                 {
                     "role": "system",
                     "content": f"Respond EXCLUSIVELY in JSON. Schema: {json.dumps(self.strutured_output.model_json_schema())}",
                 }
             )
 
-        payload["messages"].append({"role": "user", "content": self.messages})
+        payload["messages"].append({"role": "user", "content": self.messages})  # type: ignore
 
         try:
             response = self.session.post(
@@ -80,10 +75,10 @@ class RouterApiNvidia:
             return content
 
         except requests.exceptions.RequestException as e:
-            logger.error(f"Erro na chamada da API: {e}")
+            logger.error("Erro na chamada da API: Nvidia: %s", e)
             return None
         except (ValidationError, json.JSONDecodeError) as e:
-            logger.error(f"Erro ao processar formato estruturado: {e}")
+            logger.error("Erro ao processar formato estruturado: %s", e)
             return None
 
     # @retry(stop_max_attempt_number=2, wait_fixed=2000)
@@ -94,14 +89,14 @@ class RouterApiNvidia:
         payload = {"model": self.model_llm, "messages": [], "temperature": 0.1}
 
         if self.strutured_output:
-            payload["messages"].append(
+            payload["messages"].append(  # type: ignore
                 {
                     "role": "system",
                     "content": f"Respond EXCLUSIVELY in JSON. Schema: {json.dumps(self.strutured_output.model_json_schema())}",
                 }
             )
 
-        payload["messages"].append({"role": "user", "content": self.messages})
+        payload["messages"].append({"role": "user", "content": self.messages})  # type: ignore
 
         async with httpx.AsyncClient(timeout=60.0) as client:
             try:
@@ -119,8 +114,8 @@ class RouterApiNvidia:
                 return content
 
             except httpx.HTTPStatusError as e:
-                logger.error(f"Erro HTTP: {e.response.status_code} - {e.response.text}")
+                logger.error("Erro HTTP na chamada da API Nvidia: %s", e)
                 return None
-            except Exception as e:
-                logger.error(f"Erro inesperado: {e}")
+            except Exception as e:  # pylint: disable=broad-exception-caught
+                logger.error("Erro na chamada da API Nvidia: %s", e)
                 return None
