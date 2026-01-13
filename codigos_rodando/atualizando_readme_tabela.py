@@ -76,7 +76,7 @@ section_found = False
 for i, line in enumerate(readme_content):
     if '## Carteria de ações para o trimestre' in line:
         index_inicio = i
-    if '## Fluxo geral' in line:
+    if '## 🤖 Agentes e Fluxos de Trabalho' in line:
         index_fim = i
 
 readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
