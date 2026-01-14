@@ -1,7 +1,7 @@
-name: Rodando Avaliação Tics Historicos 2018-07-01_to_2021-04-01
+name: Rodando Avaliação Tics Historicos 2018-01-01_to_2019-10-01
 on:
     workflow_run:
-        workflows: ["Rodando Avaliação Tics Historicos 2018-04-01_to_2021-01-01"]
+        workflows: ["Rodando Avaliação Tics Historicos 2017-10-01_to_2019-07-01"]
         types:
             - completed
     workflow_dispatch:
@@ -59,7 +59,7 @@ jobs:
         run: |
           cd ./codigos_rodando/rodando_carteira_historica
           pwd
-          uv run rodando_agente_avaliador_tics_historico_2018-07-01_to_2021-04-01.py
+          uv run rodando_agente_avaliador_tics_historico_2018-01-01_to_2019-10-01.py
       - name : Configure Git
         run: |
             git config --global user.email "sehnemjeferson@gmail.com"
@@ -73,6 +73,6 @@ jobs:
                   echo "No changes to commit"
                   exit 0
               fi
-              git commit -m "rodando_agente_avaliador_tics_historico_2018-07-01_to_2021-04-01: $(date +'%Y-%m-%d')"
+              git commit -m "rodando_agente_avaliador_tics_historico_2018-01-01_to_2019-10-01: $(date +'%Y-%m-%d')"
               git pull --rebase https://Jeferson100:${{ secrets.AGENT_PORTFOLIO_OPTIMIZER }}@github.com/Jeferson100/Agent-Portfolio-Optimizer.git main
               git push https://Jeferson100:${{ secrets.AGENT_PORTFOLIO_OPTIMIZER }}@github.com/Jeferson100/Agent-Portfolio-Optimizer.git HEAD:main

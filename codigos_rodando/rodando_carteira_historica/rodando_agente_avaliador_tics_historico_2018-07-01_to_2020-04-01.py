@@ -34,9 +34,9 @@ pd_tic = pd.read_csv(
         )
 tics = pd_tic['tic'].unique().tolist()
 
-start_data = "2018-01-01"
+start_data = "2018-07-01"
 
-end_data = "2020-10-01"
+end_data = "2020-04-01"
     
 results_dict = asyncio.run(rodando_tics_sem_sequencia(start_data, end_data, tics))
         
