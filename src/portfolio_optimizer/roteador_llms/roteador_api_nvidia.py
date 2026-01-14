@@ -8,7 +8,7 @@ import httpx
 import requests
 from pydantic import BaseModel, ValidationError
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 logger = logging.getLogger(__name__)
 
 

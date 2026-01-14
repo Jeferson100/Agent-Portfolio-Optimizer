@@ -10,7 +10,7 @@ from .roteador_groq import RouterGroq
 from .roteador_langchain_nvidia import RouterLangChainNvidia
 from .roteador_openai_nvidia import RouterOpenaiNvidia
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 logger = logging.getLogger(__name__)
 

@@ -9,6 +9,12 @@ from ..tratando_dados.tratando_dados_fundamentalistas import (
 )
 from ..utils.funcoes_utilitarias import tratando_resposta_router_llm
 
+import logging
+
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+logger = logging.getLogger(__name__)
+
 
 async def get_data_fundamentalistas(state) -> Dict[str, str]:
     tic = state.get("tic")
@@ -22,6 +28,8 @@ async def get_data_fundamentalistas(state) -> Dict[str, str]:
     dados = await trat.coleta_dados_fundamentalistas()
 
     dados_markdow = dados.to_markdown()
+    
+    logger.info("Dados fundamentais coletados com sucesso")
 
     return {"dados_fundamentalistas": str(dados_markdow)}
 
@@ -42,6 +50,8 @@ async def analista_fundamentalista(state) -> Dict[Any, Any]:
     response = await llm.llm_router()
 
     response_trat = tratando_resposta_router_llm(response, TickerLevel)
+    
+    logger.info("Analise fundamentalista feita com sucesso")
 
     await asyncio.sleep(2)
 
@@ -67,6 +77,8 @@ async def avaliador_analista_fundamentalista(state) -> Dict[Any, Any]:
     )
 
     response = await llm.llm_router()
+    
+    logger.info("Avaliador da analise fundamentalista feito com sucesso")
 
     await asyncio.sleep(2)
 
@@ -86,6 +98,7 @@ async def avaliador_analista_fundamentalista(state) -> Dict[Any, Any]:
 def should_continue(state) -> Literal["END", "analise_fundamentalista"]:
     avaliacao = state.get("avaliacao_analise")
     interacao = state.get("interacao")
+    logger.info(f"Avaliacao: {avaliacao}, Interacao: {interacao}")
     if avaliacao or interacao >= 4:
         return "END"
     return "analise_fundamentalista"

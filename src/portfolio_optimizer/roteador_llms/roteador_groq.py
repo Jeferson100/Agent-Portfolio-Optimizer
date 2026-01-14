@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional
 from groq import AsyncGroq
 from pydantic import BaseModel
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 logger = logging.getLogger(__name__)
 
 client = AsyncGroq()

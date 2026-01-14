@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 logger = logging.getLogger(__name__)
 
