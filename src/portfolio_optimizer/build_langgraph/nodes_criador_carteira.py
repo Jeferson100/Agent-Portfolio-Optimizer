@@ -11,7 +11,7 @@ from ..roteador_llms.roteador_llms import LlmRouter
 from ..state_otputs.output_criador_carteira import CarteiraWeights
 from ..utils import normalizar_pesos, tratando_resposta_router_llm
 
-logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')  # pylint: disable=logging-fstring-interpolation
 
 logger = logging.getLogger(__name__)
 
@@ -202,9 +202,7 @@ def should_continue(state) -> Literal["END", "analista_avaliador_peso_carteira"]
 
     no_ticker_errors = tics_error is None
     
-    logger.info(
-        f"Interacao: {interacao}"
-    )
+    logger.info("Interacao: %s",interacao)
 
     if max_iterations_reached and no_ticker_errors:
         return "END"
