@@ -1,9 +1,5 @@
-name: Rodando Carteira Historica
+name: Rodando Criando Carteira Historica
 on: 
-  workflow_run:
-    workflows: ["Rodando Avaliação Tics Historicos 2025"]
-    types:
-      - completed
   workflow_dispatch:
 
 jobs:

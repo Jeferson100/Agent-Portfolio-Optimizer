@@ -5,9 +5,6 @@ from phoenix.otel import register
 from openinference.instrumentation.langchain import LangChainInstrumentor
 from portfolio_optimizer import BuildGraphCriadorCarteira, StateCarteira, transformando_data_frame_para_markdown
 import json
-from typing import List
-import yfinance as yf
-import pandas as pd
 import time
 from IPython.display import display, Markdown
 from utils import correlacao, transformando_data_frame_para_markdown, selecionar_tics_bom_excelente
@@ -26,13 +23,29 @@ LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-with open("../data/avaliacao_tics_historico.json", "r") as f:
-    results_dict = json.load(f)
+"""with open("../data/avaliacao_tics_historico.json", "r") as f:
+    results_dict = json.load(f)"""
+    
+    
+diretorio = '../../data/avaliacao_historicos_tics'
+
+arquivos = os.listdir(diretorio)
+
+avaliacoes_historicas = {}
+
+for arquivo in arquivos:
+    name_arquivo = arquivo.split(".")[0].split("avaliacao_tics_historico_")[1]
+    try:
+        with open(os.path.join(diretorio, arquivo), 'r') as f:
+            avaliacoes_historicas[name_arquivo] = json.load(f)
+    except:
+        logger.error(f"Erro ao carregar o arquivo {arquivo}")
+        pass
 
 
 results_pesos = {}
 
-for datas, dict_tics in results_dict.items():
+for datas, dict_tics in avaliacoes_historicas.items():
     display(Markdown(f"## Iniciando o processo para o periodo de {datas}"))
     try:
         start = time.time()
@@ -77,5 +90,5 @@ for datas, dict_tics in results_dict.items():
     except Exception as e:
         logger.error(f"Erro ao processar {datas}: {e}")
 
-with open("../data/pesos_carteira_historico.json", "w") as f:
+with open("../../data/pesos_carteira_historico.json", "w") as f:
     json.dump(results_pesos, f)

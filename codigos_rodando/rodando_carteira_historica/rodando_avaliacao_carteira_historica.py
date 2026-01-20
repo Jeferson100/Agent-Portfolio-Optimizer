@@ -13,13 +13,13 @@ plt.figure(figsize=(10, 6))
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-with open("../data/pesos_carteira_historico.json", "r") as f:
+with open("../../data/pesos_carteira_historico.json", "r") as f:
     results_dict = json.load(f)
     
  
 valor_investido = 1000   
 
-save_path = "../data/"
+save_path = "../../data/"
 
 
 

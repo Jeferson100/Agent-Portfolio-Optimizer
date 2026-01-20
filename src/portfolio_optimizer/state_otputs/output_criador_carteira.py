@@ -9,5 +9,5 @@ class CarteiraWeights(BaseModel):
     )
     justification: str = Field(
         description="Justification about the allocation. Explain why the weights of each asset are chosen.",
-        max_length=1000,
+        max_length=2000,
     )

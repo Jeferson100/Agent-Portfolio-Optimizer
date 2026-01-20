@@ -1,7 +1,7 @@
 name: Rodando Avaliação Carteira Historica
 on: 
   workflow_run:
-    workflows: ["Rodando Carteira Historica"]
+    workflows: ["Rodando Criando Carteira Historica"]
     types:
       - completed
   workflow_dispatch:
