@@ -49,7 +49,7 @@ jobs:
           PHOENIX_API_KEY: ${{ secrets.PHOENIX_API_KEY }}
           PHOENIX_COLLECTOR_ENDPOINT: ${{ secrets.PHOENIX_COLLECTOR_ENDPOINT }}
         run: |
-          cd ./codigos_rodando
+          cd ./codigos_rodando/rodando_carteira_historica
           pwd
           uv run rodando_criando_carteira_historico.py
       - name : Configure Git
