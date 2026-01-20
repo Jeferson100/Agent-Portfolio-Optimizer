@@ -51,9 +51,9 @@ class LlmRouter:
             "API_Nvidia": kwargs.get(
                 "api_nvidia_models",
                 [
-                    "deepseek-ai/deepseek-v3.2",
                     "nvidia/nemotron-3-nano-30b-a3b",
                     "moonshotai/kimi-k2-instruct",
+                    "deepseek-ai/deepseek-v3.2",
                     "moonshotai/kimi-k2-instruct-0905",
                     "meta/llama-4-scout-17b-16e-instruct",
                     "qwen/qwen3-next-80b-a3b-instruct",
