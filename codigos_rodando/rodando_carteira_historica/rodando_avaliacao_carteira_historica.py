@@ -50,6 +50,9 @@ for key, value in results_dict.items():
     except Exception as e:
         logger.error(f"Erro ao computar Markowitz para o período {start} a {end}: {e}")
         continue
+
+
+sorted_data = dict(sorted(pesos_carteira_marcowitz.items(), key=lambda x: x[0].split('_to_')[0]))
     
     
 logger.info("Coletando dados das ações da carteira e do markowitz para o proximo periodo")    
@@ -79,7 +82,6 @@ for key, value in results_dict.items():
         logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
         end = date_now
 
-        
     logger.info(f"Baixando dados da carteira de {start} a {end}, para as acoes {acoes_sa}")
     
     precos_carteira[f"{start}"] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
