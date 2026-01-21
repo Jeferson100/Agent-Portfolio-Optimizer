@@ -94,19 +94,44 @@ Além das avaliações individuais, o agente utiliza uma matriz de correlação 
 
 Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iterações para ajustar pesos e ativos até atingir o critério de qualidade exigido.
 
-## Simulação de uma Carteira de Ações ao longo de varios anos
+## 📈 Simulação de Carteira de Ações Histórica
 
-Para simular a validade do agentes, simulei uma carteira de ações brasileiras ao longo de varios anos. Com isso, pude avaliar o desempenho do agente ao longo do tempo e identificar se a estrategia era eficiente.
+Este módulo valida a eficácia dos agentes inteligentes através da simulação de uma carteira de ações brasileiras ao longo de múltiplos anos. O objetivo é avaliar o desempenho das estratégias geradas pelos agentes em diferentes ciclos de mercado para identificar sua consistência e eficiência.
 
-![Simulação de uma Carteira de Ações ao longo de varios anos](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/image/grafico_retornos_carteira_historico.png)
+![Desempenho da Carteira vs Benchmarks](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/grafico_retornos_carteira_historico.png)
 
-Como funcionou a simulação:
+---
 
-Mantive a mesma idea, peguei um intervalo de dados, geralmente 7 a 8 trimestre, avalie as acoes para aquele intervalo, apos isso selecionei as acaoes avaliadas com selo `Excellent` e `Good`, e apos isso, o proximo agente gerou uma carteira com esses ativos. Para avaliar o desempenho para a carteira desse periodo, avalie essa carteira no proximo trimestre e assim por diante.
+### 🛠️ Metodologia da Simulação
 
-Um exemplo:
+A simulação utiliza uma abordagem de **janelas deslizantes (rolling windows)** para replicar o comportamento real de um investidor:
 
-Para o periodo inicial da simulacao foi de 2013-04-01 ate 2015-01-01, com a avaliacao da carteira de 2015-01-01 para 2015-04-01, e assim por diante.
+1.  **Análise Retrospectiva:** O agente analisa um intervalo de dados históricos (geralmente entre 7 e 8 trimestres).
+2.  **Filtragem por Qualidade:** São selecionados apenas os ativos que receberam as classificações `Excellent` (Excelente) e `Good` (Bom) durante a análise.
+3.  **Otimização e Alocação:** Um agente especializado gera a composição ideal da carteira com base nesses ativos selecionados.
+4.  **Validação Out-of-Sample:** O desempenho da carteira é medido no **trimestre subsequente** ao período de análise.
+
+### Exemplo Prático:
+* **Período de Análise:** 01/04/2013 a 01/01/2015.
+* **Período de Avaliação (Backtest):** O rendimento é calculado entre 01/01/2015 e 01/04/2015.
+* **Próximo Passo:** A janela desliza um trimestre à frente e o processo se repete até os dias atuais.
+
+---
+
+### 🚀 Objetivos do Teste
+* Validar a capacidade de seleção (Stock Picking) do agente.
+* Testar a robustez dos pesos atribuídos a cada ativo.
+* Comparar o retorno acumulado e a volatilidade contra benchmarks do mercado brasileiro.
+
+### ⚠️ Considerações Importantes e Limitações
+
+Ao analisar os resultados desta simulação, é necessário considerar dois fatores críticos que podem influenciar os retornos apresentados:
+
+### 1. Viés de Sobrevivência (Survivorship Bias)
+A base de dados utilizada pode conter um **viés de sobrevivência**, uma vez que as ações selecionadas são de empresas que permanecem ativas ou listadas até o presente momento. Empresas que faliram, foram deslistadas ou sofreram fusões durante o período de 2013 a 2024 podem não estar totalmente representadas, o que tende a elevar artificialmente a média de retorno histórico do modelo.
+
+### 2. Exposição Crítica e Treinamento do Modelo
+Existe a possibilidade de **Data Leakage** (vazamento de dados) ou viés de treinamento. Como os modelos de linguagem (LLMs) utilizados pelos agentes foram treinados com dados históricos que englobam parte do período simulado, o agente pode "conhecer" o sucesso futuro de certas empresas por meio de seus pesos internos de treinamento, em vez de basear sua decisão puramente nos dados do trimestre analisado.
 
 ## Tecnologias e bibliotecas
 
@@ -114,6 +139,8 @@ Para o periodo inicial da simulacao foi de 2013-04-01 ate 2015-01-01, com a aval
 - **Pydantic / Pydantic AI** para modelos de saída estruturada
 - **LangGraph** para orquestração do fluxo de agentes/tools
 - **Clientes de LLM**:
+  - `Nvidia`
+  - `openai` (NVIDIA)
   - `langchain-nvidia-ai-endpoints` (NVIDIA)
   - `groq` (Groq)
   - `cerebras.cloud.sdk` (Cerebras)

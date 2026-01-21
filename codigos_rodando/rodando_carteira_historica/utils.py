@@ -281,8 +281,8 @@ def compute_metrics(price_df):
         p = price_df[col].dropna()
         #dr = daily_returns_carteira(p, pesos)
         metrics[col] = {
-            "retorno_medio_anual": annualized_mean_return(p),
-            "volatilidade_anual": annualized_volatility(p),
+            "retorno_medio_anual": annualized_mean_return(daily_returns(p)),
+            "volatilidade_anual": annualized_volatility(daily_returns(p)),
             "cagr": cagr(p),
             "max_drawdown": max_drawdown(p),
             "avg_drawdown": avg_drawdown(p),
