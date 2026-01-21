@@ -31,21 +31,19 @@ Primero um agente avalia os ativos classificando-os por qualidade atraves dos da
 | CMIG4  |                       11.16 |                     10.79 |             0.05 |                    -0.37 |                        -0.0332 |                             50 |                        48.34 |
 | PRIO3  |                       41.76 |                     44.93 |             0.05 |                     3.17 |                         0.0759 |                             50 |                        53.8  |
 ### Comentário sobre a carteira
-A carteira de investimentos apresentou uma variação de 2,1% no período analisado, considerando um investimento inicial de R$1.000. Para avaliar sua performance, é fundamental analisar os dados fornecidos.
+A carteira de investimentos apresentou uma variação de 2,1% no período analisado, entre 02/01/2026 e 19/01/2026. Considerando o valor inicial investido de R$1.000, o valor atual seria de R$1.021,00. 
 
-Os dados mostram que a carteira é diversificada, com investimentos distribuídos em 13 ativos diferentes. A distribuição dos pesos na carteira varia entre 0,05 e 0,18, indicando uma diversificação relativamente equilibrada, com destaque para MULT3, que detém 18% do peso total.
+Avaliando a composição da carteira e o desempenho individual dos ativos, observa-se uma distribuição de pesos relativamente equilibrada entre os diferentes papéis, com destaque para MULT3 (18%), BMOB3 (9%), ALOS3 (9%), CLSC4 (7%), CGRA4 (7%), WEGE3 (7%), ALPA3 (7%), ENEV3 (7%), FIQE3 (7%) e SBSP3 (7%), além de IGTI11 (5%), CMIG4 (5%) e PRIO3 (5%).
 
-Ao examinar a variação individual dos ativos, nota-se que 8 dos 13 ativos apresentaram variação positiva, enquanto 5 tiveram desempenho negativo. Os destaques positivos incluem MULT3 (8,17%), PRIO3 (7,59%) e CLSC4 (6,42%), que contribuíram significativamente para o resultado geral da carteira. Por outro lado, os ativos com pior desempenho foram SBSP3 (-6,82%), WEGE3 (-4,21%) e CGRA4 (-3,33%).
+A análise da variação individual dos ativos revela que alguns apresentaram desempenho positivo, enquanto outros registraram perdas. Os destaques positivos incluem MULT3 (+8,17%), CLSC4 (+6,42%), PRIO3 (+7,59%), IGTI11 (+5,65%) e ENEV3 (+4,15%), que contribuíram para o resultado geral da carteira. Por outro lado, SBSP3 (-6,82%), WEGE3 (-4,21%), CGRA4 (-3,33%) e CMIG4 (-3,32%) apresentaram desempenhos negativos, afetando o resultado total.
 
-A análise da contribuição individual dos ativos para o resultado geral da carteira é crucial. MULT3, com seu peso de 18%, foi o principal contribuinte para o resultado positivo, com uma contribuição de aproximadamente 1,47% (0,18 x 8,17%). Outros ativos, como PRIO3 e CLSC4, também contribuíram positivamente, com 0,38% e 0,45%, respectivamente.
+É importante notar que os ativos com maior peso na carteira, como MULT3 e BMOB3, apresentaram variações positivas, o que contribuiu para a manutenção de um resultado geral positivo. No entanto, a presença de ativos com desempenhos negativos, especialmente aqueles com pesos significativos, como SBSP3 e WEGE3, indica oportunidades para ajustes na composição da carteira.
 
-Por outro lado, os ativos com desempenho negativo, como SBSP3 e WEGE3, tiveram um impacto negativo na carteira. SBSP3, com um peso de 7%, contribuiu negativamente em aproximadamente -0,48% (0,07 x -6,82%). WEGE3 e CGRA4 também tiveram contribuições negativas, embora menores.
+Considerando o período analisado, a variação de 2,1% pode ser considerada um resultado satisfatório, tendo em vista que a carteira apresentou uma valorização em um curto período. No entanto, é fundamental contextualizar esse resultado em relação ao mercado e ao benchmark adotado.
 
-Considerando o resultado geral da carteira (2,1%), é possível afirmar que a performance foi satisfatória, uma vez que superou a variação do Ibovespa no mesmo período (embora o valor exato da variação do Ibovespa não seja fornecido). Além disso, a diversificação da carteira ajudou a mitigar os efeitos negativos dos ativos com pior desempenho.
+Uma análise mais aprofundada dos fatores que influenciaram o desempenho dos ativos individuais é necessária para entender as razões por trás das variações observadas. Além disso, é importante avaliar se a composição atual da carteira está alinhada com os objetivos e o perfil de risco do investidor.
 
-No entanto, é importante notar que a carteira poderia ter apresentado um desempenho ainda melhor se os ativos com pior performance tivessem apresentado resultados mais satisfatórios. Portanto, é recomendável revisar a composição da carteira e considerar ajustes para otimizar o desempenho futuro.
-
-Em resumo, a carteira apresentou uma performance satisfatória no período analisado, com uma variação de 2,1%. A diversificação e a presença de ativos com desempenho positivo foram fundamentais para esse resultado. No entanto, é necessário continuar monitorando o desempenho dos ativos e realizar ajustes quando necessário para garantir a maximização dos retornos.
+Em resumo, a carteira apresentou um desempenho positivo no período, impulsionado pelos ganhos em alguns ativos. No entanto, a presença de desempenhos negativos em outros papéis sugere oportunidades para ajustes e otimização da carteira. Uma análise mais detalhada e uma revisão da estratégia de investimento são recomendadas para garantir que a carteira continue a atender às necessidades e objetivos do investidor.
 
 
 ## 🤖 Agentes e Fluxos de Trabalho
@@ -96,11 +94,31 @@ Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iteraç�
 
 ## 📈 Simulação de Carteira de Ações Histórica
 
-Este módulo valida a eficácia dos agentes inteligentes através da simulação de uma carteira de ações brasileiras ao longo de múltiplos anos. O objetivo é avaliar o desempenho das estratégias geradas pelos agentes em diferentes ciclos de mercado para identificar sua consistência e eficiência.
+Este módulo valida a eficácia dos agentes inteligentes através da simulação de uma carteira de ações brasileiras ao longo de múltiplos anos. O objetivo é avaliar o desempenho das estratégias geradas pelos agentes em diferentes ciclos de mercado para identificar sua consistência e eficiência. 
+
+### ⚖️ Benchmarks e Comparativo de Performance
+
+Para medir a qualidade real das decisões dos agentes, o desempenho da carteira simulada é comparado com três indicadores fundamentais:
+
+1.  **Selic:** Representa o custo de oportunidade e a taxa livre de risco do mercado brasileiro.
+2.  **Ibovespa (IBOV):** O principal índice de referência da bolsa brasileira, refletindo a performance média do mercado.
+3.  **Fronteira Eficiente de Markowitz (MVO):** * Para cada período, aplicamos a **Otimização de Variância Mínima** de Harry Markowitz sobre os mesmos ativos selecionados pelo agente.
+    * Este benchmark calcula matematicamente os pesos ideais para obter o maior retorno possível para um determinado nível de risco (volatilidade).
+
 
 ![Desempenho da Carteira vs Benchmarks](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/grafico_retornos_carteira_historico.png)
 
 ---
+### 📊 Metricas de Desempenho
+
+|           |   retorno_medio_anual |   volatilidade_anual |   cagr |   max_drawdown |   avg_drawdown |   calmar |   sortino |
+|:----------|----------------------:|---------------------:|-------:|---------------:|---------------:|---------:|----------:|
+| Selic     |                   9.3 |                  0.2 |    9.7 |            0   |            0   |    nan   |       nan |
+| IBOV      |                  14   |                 23.3 |   11.8 |          -46.8 |           -4   |     25.1 |       nan |
+| Markowitz |                  26.8 |                 19.9 |   23.2 |          -26.1 |           -3.3 |     88.8 |       nan |
+| Carteira  |                  26.2 |                 22.1 |   22.1 |          -35.9 |           -4.1 |     61.5 |       nan |
+
+
 
 ### 🛠️ Metodologia da Simulação
 

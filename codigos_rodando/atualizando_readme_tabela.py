@@ -23,11 +23,15 @@ except UnicodeDecodeError:
         
 with open("../data/resultado_carteira_futuro/variacao_carteira_porcentagem.json", "r") as f:
     variacao_carteira_porcentagem = json.load(f)
+    
+metric = pd.read_csv("../data/metricas_carteiras_historico.csv", index_col=0)
         
 logger.info("Arquivo README.md carregado com sucesso.")
 
 
 carteira_atual_markdown = carteira_atual.to_markdown()
+
+metrics_markdow = (metric.round(3)*100).to_markdown()
 
 PROMPT = """
 You are a senior investment analyst specialized in stock portfolio analysis.
@@ -82,6 +86,17 @@ for i, line in enumerate(readme_content):
 readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
         
 readme_content.insert(index_inicio + 1, f"### Tabela Resultados\n{carteira_atual_markdown}\n### Comentário sobre a carteira\n{response.content}\n\n")
+
+for i, line in enumerate(readme_content):
+    if '### 📊 Metricas de Desempenho' in line:
+        index_inicio = i
+    if '### 🛠️ Metodologia da Simulação' in line:
+        index_fim = i
+
+readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
+        
+readme_content.insert(index_inicio + 1, f"\n{metrics_markdow}\n\n\n")
+readme_content = ''.join(readme_content)
 
 logger.info("Arquivo README.md atualizado com sucesso.")
 
