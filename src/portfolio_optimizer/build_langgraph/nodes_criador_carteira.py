@@ -192,6 +192,7 @@ def verifica_tics_selecionados(state):
 
 
 def should_continue(state) -> Literal["END", "analista_avaliador_peso_carteira"]:
+    
     MAX_ITERATIONS = 3
 
     interacao = state.get("interacao")

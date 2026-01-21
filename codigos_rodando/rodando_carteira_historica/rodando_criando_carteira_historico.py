@@ -9,6 +9,7 @@ import time
 from IPython.display import display, Markdown
 from utils import correlacao, transformando_data_frame_para_markdown, selecionar_tics_bom_excelente
 import asyncio
+from tqdm import tqdm
 
 tracer_provider = register(
   project_name="Agente-Criador-Carteira",
@@ -45,7 +46,7 @@ for arquivo in arquivos:
 
 results_pesos = {}
 
-for datas, dict_tics in avaliacoes_historicas.items():
+for datas, dict_tics in tqdm(avaliacoes_historicas.items()):
     display(Markdown(f"## Iniciando o processo para o periodo de {datas}"))
     try:
         start = time.time()

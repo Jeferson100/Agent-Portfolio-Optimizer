@@ -94,6 +94,20 @@ Além das avaliações individuais, o agente utiliza uma matriz de correlação 
 
 Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iterações para ajustar pesos e ativos até atingir o critério de qualidade exigido.
 
+## Simulação de uma Carteira de Ações ao longo de varios anos
+
+Para simular a validade do agentes, simulei uma carteira de ações brasileiras ao longo de varios anos. Com isso, pude avaliar o desempenho do agente ao longo do tempo e identificar se a estrategia era eficiente.
+
+![Simulação de uma Carteira de Ações ao longo de varios anos](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/image/grafico_retornos_carteira_historico.png)
+
+Como funcionou a simulação:
+
+Mantive a mesma idea, peguei um intervalo de dados, geralmente 7 a 8 trimestre, avalie as acoes para aquele intervalo, apos isso selecionei as acaoes avaliadas com selo `Excellent` e `Good`, e apos isso, o proximo agente gerou uma carteira com esses ativos. Para avaliar o desempenho para a carteira desse periodo, avalie essa carteira no proximo trimestre e assim por diante.
+
+Um exemplo:
+
+Para o periodo inicial da simulacao foi de 2013-04-01 ate 2015-01-01, com a avaliacao da carteira de 2015-01-01 para 2015-04-01, e assim por diante.
+
 ## Tecnologias e bibliotecas
 
 - **Python 3.12+** (ver `pyproject.toml`)

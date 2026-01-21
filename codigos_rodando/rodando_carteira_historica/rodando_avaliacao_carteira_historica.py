@@ -16,12 +16,16 @@ logger = logging.getLogger(__name__)
 with open("../../data/pesos_carteira_historico.json", "r") as f:
     results_dict = json.load(f)
     
- 
+results_dict = dict(sorted(results_dict.items(), key=lambda x: x[0].split('_to_')[0]))  
+
+if '2018-01-01_to_2020-10-01' in results_dict:
+    del results_dict['2018-01-01_to_2020-10-01']
+if '2018-04-01_to_2020-01-01' in results_dict:
+    del results_dict['2018-04-01_to_2020-01-01']
+
 valor_investido = 1000   
 
 save_path = "../../data/"
-
-
 
 logger.info("Gerando pesos marcowitz...")
 
@@ -256,7 +260,9 @@ metricas_carteiras.to_csv(metrics_file)
 
 logger.info(f"✅ Métricas salvas em: {metrics_file}")
 
-grafico_file = os.path.join(save_path, f"grafico_retornos_carteira_historico.png")
+image_path = "../../image"
+
+grafico_file = os.path.join(image_path, f"grafico_retornos_carteira_historico.png")
 
 plt.savefig(grafico_file, dpi=300, bbox_inches='tight')
 
