@@ -1,3 +1,4 @@
+
 import json
 import yfinance as yf
 import logging
@@ -54,58 +55,33 @@ for key, value in results_dict.items():
         logger.error(f"Erro ao computar Markowitz para o período {start} a {end}: {e}")
         continue
 
-#sorted_data = dict(sorted(pesos_carteira_marcowitz.items(), key=lambda x: x[0].split('_to_')[0]))
-  
-logger.info("Coletando dados das ações da carteira e do markowitz para o proximo periodo")
 
+sorted_data = dict(sorted(pesos_carteira_marcowitz.items(), key=lambda x: x[0].split('_to_')[0]))
+    
+    
+logger.info("Coletando dados das ações da carteira e do markowitz para o proximo periodo")    
+
+    
 precos_carteira = {}
 
-end_anterior = "2015-01-01"
-
-acoes_anterior = []
-
 for key, value in results_dict.items():
-
-    data_split = key.split("_to_")
-
-    start = data_split[1]
-   
-    dt_ini = pd.Timestamp(end_anterior)
     
-    dt_fim = pd.Timestamp(start)
-
-    diff_meses = (dt_fim.year - dt_ini.year) * 12 + (dt_fim.month - dt_ini.month)
-
-    if diff_meses > 3 or (diff_meses == 3 and dt_fim.day >= dt_ini.day):
-    
-        acoes_sa_new = acoes_anterior
-        
-        start_new = end_anterior    
-    
-        end_new = start
-        
-        date_now_new = datetime.datetime.now().strftime("%Y-%m-%d")
-        
-        if end_new > date_now_new:
-            logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
-            end_new = date_now_new
-        
-        logger.info(f"Trimestre comecado em {start_new} e finalizado em {end_new} nao possui dados, usando dados da carteira de {start_new} a {end_anterior}, para as acoes {acoes_sa_new}")
-    
-        precos_carteira[f"{start_new}"] = yf.download(acoes_sa_new, start=str(start_new), end= str(end_new))["Close"]
-          
     acoes = list(value['tickers_weights'].keys())
     
     acoes_sa = [acao if acao.endswith(".SA") else f"{acao}.SA"  for acao in acoes]
     
+    data_split = key.split("_to_")
+
+    start = data_split[1]
+    
     data = pd.Timestamp(start)
-        
+    
     end = data + pd.DateOffset(months=3)
-        
+    
     end = end.strftime("%Y-%m-%d")
-        
+    
     date_now = datetime.datetime.now().strftime("%Y-%m-%d")
-        
+    
     if end > date_now:
         logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
         end = date_now
@@ -113,52 +89,18 @@ for key, value in results_dict.items():
     logger.info(f"Baixando dados da carteira de {start} a {end}, para as acoes {acoes_sa}")
     
     precos_carteira[f"{start}"] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
-        
-    end_anterior = end
     
-    acoes_anterior = acoes_sa
-
-precos_carteira = dict(sorted(precos_carteira.items(), key=lambda x: x[0]))
-
+    pesos = list(value['tickers_weights'].values())
+    
 precos_carteira_marcowitz = {}
 
-end_anterior = "2015-01-01"
-
-acoes_anterior = []
-
 for key, value in pesos_carteira_marcowitz.items():
+    acoes = list(value.keys())
+    acoes_sa = [acao if acao.endswith(".SA") else f"{acao}.SA"  for acao in acoes]
     
     data_split = key.split("_to_")
 
     start = data_split[1]
-    
-    dt_ini = pd.Timestamp(end_anterior)
-    
-    dt_fim = pd.Timestamp(start)
-
-    diff_meses = (dt_fim.year - dt_ini.year) * 12 + (dt_fim.month - dt_ini.month)
-
-    if diff_meses > 3 or (diff_meses == 3 and dt_fim.day >= dt_ini.day):
-    
-        acoes_sa_new = acoes_anterior
-        
-        start_new = end_anterior    
-    
-        end_new = start
-        
-        date_now_new = datetime.datetime.now().strftime("%Y-%m-%d")
-        
-        if end_new > date_now_new:
-            logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
-            end_new = date_now_new
-        
-        logger.info(f"Trimestre comecado em {start_new} e finalizado em {end_new} nao possui dados, usando dados da carteira de {start_new} a {end_anterior}, para as acoes {acoes_sa_new}")
-    
-        precos_carteira_marcowitz[f"{start_new}"] = yf.download(acoes_sa_new, start=str(start_new), end= str(end_new))["Close"]
-    
-    acoes = list(value.keys())
-    
-    acoes_sa = [acao if acao.endswith(".SA") else f"{acao}.SA"  for acao in acoes]
     
     data = pd.Timestamp(start)
     
@@ -171,113 +113,20 @@ for key, value in pesos_carteira_marcowitz.items():
     if end > date_now:
         logger.info("Data final da carteira maior que a data atual, ajustando para a data atual.")
         end = date_now
-        
     logger.info(f"Baixando dados de marcowitz {start} a {end}, para as acoes {acoes_sa}")
-    
     precos_carteira_marcowitz[f'{start}'] = yf.download(acoes_sa, start=str(start), end= str(end))["Close"]
-
-    end_anterior = end
     
-    acoes_anterior = acoes_sa
-
-
+    
 carteira = pd.DataFrame()
-
 carteira_marcowitz = pd.DataFrame()
 
 interacoes = 0
 
-end_anterior = "2015-01-01"
-
 for key, value in results_dict.items():
-    
     data_split = key.split("_to_")
-    
     start = data_split[0]
-    
     end = data_split[1]
-    
-    dt_ini = pd.Timestamp(end_anterior)
-    
-    dt_fim = pd.Timestamp(end)
-    
-    diff_meses = (dt_fim.year - dt_ini.year) * 12 + (dt_fim.month - dt_ini.month)
-    
-    if diff_meses > 6 or (diff_meses == 6 and dt_fim.day >= dt_ini.day):
-        
-        data_new = pd.Timestamp(end_anterior)
-    
-        end_new = data_new + pd.DateOffset(months=3)
-    
-        end_new = end_new.strftime("%Y-%m-%d")
-        
-        precos_carteira_selecionada = precos_carteira[end_new]
-        
-        pesos_sem_erro = verificando_valores_nulos(pesos_carteira_anterior, precos_carteira_selecionada)
-        
-        precos_sem_nan = precos_carteira[end_new].dropna(axis=1)
-        
-        carteira_percentual_acoes = retorno_percentual_acao_individual(pesos_sem_erro, precos_sem_nan)
-        
-        try:
-            
-            precos_carteira_marcowitz_selecionada = precos_carteira_marcowitz[end_new]
-            
-            pesos_sem_erro_markowitz = verificando_valores_nulos(pesos_carteira_marcowitz_selecionada_anterior, precos_carteira_marcowitz_selecionada)
-            
-            pesos_sem_erro_markowitz = {key_: value*100 for key_, value in pesos_sem_erro_markowitz.items()}
-        
-            precos_sem_nan_markwitz = precos_carteira_marcowitz[end_new].dropna(axis=1)
-        
-            carteira_percentual_acoes_marcowitz = retorno_percentual_acao_individual(pesos_sem_erro_markowitz, precos_sem_nan_markwitz)
-        except Exception as e:  
-            logger.info(f"Erro ao obter:{e}")
-        
-        data = pd.DataFrame(pesos_sem_erro, index=["Pesos"]).T
-        data_markwitz = pd.DataFrame(pesos_sem_erro_markowitz, index=["Pesos"]).T
-        
-        if not carteira_percentual_acoes.empty:
-            data['retornos em %'] = pd.DataFrame(carteira_percentual_acoes)
-            data_markwitz['retornos markwitz em %'] = pd.DataFrame(carteira_percentual_acoes_marcowitz)
-        else:
-            print("Nenhum dado foi obtido!")
-        
-        display(data.T.style.set_caption("Pesos").background_gradient(cmap="Blues"))
-    
-        display(data_markwitz.T.style.set_caption("Pesos").background_gradient(cmap="Blues"))
-        
-        data.to_csv(f"{save_path}/historico_carteira/pesos_{key}_carteira.csv")
-        
-        data_markwitz.to_csv(f"{save_path}/historico_carteira_markowitz/pesos_{key}_carteira_markowitz.csv")
-        
-        if interacoes == 0:
-            valor_carteira = retorno_carteira_monetario(precos_sem_nan, pesos_sem_erro.values(), valor_investido)
-            
-            valor_carteira_markwitz = retorno_carteira_monetario(precos_sem_nan_markwitz, pesos_sem_erro_markowitz.values(), valor_investido)
-            
-
-            
-        else:   
-            valor_carteira = retorno_carteira_monetario(precos_sem_nan, pesos_sem_erro.values(), valor_atual_carteira)
-            
-            valor_carteira_markwitz = retorno_carteira_monetario(precos_sem_nan_markwitz, pesos_sem_erro_markowitz.values(), valor_atual_carteira_markwitz)
-            
-        print(valor_carteira)
-        
-    #print(valor_carteira_markwitz)
-    
-    carteira = pd.concat([carteira, valor_carteira])
-    carteira_marcowitz = pd.concat([carteira_marcowitz, valor_carteira_markwitz])
-    
-    try:
-        valor_atual_carteira = int(valor_carteira.iloc[-1])
-        valor_atual_carteira_markwitz = int(valor_carteira_markwitz.iloc[-1])
-    
-    except:
-        pass
-    
     print("*" * 40)
-    
     display(Markdown(f"**O retorno da carteira para o período: {key}**"))
     
     pesos_carteira = value['tickers_weights']
@@ -292,11 +141,8 @@ for key, value in results_dict.items():
     
     try:
         pesos_carteira_marcowitz_selecionada = pesos_carteira_marcowitz[key]
-        
         precos_carteira_marcowitz_selecionada = precos_carteira_marcowitz[end]
-        
         pesos_sem_erro_markowitz = verificando_valores_nulos(pesos_carteira_marcowitz_selecionada, precos_carteira_marcowitz_selecionada)
-        
         pesos_sem_erro_markowitz = {key_: value*100 for key_, value in pesos_sem_erro_markowitz.items()}
     
         precos_sem_nan_markwitz = precos_carteira_marcowitz[end].dropna(axis=1)
@@ -326,12 +172,13 @@ for key, value in results_dict.items():
         valor_carteira = retorno_carteira_monetario(precos_sem_nan, pesos_sem_erro.values(), valor_investido)
         
         valor_carteira_markwitz = retorno_carteira_monetario(precos_sem_nan_markwitz, pesos_sem_erro_markowitz.values(), valor_investido)
+
         
     else:   
         valor_carteira = retorno_carteira_monetario(precos_sem_nan, pesos_sem_erro.values(), valor_atual_carteira)
         
         valor_carteira_markwitz = retorno_carteira_monetario(precos_sem_nan_markwitz, pesos_sem_erro_markowitz.values(), valor_atual_carteira_markwitz)
-         
+    
     carteira = pd.concat([carteira, valor_carteira])
     carteira_marcowitz = pd.concat([carteira_marcowitz, valor_carteira_markwitz])
     
@@ -344,13 +191,8 @@ for key, value in results_dict.items():
     
     interacoes = interacoes + 1
     
-    end_anterior = end
-    
-    pesos_carteira_marcowitz_selecionada_anterior = pesos_carteira_marcowitz_selecionada
-    
-    pesos_carteira_anterior = pesos_carteira
 
-
+#datas_lista = list(results_dict.keys())
 datas_lista = list(precos_carteira.keys())
 
 start_bove = datas_lista[0]
