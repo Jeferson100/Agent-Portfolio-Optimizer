@@ -97,48 +97,6 @@ Além das avaliações individuais, o agente utiliza uma matriz de correlação 
 
 Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iterações para ajustar pesos e ativos até atingir o critério de qualidade exigido.
 
-## 📈 Simulação de Carteira de Ações Histórica
-
-Este módulo valida a eficácia dos agentes inteligentes através da simulação de uma carteira de ações brasileiras ao longo de múltiplos anos. O objetivo é avaliar o desempenho das estratégias geradas pelos agentes em diferentes ciclos de mercado para identificar sua consistência e eficiência. 
-
-### ⚖️ Benchmarks e Comparativo de Performance
-
-Para medir a qualidade real das decisões dos agentes, o desempenho da carteira simulada é comparado com três indicadores fundamentais:
-
-1.  **Selic:** Representa o custo de oportunidade e a taxa livre de risco do mercado brasileiro.
-2.  **Ibovespa (IBOV):** O principal índice de referência da bolsa brasileira, refletindo a performance média do mercado.
-3.  **Fronteira Eficiente de Markowitz (MVO):** * Para cada período, aplicamos a **Otimização de Variância Mínima** de Harry Markowitz sobre os mesmos ativos selecionados pelo agente.
-    * Este benchmark calcula matematicamente os pesos ideais para obter o maior retorno possível para um determinado nível de risco (volatilidade).
-
-
-![Desempenho da Carteira vs Benchmarks](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/grafico_retornos_carteira_historico.png)
-
----
-### 📊 Metricas de Desempenho
-
-|           |   retorno_medio_anual |   volatilidade_anual |   cagr |   max_drawdown |   avg_drawdown |   calmar |   sortino |
-|:----------|----------------------:|---------------------:|-------:|---------------:|---------------:|---------:|----------:|
-| Selic     |                   9.3 |                  0.2 |    9.7 |            0   |            0   |    nan   |       nan |
-| IBOV      |                  14   |                 23.3 |   11.8 |          -46.8 |           -4   |     25.1 |       nan |
-| Markowitz |                  20   |                 22.1 |   18.6 |          -36.3 |           -4.3 |     51.2 |       nan |
-| Carteira  |                  21.7 |                 23.5 |   20.2 |          -40.9 |           -5.3 |     49.4 |       nan |
-
-
-- [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O primeiro nó  recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restrições:
-
-  - Os ativos devem ter classificação `Excellent` ou `Good`.
-  - O ativo de maior peso deve ser de 20% da carteira.
-  - O ativo de menor peso deve ser de 5% da carteira.
-  - O peso total da carteira deve ser de 100%.
-  - Deve-se priorizar a diversificação da carteira.
-
-- [verify_weight_sum](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O segundo nó verifica se o peso total da carteira foi de 100%. Se não for, ele retorna um erro.
-
-- [verifica_tics_selecionados](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O terceiro nó realiza o cross-check dos tickers sugeridos para garantir que o agente não "inventou" ativos inexistentes durante a geração.
-
-- [analista_avaliador_peso_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O quarto nó recebe a carteira e retorna uma avaliação de qualidade da carteira. Ele retorna um campo booleano de validação e um texto explicando se a carteira é consistente e o que pode ser melhorado.
-
-Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iterações para ajustar pesos e ativos até atingir o critério de qualidade exigido.
 
 ## 📈 Simulação de Carteira de Ações Histórica
 
@@ -151,8 +109,6 @@ Para medir a qualidade real das decisões dos agentes, o desempenho da carteira 
 1.  **Selic:** Representa o custo de oportunidade e a taxa livre de risco do mercado brasileiro.
 2.  **Ibovespa (IBOV):** O principal índice de referência da bolsa brasileira, refletindo a performance média do mercado.
 3.  **Fronteira Eficiente de Markowitz (MVO):** * Para cada período, aplicamos a **Otimização de Variância Mínima** de Harry Markowitz sobre os mesmos ativos selecionados pelo agente.
-    * Este benchmark calcula matematicamente os pesos ideais para obter o maior retorno possível para um determinado nível de risco (volatilidade).
-
 
 ![Desempenho da Carteira vs Benchmarks](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/grafico_retornos_carteira_historico.png)
 
