@@ -56,7 +56,7 @@ class TestCarteiraWeights:
     def test_carteira_weights_justification_max_length(self):
         """Testa validação do tamanho máximo da justificativa."""
         # Arrange
-        long_justification = "A" * 1001  # Excede o limite de 1000 caracteres
+        long_justification = "A" * 2001# Excede o limite de 1000 caracteres
         data = {
             "tickers_weights": {"PETR4.SA": 100.0},
             "justification": long_justification
@@ -66,12 +66,12 @@ class TestCarteiraWeights:
         with pytest.raises(ValidationError) as exc_info:
             CarteiraWeights(**data)
         
-        assert "String should have at most 1000 characters" in str(exc_info.value)
+        assert "String should have at most 2000 characters" in str(exc_info.value)
 
     def test_carteira_weights_justification_exactly_max_length(self):
         """Testa justificativa com exatamente o tamanho máximo."""
         # Arrange
-        max_justification = "A" * 1000  # Exatamente 1000 caracteres
+        max_justification = "A" * 2000  # Exatamente 2000 caracteres
         data = {
             "tickers_weights": {"PETR4.SA": 100.0},
             "justification": max_justification
@@ -81,7 +81,7 @@ class TestCarteiraWeights:
         carteira = CarteiraWeights(**data)
         
         # Assert
-        assert len(carteira.justification) == 1000
+        assert len(carteira.justification) == 2000
 
     def test_carteira_weights_missing_required_fields(self):
         """Testa erro quando campos obrigatórios estão ausentes."""

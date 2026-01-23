@@ -11,7 +11,9 @@ from ..roteador_llms.roteador_llms import LlmRouter
 from ..state_otputs.output_criador_carteira import CarteiraWeights
 from ..utils import normalizar_pesos, tratando_resposta_router_llm
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')  # pylint: disable=logging-fstring-interpolation
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p"
+)  # pylint: disable=logging-fstring-interpolation
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +50,7 @@ async def analista_criador_carteira(state):
     llm = LlmRouter(PROMPT_CRIANDO_CARTEIRA_FORMATED, CarteiraWeights)  # type:ignore
 
     response = await llm.llm_router()
-    
+
     logger.info("Carteira criada com sucesso")
 
     await asyncio.sleep(2)
@@ -95,7 +97,7 @@ async def analista_avaliador_peso_carteira(state):
         PROMPT_AVALIADOR_PESOS_CARTEIRA_FORMATTED,
     )
     response = await llm.llm_router()
-    
+
     logger.info("Avaliador de pesos feito com sucesso!")
 
     await asyncio.sleep(2)
@@ -160,7 +162,6 @@ def verifica_tics_selecionados(state):
 
     tics_comparados = [tic for tic in tics_modelo if tic not in tics_possiveis_sem_sa]
 
-
     if tics_comparados:
         tics_comparados_s = ",".join(tics_comparados)
         logger.info(
@@ -185,14 +186,13 @@ def verifica_tics_selecionados(state):
                                 </🚨 PREVIOUS TICKER SELECTION ERROR DETECTED:**>
                                 """
         }
-    
+
     logger.info("✓ Tickers selecionados com sucesso!")
 
     return {"tics_error": None}
 
 
 def should_continue(state) -> Literal["END", "analista_avaliador_peso_carteira"]:
-    
     MAX_ITERATIONS = 3
 
     interacao = state.get("interacao")
@@ -202,8 +202,8 @@ def should_continue(state) -> Literal["END", "analista_avaliador_peso_carteira"]
     max_iterations_reached = interacao >= MAX_ITERATIONS
 
     no_ticker_errors = tics_error is None
-    
-    logger.info("Interacao: %s",interacao)
+
+    logger.info("Interacao: %s", interacao)
 
     if max_iterations_reached and no_ticker_errors:
         return "END"

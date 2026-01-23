@@ -12,7 +12,9 @@ from pydantic_ai.models.huggingface import (
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO,format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p"
+)
 logger = logging.getLogger(__name__)
 
 
