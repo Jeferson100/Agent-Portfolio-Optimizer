@@ -4,6 +4,7 @@ import warnings
 from langchain_nvidia_ai_endpoints import ChatNVIDIA 
 from dotenv import load_dotenv
 import json
+import datetime
 
 load_dotenv()
 
@@ -23,15 +24,10 @@ except UnicodeDecodeError:
         
 with open("../data/resultado_carteira_futuro/variacao_carteira_porcentagem.json", "r") as f:
     variacao_carteira_porcentagem = json.load(f)
-    
-metric = pd.read_csv("../data/metricas_carteiras_historico.csv", index_col=0)
-        
+     
 logger.info("Arquivo README.md carregado com sucesso.")
 
-
 carteira_atual_markdown = carteira_atual.to_markdown()
-
-metrics_markdow = (metric.round(3)*100).to_markdown()
 
 PROMPT = """
 You are a senior investment analyst specialized in stock portfolio analysis.
@@ -75,19 +71,31 @@ response = llm.invoke([{"role": "user", "content": PROMPT_FORMATADO}])
 
 logger.info("Comentário gerado com sucesso.")
 
+logger.info("Atualizando trimestre atual no README.md.")
+
+date_now = datetime.datetime.now().strftime("%Y-%m-%d")
+
+trimestre_atual = pd.date_range(end=date_now, periods=1, freq='QS').strftime("%Y-%m-%d")[0]
+
+
+
 logger.info("Atualizando README.md com comentario e tabela de resultados do trimestre.")
 section_found = False
 for i, line in enumerate(readme_content):
-    if '## Carteria de ações para o trimestre' in line:
+    if '### 📊 Tabela Resultados' in line:
         index_inicio = i
-    if '## 🤖 Agentes e Fluxos de Trabalho' in line:
+    if '🤖 Agentes e Fluxos de Trabalho' in line:
         index_fim = i
 
 readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
         
-readme_content.insert(index_inicio + 1, f"### Tabela Resultados\n{carteira_atual_markdown}\n### Comentário sobre a carteira\n{response.content}\n\n")
+readme_content.insert(index_inicio + 1, f"\n{carteira_atual_markdown}\n\n### 💬 Comentário sobre a carteira\n{response.content}\n\n")
 
 logger.info("Atualizando README.md metricas de desempenho da carteira historico.")
+
+metric = pd.read_csv("../data/metricas_carteiras_historico.csv", index_col=0)
+
+metrics_markdow = (metric.round(3)*100).to_markdown()
 
 for i, line in enumerate(readme_content):
     if '### 📊 Metricas de Desempenho' in line:
@@ -110,9 +118,9 @@ setor = pd.read_csv(url, index_col=0, parse_dates=True)
 setor_markdown = setor.to_markdown()
 
 for i, line in enumerate(readme_content):
-    if '## Lista de ações avaliadas' in line:
+    if '## 🔍 Lista de ações avaliadas' in line:
         index_inicio = i
-    if '## Estrutura do projeto' in line:
+    if '## 📁 Estrutura do projeto' in line:
         index_fim = i
 
 readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]

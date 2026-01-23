@@ -6,15 +6,17 @@
 | **Tecnologias**  | ![Python](https://img.shields.io/badge/Python-3.12%2B-blue?style=flat&logo=python) [![LangGraph](https://img.shields.io/badge/LangGraph-gray?style=flat&logo=langgraph&logoColor=white)](https://langchain-ai.github.io/langgraph/) [![LangChain](https://img.shields.io/badge/LangChain-gray?style=flat&logo=langchain&logoColor=white)](https://www.langchain.com/)  ![Pydantic](https://img.shields.io/badge/Pydantic-gray?style=flat&logo=pydantic&logoColor=purple) [![HuggingFace](https://img.shields.io/badge/HuggingFace-gray?style=flat&logo=huggingface)](https://huggingface.co/)  ![NVIDIA](https://img.shields.io/badge/-NVIDIA-gray?logo=nvidia) [![Cerebras](https://img.shields.io/badge/-Cerebras-gray?logo=cerebras/)](https://www.cerebras.ai/) [![Groq](https://img.shields.io/badge/Groq-gray?style=flat&logo=groq&logoColor=white)](https://groq.com/) ![Pandas](https://img.shields.io/badge/pandas-gray?style=flat&logo=pandas&logoColor=150458)
 ||
 
-## Visão geral
+## 👁️ Visão geral
 
 **Agent Portfolio Optimizer** é uma solução inteligente em Python que automatiza a análise fundamentalista de ações brasileiras (B3) utilizando Large Language Models (LLMs). O sistema avalia empresas, classifica ativos por qualidade e constrói carteiras otimizadas através de uma arquitetura multi-agente baseada em **LangGraph**, onde cada agente especializado contribui para decisões de investimento fundamentadas e diversificadas. 
 
 Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` tendo como restrição que ativos de maior peso devem ser de 20% da carteira e ativos de menor peso devem ser de 5% da carteira.
 
 
-## Carteria de ações para o trimestre
-### Tabela Resultados
+## 💼 Carteria de ações para o trimestre
+
+### 📊 Tabela Resultados
+
 |        |   preco_inicial(2026-01-02) |   preco_atual(2026-01-21) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
 |:-------|----------------------------:|--------------------------:|-----------------:|-------------------------:|-------------------------------:|-------------------------------:|-----------------------------:|
 | MULT3  |                       27.04 |                     30.36 |             0.18 |                     3.32 |                         0.1228 |                            180 |                       202.1  |
@@ -30,22 +32,23 @@ Primero um agente avalia os ativos classificando-os por qualidade atraves dos da
 | IGTI11 |                       25.31 |                     27.23 |             0.05 |                     1.92 |                         0.0759 |                             50 |                        53.8  |
 | CMIG4  |                       11.16 |                     11.16 |             0.05 |                     0    |                         0      |                             50 |                        50    |
 | PRIO3  |                       41.76 |                     46.88 |             0.05 |                     5.12 |                         0.1226 |                             50 |                        56.13 |
-### Comentário sobre a carteira
-A carteira apresentou uma variação de 4,83% no período analisado, considerando um investimento inicial de R$1.000. Esse desempenho é resultado da combinação das variações individuais das ações que compõem a carteira.
 
-Em primeiro lugar, é notável que a maioria das ações apresentou variação positiva, com destaque para MULT3 (12,28%), PRIO3 (12,26%) e IGTI11 (7,59%), que foram as principais contribuintes para o desempenho positivo da carteira. Essas ações, juntas, representam cerca de 30% da carteira, o que significa que tiveram um impacto significativo no resultado geral.
+### 💬 Comentário sobre a carteira
+A carteira apresentou uma variação de 4,83% no período analisado, o que indica um desempenho positivo. Considerando que o valor investido foi de R$1.000,00 na carteira total, esse retorno pode ser considerado satisfatório.
 
-Por outro lado, algumas ações apresentaram desempenho negativo, como CGRA4 (-4,29%), WEGE3 (-1,37%) e ALPA3 (-2,41%). Embora essas ações tenham tido um impacto negativo, é importante notar que a soma de seus pesos na carteira é relativamente baixa (21%), o que minimizou o efeito negativo no resultado geral.
+Ao analisar os dados fornecidos, observa-se que a carteira é composta por 13 ativos, com pesos variados. Os ativos com maior peso na carteira são MULT3 (18%), BMOB3 (9%) e ALOS3 (9%), que juntos representam 36% do total investido.
 
-A análise da distribuição dos pesos na carteira revela que as cinco principais ações (MULT3, BMOB3, ALOS3, CLSC4 e CGRA4) representam cerca de 50% do total investido. Dessas, três apresentaram variação positiva, o que é um indicador de que a estratégia de diversificação da carteira está funcionando.
+A análise individual dos ativos revela que 8 dos 13 ativos apresentaram desempenho positivo, com destaque para MULT3 (12,28%), PRIO3 (12,26%) e CLSC4 (8,83%), que foram os principais contribuintes para o retorno positivo da carteira. Por outro lado, 5 ativos apresentaram desempenho negativo, com CGRA4 (-4,29%) e ALPA3 (-2,41%) sendo os principais detratores do retorno.
 
-Além disso, é interessante notar que a carteira apresenta uma boa diversificação setorial, com ações de diferentes setores, como energia (PRIO3), finanças (BMOB3) e indústria (WEGE3). Isso ajuda a reduzir o risco da carteira e a aumentar a resiliência a choques setoriais.
+É interessante notar que os ativos com maior peso na carteira não necessariamente foram os que apresentaram o melhor desempenho. Por exemplo, MULT3 foi o ativo com maior peso e também um dos que apresentou melhor desempenho, enquanto BMOB3 e ALOS3, que também têm peso significativo, apresentaram desempenhos mais modestos.
 
-Considerando o desempenho geral da carteira, podemos concluir que o resultado é satisfatório. A variação de 4,83% é um indicador de que a estratégia de investimento está funcionando e que as escolhas de ações estão sendo feitas de forma eficaz.
+A diversificação da carteira é razoável, com ativos de diferentes setores e classes de ativos. Isso ajuda a mitigar o risco e reduzir a volatilidade do retorno. No entanto, é possível que alguns ativos com baixo desempenho estejam afetando negativamente a carteira como um todo.
 
-No entanto, é importante notar que a análise não pode se limitar a um único período e que é fundamental monitorar o desempenho da carteira ao longo do tempo para garantir que continue a atender aos objetivos de investimento. Além disso, é importante realizar análises mais aprofundadas para entender melhor os fatores que contribuíram para o desempenho da carteira e identificar oportunidades de melhoria.
+Considerando o retorno de 4,83% no período, é importante contextualizar esse resultado em relação ao mercado como um todo. Se o benchmark de mercado apresentou um retorno semelhante ou inferior, a carteira pode ser considerada como tendo um desempenho satisfatório. Por outro lado, se o mercado apresentou um retorno significativamente superior, a carteira pode ter apresentado um desempenho insatisfatório.
 
-Em resumo, o desempenho da carteira no período analisado é considerado satisfatório, graças à combinação de variações positivas das principais ações e à diversificação setorial. No entanto, é fundamental continuar monitorando o desempenho da carteira e realizar análises mais aprofundadas para garantir que continue a atender aos objetivos de investimento.
+Em resumo, a carteira apresentou um desempenho positivo no período, com um retorno de 4,83%. Embora alguns ativos tenham apresentado desempenhos negativos, os ativos com maior peso e os principais contribuintes para o retorno positivo da carteira foram capazes de compensar as perdas. A diversificação da carteira é razoável, mas é importante continuar monitorando o desempenho dos ativos e ajustando a estratégia de investimento conforme necessário.
+
+Além disso, é fundamental avaliar a carteira em relação ao perfil de risco do investidor e aos objetivos de investimento. Se a carteira estiver alinhada com esses objetivos e o retorno for considerado satisfatório em relação ao risco assumido, então o desempenho pode ser considerado adequado. Caso contrário, pode ser necessário reavaliar a estratégia de investimento e realizar ajustes para melhorar o desempenho da carteira.
 
 
 ## 🤖 Agentes e Fluxos de Trabalho
@@ -77,6 +80,49 @@ Esse agente [Criador de Carteira de Ações](https://github.com/Jeferson100/Agen
 ![Fluxo do agente](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/agente_criador_carteira.png)
 
 Além das avaliações individuais, o agente utiliza uma matriz de correlação entre os ativos como parâmetro de entrada, permitindo mitigar riscos de sobreposição e evitar a concentração em ativos altamente correlacionados.
+
+- [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O primeiro nó  recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restrições:
+
+  - Os ativos devem ter classificação `Excellent` ou `Good`.
+  - O ativo de maior peso deve ser de 20% da carteira.
+  - O ativo de menor peso deve ser de 5% da carteira.
+  - O peso total da carteira deve ser de 100%.
+  - Deve-se priorizar a diversificação da carteira.
+
+- [verify_weight_sum](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O segundo nó verifica se o peso total da carteira foi de 100%. Se não for, ele retorna um erro.
+
+- [verifica_tics_selecionados](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O terceiro nó realiza o cross-check dos tickers sugeridos para garantir que o agente não "inventou" ativos inexistentes durante a geração.
+
+- [analista_avaliador_peso_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O quarto nó recebe a carteira e retorna uma avaliação de qualidade da carteira. Ele retorna um campo booleano de validação e um texto explicando se a carteira é consistente e o que pode ser melhorado.
+
+Tal como o agente anterior, este fluxo possui um ciclo de feedback de 3 iterações para ajustar pesos e ativos até atingir o critério de qualidade exigido.
+
+## 📈 Simulação de Carteira de Ações Histórica
+
+Este módulo valida a eficácia dos agentes inteligentes através da simulação de uma carteira de ações brasileiras ao longo de múltiplos anos. O objetivo é avaliar o desempenho das estratégias geradas pelos agentes em diferentes ciclos de mercado para identificar sua consistência e eficiência. 
+
+### ⚖️ Benchmarks e Comparativo de Performance
+
+Para medir a qualidade real das decisões dos agentes, o desempenho da carteira simulada é comparado com três indicadores fundamentais:
+
+1.  **Selic:** Representa o custo de oportunidade e a taxa livre de risco do mercado brasileiro.
+2.  **Ibovespa (IBOV):** O principal índice de referência da bolsa brasileira, refletindo a performance média do mercado.
+3.  **Fronteira Eficiente de Markowitz (MVO):** * Para cada período, aplicamos a **Otimização de Variância Mínima** de Harry Markowitz sobre os mesmos ativos selecionados pelo agente.
+    * Este benchmark calcula matematicamente os pesos ideais para obter o maior retorno possível para um determinado nível de risco (volatilidade).
+
+
+![Desempenho da Carteira vs Benchmarks](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/raw/main/image/grafico_retornos_carteira_historico.png)
+
+---
+### 📊 Metricas de Desempenho
+
+|           |   retorno_medio_anual |   volatilidade_anual |   cagr |   max_drawdown |   avg_drawdown |   calmar |   sortino |
+|:----------|----------------------:|---------------------:|-------:|---------------:|---------------:|---------:|----------:|
+| Selic     |                   9.3 |                  0.2 |    9.7 |            0   |            0   |    nan   |       nan |
+| IBOV      |                  14   |                 23.3 |   11.8 |          -46.8 |           -4   |     25.1 |       nan |
+| Markowitz |                  20   |                 22.1 |   18.6 |          -36.3 |           -4.3 |     51.2 |       nan |
+| Carteira  |                  21.7 |                 23.5 |   20.2 |          -40.9 |           -5.3 |     49.4 |       nan |
+
 
 - [analista_criador_carteira](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/blob/main/src/portfolio_optimizer/build_langgraph/nodes_criador_carteira.py): O primeiro nó  recebe as avaliações do agente de avaliação TICS e retorna uma sugestão de carteira de ações brasileiras com as seguintes restrições:
 
@@ -153,7 +199,9 @@ A base de dados utilizada pode conter um **viés de sobrevivência**, uma vez qu
 ### 2. Exposição Crítica e Treinamento do Modelo
 Existe a possibilidade de **Data Leakage** (vazamento de dados) ou viés de treinamento. Como os modelos de linguagem (LLMs) utilizados pelos agentes foram treinados com dados históricos que englobam parte do período simulado, o agente pode "conhecer" o sucesso futuro de certas empresas por meio de seus pesos internos de treinamento, em vez de basear sua decisão puramente nos dados do trimestre analisado.
 
-## Lista de ações avaliadas
+
+
+## 🔍 Lista de ações avaliadas
 
 |     | Empresa      | Segmento de Listagem              | Setor                           | Segmento                                 | tic    |
 |----:|:-------------|:----------------------------------|:--------------------------------|:-----------------------------------------|:-------|
@@ -317,7 +365,7 @@ Existe a possibilidade de **Data Leakage** (vazamento de dados) ou viés de trei
 
 
 
-## Estrutura do projeto
+## 📁 Estrutura do projeto
 
 ```
 Agent-Portfolio-Optimizer/
