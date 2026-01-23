@@ -31,21 +31,21 @@ Primero um agente avalia os ativos classificando-os por qualidade atraves dos da
 | CMIG4  |                       11.16 |                     11.16 |             0.05 |                     0    |                         0      |                             50 |                        50    |
 | PRIO3  |                       41.76 |                     46.88 |             0.05 |                     5.12 |                         0.1226 |                             50 |                        56.13 |
 ### Comentário sobre a carteira
-A carteira apresentou uma variação de 4,83% no período analisado, o que indica um desempenho positivo. Considerando que o valor investido foi de R$1.000,00 na carteira total, é possível avaliar a rentabilidade dos ativos que compõem a carteira.
+A carteira apresentou uma variação de 4,83% no período analisado, considerando um investimento inicial de R$1.000. Esse desempenho é resultado da combinação das variações individuais das ações que compõem a carteira.
 
-Os dados fornecidos revelam que os ativos com maior peso na carteira são MULT3 (18%), BMOB3 (9%) e ALOS3 (9%). Dentre esses, MULT3 foi o que apresentou o maior ganho, com uma valorização de 12,28% (R$ 3,32 de diferença em relação ao preço inicial), contribuindo significativamente para o desempenho geral da carteira. BMOB3 e ALOS3 também apresentaram ganhos, embora menores, de 8,36% e 2,09%, respectivamente.
+Em primeiro lugar, é notável que a maioria das ações apresentou variação positiva, com destaque para MULT3 (12,28%), PRIO3 (12,26%) e IGTI11 (7,59%), que foram as principais contribuintes para o desempenho positivo da carteira. Essas ações, juntas, representam cerca de 30% da carteira, o que significa que tiveram um impacto significativo no resultado geral.
 
-Além disso, é notável que alguns ativos com menor peso na carteira também apresentaram desempenhos destacados. PRIO3, por exemplo, teve uma valorização de 12,26% (R$ 5,12 de diferença), e IGTI11 valorizou 7,59% (R$ 1,92 de diferença). Outros ativos, como ENEV3 e FIQE3, também apresentaram ganhos, de 7,64% e 3,07%, respectivamente.
+Por outro lado, algumas ações apresentaram desempenho negativo, como CGRA4 (-4,29%), WEGE3 (-1,37%) e ALPA3 (-2,41%). Embora essas ações tenham tido um impacto negativo, é importante notar que a soma de seus pesos na carteira é relativamente baixa (21%), o que minimizou o efeito negativo no resultado geral.
 
-Por outro lado, alguns ativos apresentaram perdas no período. CGRA4, WEGE3, ALPA3 e SBSP3 registraram desvalorizações de -4,29%, -1,37%, -2,41% e -1,69%, respectivamente. No entanto, essas perdas foram compensadas pelos ganhos dos demais ativos, resultando em um desempenho geral positivo da carteira.
+A análise da distribuição dos pesos na carteira revela que as cinco principais ações (MULT3, BMOB3, ALOS3, CLSC4 e CGRA4) representam cerca de 50% do total investido. Dessas, três apresentaram variação positiva, o que é um indicador de que a estratégia de diversificação da carteira está funcionando.
 
-É importante observar que a carteira apresenta uma diversificação razoável, com ativos de diferentes setores, o que pode contribuir para a redução do risco. A presença de ativos com desempenhos variados também sugere que a estratégia de investimento adotada busca equilibrar os riscos e as oportunidades de ganho.
+Além disso, é interessante notar que a carteira apresenta uma boa diversificação setorial, com ações de diferentes setores, como energia (PRIO3), finanças (BMOB3) e indústria (WEGE3). Isso ajuda a reduzir o risco da carteira e a aumentar a resiliência a choques setoriais.
 
-Considerando o desempenho geral da carteira e a valorização dos principais ativos, é possível concluir que a carteira está apresentando um desempenho satisfatório no período analisado. A variação de 4,83% é um indicador positivo, especialmente se considerarmos que o período é relativamente curto.
+Considerando o desempenho geral da carteira, podemos concluir que o resultado é satisfatório. A variação de 4,83% é um indicador de que a estratégia de investimento está funcionando e que as escolhas de ações estão sendo feitas de forma eficaz.
 
-No entanto, é fundamental continuar monitorando o desempenho dos ativos e ajustar a estratégia de investimento conforme necessário. Além disso, é importante considerar outros fatores, como o contexto econômico e as perspectivas para os setores representados na carteira, para tomar decisões informadas e maximizar os retornos.
+No entanto, é importante notar que a análise não pode se limitar a um único período e que é fundamental monitorar o desempenho da carteira ao longo do tempo para garantir que continue a atender aos objetivos de investimento. Além disso, é importante realizar análises mais aprofundadas para entender melhor os fatores que contribuíram para o desempenho da carteira e identificar oportunidades de melhoria.
 
-Em resumo, a carteira está apresentando um desempenho positivo, impulsionado principalmente pelos ganhos de MULT3, PRIO3 e outros ativos. A diversificação da carteira e a presença de ativos com desempenhos variados contribuem para um perfil de risco equilibrado. Com um acompanhamento contínuo e ajustes estratégicos, é possível manter ou melhorar o desempenho da carteira nos próximos períodos.
+Em resumo, o desempenho da carteira no período analisado é considerado satisfatório, graças à combinação de variações positivas das principais ações e à diversificação setorial. No entanto, é fundamental continuar monitorando o desempenho da carteira e realizar análises mais aprofundadas para garantir que continue a atender aos objetivos de investimento.
 
 
 ## 🤖 Agentes e Fluxos de Trabalho
@@ -153,22 +153,169 @@ A base de dados utilizada pode conter um **viés de sobrevivência**, uma vez qu
 ### 2. Exposição Crítica e Treinamento do Modelo
 Existe a possibilidade de **Data Leakage** (vazamento de dados) ou viés de treinamento. Como os modelos de linguagem (LLMs) utilizados pelos agentes foram treinados com dados históricos que englobam parte do período simulado, o agente pode "conhecer" o sucesso futuro de certas empresas por meio de seus pesos internos de treinamento, em vez de basear sua decisão puramente nos dados do trimestre analisado.
 
-## Tecnologias e bibliotecas
+## Lista de ações avaliadas
 
-- **Python 3.12+** (ver `pyproject.toml`)
-- **Pydantic / Pydantic AI** para modelos de saída estruturada
-- **LangGraph** para orquestração do fluxo de agentes/tools
-- **Clientes de LLM**:
-  - `Nvidia`
-  - `openai` (NVIDIA)
-  - `langchain-nvidia-ai-endpoints` (NVIDIA)
-  - `groq` (Groq)
-  - `cerebras.cloud.sdk` (Cerebras)
-  - modelos HuggingFace via `pydantic_ai`
-- **Pandas / NumPy** para manipulação de dados financeiros
-- **yfinance** para coleta de dados de mercado
-- **dotenv** para gerenciamento de variáveis de ambiente
-- **Arize Phoenix** para observabilidade e rastreamento de LLMs
+|     | Empresa      | Segmento de Listagem              | Setor                           | Segmento                                 | tic    |
+|----:|:-------------|:----------------------------------|:--------------------------------|:-----------------------------------------|:-------|
+|   0 | ALLIAR       | Novo Mercado                      | Saúde                           | Serv.Méd.Hospit..Análises e Diagnósticos | AALR3  |
+|   1 | AMBEV S/A    | Tradicional - BOVESPA             | Consumo não Cíclico             | Cervejas e Refrigerantes                 | ABEV3  |
+|   2 | AFLUENTE T   | Tradicional - BOVESPA             | Utilidade Pública               | Energia Elétrica                         | AFLT3  |
+|   3 | BRASILAGRO   | Novo Mercado                      | Consumo não Cíclico             | Agricultura                              | AGRO3  |
+|   4 | AGROGALAXY   | Novo Mercado                      | Consumo não Cíclico             | Agricultura                              | AGXY3  |
+|   5 | SPTURIS      | Tradicional - BOVESPA             | Consumo Cíclico                 | Produção de Eventos e Shows              | AHEB3  |
+|   6 | ALPARGATAS   | Nível 1 de Governança Corporativa | Consumo Cíclico                 | Calçados                                 | ALPA3  |
+|   7 | ALPARGATAS   | Nível 1 de Governança Corporativa | Consumo Cíclico                 | Calçados                                 | ALPA4  |
+|   8 | ESTAPAR      | Novo Mercado                      | Bens Industriais                | Serviços Diversos                        | ALPK3  |
+|   9 | ALLIED       | Novo Mercado                      | Consumo Cíclico                 | Eletrodomésticos                         | ALLD3  |
+|  10 | ALLOS        | Novo Mercado                      | Financeiro                      | Exploração de Imóveis                    | ALOS3  |
+|  11 | AMBIPAR      | Novo Mercado                      | Utilidade Pública               | Água e Saneamento                        | AMBP3  |
+|  12 | LOJAS MARISA | Novo Mercado                      | Consumo Cíclico                 | Tecidos. Vestuário e Calçados            | AMAR3  |
+|  13 | AMERICANAS   | Novo Mercado                      | Consumo Cíclico                 | Produtos Diversos                        | AMER3  |
+|  14 | ANIMA        | Novo Mercado                      | Consumo Cíclico                 | Serviços Educacionais                    | ANIM3  |
+|  15 | ASSAI        | Novo Mercado                      | Consumo não Cíclico             | Alimentos                                | ASAI3  |
+|  16 | AUREN        | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | AURE3  |
+|  17 | ALPHAVILLE   | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | AVLL3  |
+|  18 | AZEVEDO      | Tradicional - BOVESPA             | Bens Industriais                | Construção Pesada                        | AZEV3  |
+|  19 | AZUL         | Nível 2 de Governança Corporativa | Bens Industriais                | Transporte Aéreo                         | AZUL4  |
+|  20 | AZZAS 2154   | Novo Mercado                      | Consumo Cíclico                 | Tecidos. Vestuário e Calçados            | AZZA3  |
+|  21 | BAUMER       | Tradicional - BOVESPA             | Saúde                           | Equipamentos                             | BALM4  |
+|  22 | EXCELSIOR    | Tradicional - BOVESPA             | Consumo não Cíclico             | Carnes e Derivados                       | BAUH4  |
+|  23 | AMAZONIA     | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BAZA3  |
+|  24 | BRASIL       | Novo Mercado                      | Financeiro                      | Bancos                                   | BBAS3  |
+|  25 | BBSEGURIDADE | Novo Mercado                      | Financeiro                      | Seguradoras                              | BBSE3  |
+|  26 | BRADESCO     | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BBDC3  |
+|  27 | BRADESCO     | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BBDC4  |
+|  28 | BANESE       | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BGIP3  |
+|  29 | BANESE       | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BGIP4  |
+|  30 | BIOMM        | Bovespa Mais                      | Saúde                           | Medicamentos e Outros Produtos           | BIOM3  |
+|  31 | BLAU         | Novo Mercado                      | Saúde                           | Medicamentos e Outros Produtos           | BLAU3  |
+|  32 | MERCANTIL    | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BMEB3  |
+|  33 | MERCANTIL    | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BMEB4  |
+|  34 | BIC MONARK   | Tradicional - BOVESPA             | Consumo Cíclico                 | Bicicletas                               | BMKS3  |
+|  35 | MERC INVEST  | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BMIN3  |
+|  36 | MERC INVEST  | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BMIN4  |
+|  37 | BEMOBI TECH  | Novo Mercado                      | Tecnologia da Informação        | Programas e Serviços                     | BMOB3  |
+|  38 | BANCO PAN    | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BPAN4  |
+|  39 | BTGP BANCO   | Nível 2 de Governança Corporativa | Financeiro                      | Bancos                                   | BPAC11 |
+|  40 | BTGP BANCO   | Nível 2 de Governança Corporativa | Financeiro                      | Bancos                                   | BPAC3  |
+|  41 | BTGP BANCO   | Nível 2 de Governança Corporativa | Financeiro                      | Bancos                                   | BPAC5  |
+|  42 | BRADESPAR    | Nível 1 de Governança Corporativa | Materiais Básicos               | Minerais Metálicos                       | BRAP3  |
+|  43 | BRADESPAR    | Nível 1 de Governança Corporativa | Materiais Básicos               | Minerais Metálicos                       | BRAP4  |
+|  44 | BRAVA        | Novo Mercado                      | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | BRAV3  |
+|  45 | BR PARTNERS  | Nível 2 de Governança Corporativa | Financeiro                      | Bancos                                   | BRBI11 |
+|  46 | BRASKEM      | Nível 1 de Governança Corporativa | Materiais Básicos               | Petroquímicos                            | BRKM3  |
+|  47 | BRASKEM      | Nível 1 de Governança Corporativa | Materiais Básicos               | Petroquímicos                            | BRKM5  |
+|  48 | BRISANET     | Novo Mercado                      | Comunicações                    | Telecomunicações                         | BRST3  |
+|  49 | BANRISUL     | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BRSR3  |
+|  50 | BANRISUL     | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | BRSR6  |
+|  51 | BRB BANCO    | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BSLI3  |
+|  52 | BRB BANCO    | Tradicional - BOVESPA             | Financeiro                      | Bancos                                   | BSLI4  |
+|  53 | CAMBUCI      | Tradicional - BOVESPA             | Consumo Cíclico                 | Calçados                                 | CAMB3  |
+|  54 | CAMIL        | Novo Mercado                      | Consumo não Cíclico             | Alimentos Diversos                       | CAML3  |
+|  55 | MELIUZ       | Novo Mercado                      | Tecnologia da Informação        | Programas e Serviços                     | CASH3  |
+|  56 | CEA MODAS    | Novo Mercado                      | Consumo Cíclico                 | Tecidos. Vestuário e Calçados            | CEAB3  |
+|  57 | CEB          | Tradicional - BOVESPA             | Utilidade Pública               | Energia Elétrica                         | CEBR6  |
+|  58 | CEDRO        | Nível 1 de Governança Corporativa | Consumo Cíclico                 | Fios e Tecidos                           | CEDO3  |
+|  59 | CEDRO        | Nível 1 de Governança Corporativa | Consumo Cíclico                 | Fios e Tecidos                           | CEDO4  |
+|  60 | COMGAS       | Tradicional - BOVESPA             | Utilidade Pública               | Gás                                      | CGAS3  |
+|  61 | COMGAS       | Tradicional - BOVESPA             | Utilidade Pública               | Gás                                      | CGAS5  |
+|  62 | GRAZZIOTIN   | Tradicional - BOVESPA             | Consumo Cíclico                 | Tecidos. Vestuário e Calçados            | CGRA4  |
+|  63 | CELESC       | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | CLSC4  |
+|  64 | CEMIG        | Nível 1 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | CMIG3  |
+|  65 | CEMIG        | Nível 1 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | CMIG4  |
+|  66 | COGNA ON     | Novo Mercado                      | Consumo Cíclico                 | Serviços Educacionais                    | COGN3  |
+|  67 | COSAN        | Novo Mercado                      | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | CSAN3  |
+|  68 | COPASA       | Novo Mercado                      | Utilidade Pública               | Água e Saneamento                        | CSMG3  |
+|  69 | SID NACIONAL | Tradicional - BOVESPA             | Materiais Básicos               | Siderurgia                               | CSNA3  |
+|  70 | CSU DIGITAL  | Novo Mercado                      | Financeiro                      | Serviços Financeiros Diversos            | CSUD3  |
+|  71 | CYRELA REALT | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | CYRE3  |
+|  72 | DIRECIONAL   | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | DIRR3  |
+|  73 | DEXCO        | Novo Mercado                      | Materiais Básicos               | Madeira                                  | DXCO3  |
+|  74 | ACO ALTONA   | Tradicional - BOVESPA             | Bens Industriais                | Máq. e Equip. Industriais                | EALT3  |
+|  75 | ACO ALTONA   | Tradicional - BOVESPA             | Bens Industriais                | Máq. e Equip. Industriais                | EALT4  |
+|  76 | ECORODOVIAS  | Novo Mercado                      | Bens Industriais                | Exploração de Rodovias                   | ECOR3  |
+|  77 | ENGIE BRASIL | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | EGIE3  |
+|  78 | ENEVA        | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | ENEV3  |
+|  79 | ENERGISA     | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | ENGI11 |
+|  80 | ENERGISA     | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | ENGI3  |
+|  81 | ENERGISA     | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | ENGI4  |
+|  82 | EQUATORIAL   | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | EQTL3  |
+|  83 | ESPACOLASER  | Novo Mercado                      | Consumo não Cíclico             | Produtos de Uso Pessoal                  | ESPA3  |
+|  84 | EZTEC        | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | EZTC3  |
+|  85 | FERBASA      | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | FESA3  |
+|  86 | FERBASA      | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | FESA4  |
+|  87 | UNIFIQUE     | Novo Mercado                      | Comunicações                    | Telecomunicações                         | FIQE3  |
+|  88 | FLEURY       | Novo Mercado                      | Saúde                           | Serv.Méd.Hospit..Análises e Diagnósticos | FLRY3  |
+|  89 | FRAS-LE      | Nível 1 de Governança Corporativa | Bens Industriais                | Material Rodoviário                      | FRAS3  |
+|  90 | METALFRIO    | Novo Mercado                      | Bens Industriais                | Máq. e Equip. Industriais                | FRIO3  |
+|  91 | GERDAU       | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | GGBR3  |
+|  92 | GERDAU       | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | GGBR4  |
+|  93 | GERDAU MET   | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | GOAU3  |
+|  94 | GERDAU MET   | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | GOAU4  |
+|  95 | HAPVIDA      | Novo Mercado                      | Saúde                           | Serv.Méd.Hospit..Análises e Diagnósticos | HAPV3  |
+|  96 | HYPERA       | Novo Mercado                      | Saúde                           | Medicamentos e Outros Produtos           | HYPE3  |
+|  97 | IGUATEMI S.A | Nível 1 de Governança Corporativa | Financeiro                      | Exploração de Imóveis                    | IGTI3  |
+|  98 | IGUATEMI S.A | Nível 1 de Governança Corporativa | Financeiro                      | Exploração de Imóveis                    | IGTI11 |
+|  99 | INTELBRAS    | Novo Mercado                      | Tecnologia da Informação        | Computadores e Equipamentos              | INTB3  |
+| 100 | IRBBRASIL RE | Novo Mercado                      | Financeiro                      | Resseguradoras                           | IRBR3  |
+| 101 | ITAUSA       | Nível 1 de Governança Corporativa | Financeiro                      | Holdings Diversificadas                  | ITSA3  |
+| 102 | ITAUSA       | Nível 1 de Governança Corporativa | Financeiro                      | Holdings Diversificadas                  | ITSA4  |
+| 103 | ITAUUNIBANCO | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | ITUB3  |
+| 104 | ITAUUNIBANCO | Nível 1 de Governança Corporativa | Financeiro                      | Bancos                                   | ITUB4  |
+| 105 | JHSF PART    | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | JHSF3  |
+| 106 | KLABIN S/A   | Nível 2 de Governança Corporativa | Materiais Básicos               | Papel e Celulose                         | KLBN3  |
+| 107 | KLABIN S/A   | Nível 2 de Governança Corporativa | Materiais Básicos               | Papel e Celulose                         | KLBN4  |
+| 108 | KLABIN S/A   | Nível 2 de Governança Corporativa | Materiais Básicos               | Papel e Celulose                         | KLBN11 |
+| 109 | LIGHT S/A    | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | LIGT3  |
+| 110 | LOG COM PROP | Novo Mercado                      | Financeiro                      | Exploração de Imóveis                    | LOGG3  |
+| 111 | LOJAS RENNER | Novo Mercado                      | Consumo Cíclico                 | Tecidos. Vestuário e Calçados            | LREN3  |
+| 112 | LWSA         | Novo Mercado                      | Tecnologia da Informação        | Programas e Serviços                     | LWSA3  |
+| 113 | M.DIASBRANCO | Novo Mercado                      | Consumo não Cíclico             | Alimentos Diversos                       | MDIA3  |
+| 114 | MAGAZ LUIZA  | Novo Mercado                      | Consumo Cíclico                 | Eletrodomésticos                         | MGLU3  |
+| 115 | MRV          | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | MRVE3  |
+| 116 | MULTIPLAN    | Nível 2 de Governança Corporativa | Financeiro                      | Exploração de Imóveis                    | MULT3  |
+| 117 | NEOENERGIA   | Novo Mercado                      | Utilidade Pública               | Energia Elétrica                         | NEOE3  |
+| 118 | NUTRIPLANT   | Bovespa Mais                      | Materiais Básicos               | Fertilizantes e Defensivos               | NUTR3  |
+| 119 | OI           | Nível 1 de Governança Corporativa | Comunicações                    | Telecomunicações                         | OIBR3  |
+| 120 | OI           | Nível 1 de Governança Corporativa | Comunicações                    | Telecomunicações                         | OIBR4  |
+| 121 | ONCOCLINICAS | Novo Mercado                      | Saúde                           | Serv.Méd.Hospit..Análises e Diagnósticos | ONCO3  |
+| 122 | P.ACUCAR-CBD | Novo Mercado                      | Consumo não Cíclico             | Alimentos                                | PCAR3  |
+| 123 | PETROBRAS    | Nível 2 de Governança Corporativa | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | PETR3  |
+| 124 | PETROBRAS    | Nível 2 de Governança Corporativa | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | PETR4  |
+| 125 | PETZ         | Novo Mercado                      | Consumo Cíclico                 | Produtos Diversos                        | PETZ3  |
+| 126 | POSITIVO TEC | Novo Mercado                      | Tecnologia da Informação        | Computadores e Equipamentos              | POSI3  |
+| 127 | PORTO SEGURO | Novo Mercado                      | Financeiro                      | Seguradoras                              | PSSA3  |
+| 128 | PETRORIO     | Novo Mercado                      | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | PRIO3  |
+| 129 | QUALICORP    | Novo Mercado                      | Saúde                           | Serv.Méd.Hospit..Análises e Diagnósticos | QUAL3  |
+| 130 | RAIADROGASIL | Novo Mercado                      | Saúde                           | Medicamentos e Outros Produtos           | RADL3  |
+| 131 | RUMO S.A.    | Novo Mercado                      | Bens Industriais                | Transporte Ferroviário                   | RAIL3  |
+| 132 | RAIZEN       | Nível 2 de Governança Corporativa | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | RAIZ4  |
+| 133 | LOCALIZA     | Novo Mercado                      | Consumo Cíclico                 | Aluguel de carros                        | RENT3  |
+| 134 | SABESP       | Novo Mercado                      | Utilidade Pública               | Água e Saneamento                        | SBSP3  |
+| 135 | SLC AGRICOLA | Novo Mercado                      | Consumo não Cíclico             | Agricultura                              | SLCE3  |
+| 136 | SMART FIT    | Novo Mercado                      | Consumo Cíclico                 | Atividades Esportivas                    | SMFT3  |
+| 137 | SAO MARTINHO | Novo Mercado                      | Consumo não Cíclico             | Açucar e Alcool                          | SMTO3  |
+| 138 | SUZANO S.A.  | Novo Mercado                      | Materiais Básicos               | Papel e Celulose                         | SUZB3  |
+| 139 | TAESA        | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | TAEE11 |
+| 140 | TAESA        | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | TAEE3  |
+| 141 | TAESA        | Nível 2 de Governança Corporativa | Utilidade Pública               | Energia Elétrica                         | TAEE4  |
+| 142 | TAURUS ARMAS | Nível 2 de Governança Corporativa | Bens Industriais                | Armas e Munições                         | TASA3  |
+| 143 | TAURUS ARMAS | Nível 2 de Governança Corporativa | Bens Industriais                | Armas e Munições                         | TASA4  |
+| 144 | TIM          | Novo Mercado                      | Comunicações                    | Telecomunicações                         | TIMS3  |
+| 145 | TOTVS        | Novo Mercado                      | Tecnologia da Informação        | Programas e Serviços                     | TOTS3  |
+| 146 | TRISUL       | Novo Mercado                      | Consumo Cíclico                 | Incorporações                            | TRIS3  |
+| 147 | ULTRAPAR     | Novo Mercado                      | Petróleo. Gás e Biocombustíveis | Exploração. Refino e Distribuição        | UGPA3  |
+| 148 | USIMINAS     | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | USIM3  |
+| 149 | USIMINAS     | Nível 1 de Governança Corporativa | Materiais Básicos               | Siderurgia                               | USIM5  |
+| 150 | VALE         | Novo Mercado                      | Materiais Básicos               | Minerais Metálicos                       | VALE3  |
+| 151 | TELEF BRASIL | Tradicional - BOVESPA             | Comunicações                    | Telecomunicações                         | VIVT3  |
+| 152 | WEG          | Novo Mercado                      | Bens Industriais                | Motores . Compressores e Outros          | WEGE3  |
+| 153 | WIZ CO       | Novo Mercado                      | Financeiro                      | Corretoras de Seguros e Resseguros       | WIZC3  |
+| 154 | WHIRLPOOL    | Tradicional - BOVESPA             | Consumo Cíclico                 | Eletrodomésticos                         | WHRL3  |
+| 155 | ABC BRASIL   | Nível 2 de Governança Corporativa | Financeiro                      | Bancos                                   | ABCB4  |
+| 156 | YDUQS PART   | Novo Mercado                      | Consumo Cíclico                 | Serviços Educacionais                    | YDUQ3  |
+
+
 
 ## Estrutura do projeto
 

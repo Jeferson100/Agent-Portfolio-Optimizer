@@ -75,7 +75,7 @@ response = llm.invoke([{"role": "user", "content": PROMPT_FORMATADO}])
 
 logger.info("Comentário gerado com sucesso.")
 
-# Verifica e localiza a seção "Resultados das Estimativas"
+logger.info("Atualizando README.md com comentario e tabela de resultados do trimestre.")
 section_found = False
 for i, line in enumerate(readme_content):
     if '## Carteria de ações para o trimestre' in line:
@@ -87,6 +87,8 @@ readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
         
 readme_content.insert(index_inicio + 1, f"### Tabela Resultados\n{carteira_atual_markdown}\n### Comentário sobre a carteira\n{response.content}\n\n")
 
+logger.info("Atualizando README.md metricas de desempenho da carteira historico.")
+
 for i, line in enumerate(readme_content):
     if '### 📊 Metricas de Desempenho' in line:
         index_inicio = i
@@ -96,6 +98,27 @@ for i, line in enumerate(readme_content):
 readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
         
 readme_content.insert(index_inicio + 1, f"\n{metrics_markdow}\n\n\n")
+
+#readme_content = ''.join(readme_content)
+
+logger.info("Atualizando README.md lista de todas as ações avaliadas.")
+
+url = "https://raw.githubusercontent.com/Jeferson100/fundamentalist-stock-brazil/main/dados/setor.csv"
+
+setor = pd.read_csv(url, index_col=0, parse_dates=True)
+
+setor_markdown = setor.to_markdown()
+
+for i, line in enumerate(readme_content):
+    if '## Lista de ações avaliadas' in line:
+        index_inicio = i
+    if '## Estrutura do projeto' in line:
+        index_fim = i
+
+readme_content = readme_content[:index_inicio+1] + readme_content[index_fim-1:]
+        
+readme_content.insert(index_inicio + 1, f"\n{setor_markdown}\n\n\n")
+
 readme_content = ''.join(readme_content)
 
 logger.info("Arquivo README.md atualizado com sucesso.")
