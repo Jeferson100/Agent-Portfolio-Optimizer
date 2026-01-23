@@ -3,8 +3,8 @@
 |||
 |-----------|-----------|
 | **Testing**  | [![Testes CI e CD](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml/badge.svg)](https://github.com/Jeferson100/Agent-Portfolio-Optimizer/actions/workflows/testes_ci_cd.yml) ||
-| **Tecnologias**  | ![Python](https://img.shields.io/badge/Python-3.12%2B-blue?style=flat&logo=python) [![LangGraph](https://img.shields.io/badge/LangGraph-gray?style=flat&logo=langgraph&logoColor=white)](https://langchain-ai.github.io/langgraph/) [![LangChain](https://img.shields.io/badge/LangChain-gray?style=flat&logo=langchain&logoColor=white)](https://www.langchain.com/)  ![Pydantic](https://img.shields.io/badge/Pydantic-gray?style=flat&logo=pydantic&logoColor=purple) [![HuggingFace](https://img.shields.io/badge/HuggingFace-gray?style=flat&logo=huggingface)](https://huggingface.co/)  ![NVIDIA](https://img.shields.io/badge/-NVIDIA-gray?logo=nvidia) [![Cerebras](https://img.shields.io/badge/-Cerebras-gray?logo=cerebras/)](https://www.cerebras.ai/) [![Groq](https://img.shields.io/badge/Groq-gray?style=flat&logo=groq&logoColor=white)](https://groq.com/) ![Pandas](https://img.shields.io/badge/pandas-gray?style=flat&logo=pandas&logoColor=150458)
-||
+| **Tecnologias**  | ![Python](https://img.shields.io/badge/Python-3.12%2B-blue?style=flat&logo=python) [![LangGraph](https://img.shields.io/badge/LangGraph-gray?style=flat&logo=langgraph&logoColor=white)](https://langchain-ai.github.io/langgraph/) [![LangChain](https://img.shields.io/badge/LangChain-gray?style=flat&logo=langchain&logoColor=white)](https://www.langchain.com/)  ![Pydantic](https://img.shields.io/badge/Pydantic-gray?style=flat&logo=pydantic&logoColor=purple) [![HuggingFace](https://img.shields.io/badge/HuggingFace-gray?style=flat&logo=huggingface)](https://huggingface.co/)  ![NVIDIA](https://img.shields.io/badge/-NVIDIA-gray?logo=nvidia) [![Cerebras](https://img.shields.io/badge/-Cerebras-gray?logo=cerebras/)](https://www.cerebras.ai/) [![Groq](https://img.shields.io/badge/Groq-gray?style=flat&logo=groq&logoColor=white)](https://groq.com/) ![Pandas](https://img.shields.io/badge/pandas-gray?style=flat&logo=pandas&logoColor=150458)||
+
 
 ## 👁️ Visão geral
 
@@ -12,6 +12,15 @@
 
 Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` tendo como restrição que ativos de maior peso devem ser de 20% da carteira e ativos de menor peso devem ser de 5% da carteira.
 
+
+## 📋 Modelos usados e provedores
+
+| Provedor | Modelos Disponíveis |
+|-----------|-----------|
+| **NVIDIA (API)** | `nvidia/nemotron-3-nano-30b-a3b`, `moonshotai/kimi-k2-instruct`, `deepseek-ai/deepseek-v3.2`, `moonshotai/kimi-k2-instruct-0905`, `meta/llama-4-scout-17b-16e-instruct`, `qwen/qwen3-next-80b-a3b-instruct`|
+| **Groq** | `moonshotai/kimi-k2-instruct-0905`, `meta-llama/llama-4-scout-17b-16e-instruct`, `openai/gpt-oss-120b` | 
+| **Cerebras** | `qwen-3-235b-a22b-instruct-2507`, `gpt-oss-120b`, `qwen-3-32b` |
+| **Nvidia com OpenAI** | `qwen/qwen3-next-80b-a3b-instruct`, `deepseek-ai/deepseek-v3.2`, `nvidia/nemotron-3-nano-30b-a3b` , `moonshotai/kimi-k2-instruct`, `nvidia/nemotron-4-mini-hindi-4b-instruct`|
 
 ## 💼 Carteria de ações para o trimestre
 

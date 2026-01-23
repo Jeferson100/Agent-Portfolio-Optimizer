@@ -46,7 +46,6 @@ class LlmRouter:
                 [
                     "qwen-3-235b-a22b-instruct-2507",
                     "gpt-oss-120b",
-                    "OpenAI GPT OSS",
                     "qwen-3-32b",
                 ],
             ),
