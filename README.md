@@ -363,6 +363,12 @@ Agent-Portfolio-Optimizer/
 │   ├── create_agent_portfolio_optmizer.ipynb
 │   └── chamando_agentes.ipynb
 ├── codigos_rodando/                 # Scripts prontos para execução
+│   ├── rodando_carteira_historica/   # Carteiras históricas
+│   │   ├── rodando_agente_avaliador_tics_historico_2013-04-01_to_2015-01-01.py
+│   │   ├── rodando_agente_avaliador_tics_historico_2013-07-01_to_2015-04-01.py
+│   │   ├── ...
+│   │   ├── rodando_criando_carteira_historico.py.py
+│   │   └── rodando_avaliacao_carteira_historica.py
 │   ├── rodando_avaliacao_tics.py
 │   ├── rodando_criando_carteira.py
 │   └── ...
@@ -371,7 +377,21 @@ Agent-Portfolio-Optimizer/
 │   ├── test_roteador_llms/
 │   └── ...
 ├── data/                             # Dados e resultados
-│   ├── avaliacao_tics_historico.json
+│   ├── avaliacao_historicos_tics/
+│   │   ├── avaliacao_tics_historico_2013-04-01_to_2015-01-01.json
+│   │   ├── avaliacao_tics_historico_2013-07-01_to_2015-04-01.json
+│   │   └── ...
+│   ├── historico_carteira/
+│   │   ├── pesos_2013-04-01_to_2015-01-01_carteira.csv
+│   │   ├── pesos_2013-07-01_to_2015-04-01_carteira.csv
+│   │   └── ...
+│   ├── historico_carteira_markowitz/
+│   │   ├── pesos_2013-04-01_to_2015-01-01_carteira_markowitz.csv
+│   │   ├── pesos_2013-07-01_to_2015-04-01_carteira_markowitz.csv
+│   │   └── ...
+│   ├── resultado_carteira_futuro/
+│   │   ├── resultado_carteira_atual.csv
+│   │   └── ...
 │   └── carteira_resultado.json
 └── pyproject.toml                    # Configuração do projeto
 ```
