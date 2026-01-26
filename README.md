@@ -13,6 +13,16 @@
 Primero um agente avalia os ativos classificando-os por qualidade atraves dos dados fundamentais, essa classificacao pode ser `Excellent`, `Good`, `Fair`, `Poor` ou `Very Poor`, depois outro agente cria uma carteira de ações com os ativos com qualidade `Excellent` e `Good` tendo como restrição que ativos de maior peso devem ser de 20% da carteira e ativos de menor peso devem ser de 5% da carteira.
 
 
+## Avisos importantes
+
+⚠️ **Este projeto é para fins educacionais e de pesquisa. Não constitui aconselhamento financeiro.**
+
+- As análises geradas por LLMs podem conter erros ou alucinações
+- Sempre valide os resultados antes de tomar decisões de investimento
+- O desempenho passado não garante resultados futuros
+- Consulte um profissional de investimentos qualificado antes de investir
+
+
 ## 📋 Modelos usados e provedores
 
 | Provedor | Modelos Disponíveis |
@@ -402,12 +412,3 @@ Agent-Portfolio-Optimizer/
 ## Licença
 
 Este projeto está licenciado sob a licença especificada no arquivo [LICENSE](LICENSE).
-
-## Avisos importantes
-
-⚠️ **Este projeto é para fins educacionais e de pesquisa. Não constitui aconselhamento financeiro.**
-
-- As análises geradas por LLMs podem conter erros ou alucinações
-- Sempre valide os resultados antes de tomar decisões de investimento
-- O desempenho passado não garante resultados futuros
-- Consulte um profissional de investimentos qualificado antes de investir
