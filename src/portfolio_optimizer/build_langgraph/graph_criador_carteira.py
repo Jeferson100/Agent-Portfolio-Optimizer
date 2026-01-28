@@ -12,7 +12,7 @@ from .nodes_criador_carteira import (
 
 class BuildGraphCriadorCarteira:
     def __init__(self):
-        self.graph = StateGraph(StateCarteira)
+        self.graph = StateGraph(StateCarteira)  # pyright: ignore
 
     def build(self):
         self.graph.add_node("analista_criador_carteira", analista_criador_carteira)

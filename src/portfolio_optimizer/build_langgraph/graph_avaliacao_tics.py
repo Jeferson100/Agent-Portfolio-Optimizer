@@ -11,7 +11,7 @@ from .nodes_avaliacao_tics import (
 
 class BuildGraphAvaliacaoTics:
     def __init__(self):
-        self.graph = StateGraph(StateClassification)
+        self.graph = StateGraph(StateClassification)  # pyright: ignore
 
     def build(self):
         self.graph.add_node("coleta_fundamentalistas", get_data_fundamentalistas)
