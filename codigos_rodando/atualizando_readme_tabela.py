@@ -78,7 +78,6 @@ date_now = datetime.datetime.now().strftime("%Y-%m-%d")
 trimestre_atual = pd.date_range(end=date_now, periods=1, freq='QS').strftime("%Y-%m-%d")[0]
 
 
-
 logger.info("Atualizando README.md com comentario e tabela de resultados do trimestre.")
 section_found = False
 for i, line in enumerate(readme_content):
