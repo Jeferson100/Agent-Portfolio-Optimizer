@@ -36,36 +36,38 @@ Primero um agente avalia os ativos classificando-os por qualidade atraves dos da
 
 ### 📊 Tabela Resultados
 
-|        |   preco_inicial(2026-04-01) |   preco_atual(2026-04-23) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
+|        |   preco_inicial(2026-04-01) |   preco_atual(2026-04-24) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
 |:-------|----------------------------:|--------------------------:|-----------------:|-------------------------:|-------------------------------:|-------------------------------:|-----------------------------:|
-| MULT3  |                       32.49 |                     32.85 |             0.18 |                     0.36 |                         0.0111 |                            180 |                       182    |
-| BMOB3  |                       27.15 |                     26.36 |             0.09 |                    -0.79 |                        -0.0291 |                             90 |                        87.38 |
-| ALOS3  |                       30.7  |                     31.89 |             0.09 |                     1.19 |                         0.0388 |                             90 |                        93.49 |
-| CLSC4  |                      144.07 |                    154.77 |             0.07 |                    10.7  |                         0.0743 |                             70 |                        75.2  |
-| CGRA4  |                       26.58 |                     25.93 |             0.07 |                    -0.65 |                        -0.0245 |                             70 |                        68.28 |
-| WEGE3  |                       51.01 |                     48.28 |             0.07 |                    -2.73 |                        -0.0535 |                             70 |                        66.26 |
+| MULT3  |                       32.49 |                     32.73 |             0.18 |                     0.24 |                         0.0074 |                            180 |                       181.33 |
+| BMOB3  |                       27.15 |                     26.48 |             0.09 |                    -0.67 |                        -0.0247 |                             90 |                        87.78 |
+| ALOS3  |                       30.7  |                     31.61 |             0.09 |                     0.91 |                         0.0296 |                             90 |                        92.66 |
+| CLSC4  |                      144.07 |                    154.51 |             0.07 |                    10.44 |                         0.0725 |                             70 |                        75.08 |
+| CGRA4  |                       26.58 |                     25.41 |             0.07 |                    -1.17 |                        -0.044  |                             70 |                        66.92 |
+| WEGE3  |                       51.01 |                     47.8  |             0.07 |                    -3.21 |                        -0.0629 |                             70 |                        65.6  |
 | ALPA3  |                       11.76 |                     11.09 |             0.07 |                    -0.67 |                        -0.057  |                             70 |                        66.01 |
-| ENEV3  |                       24.99 |                     26.94 |             0.07 |                     1.95 |                         0.078  |                             70 |                        75.46 |
-| FIQE3  |                        7.03 |                      7.01 |             0.07 |                    -0.02 |                        -0.0028 |                             70 |                        69.8  |
-| SBSP3  |                      156.13 |                    172.09 |             0.07 |                    15.96 |                         0.1022 |                             70 |                        77.15 |
-| IGTI11 |                       28.29 |                     28.71 |             0.05 |                     0.42 |                         0.0148 |                             50 |                        50.74 |
-| CMIG4  |                       12.63 |                     13.34 |             0.05 |                     0.71 |                         0.0562 |                             50 |                        52.81 |
-| PRIO3  |                       64.13 |                     62.72 |             0.05 |                    -1.41 |                        -0.022  |                             50 |                        48.9  |
+| ENEV3  |                       24.99 |                     27.33 |             0.07 |                     2.34 |                         0.0936 |                             70 |                        76.55 |
+| FIQE3  |                        7.03 |                      6.9  |             0.07 |                    -0.13 |                        -0.0185 |                             70 |                        68.7  |
+| SBSP3  |                      156.13 |                    172.31 |             0.07 |                    16.18 |                         0.1036 |                             70 |                        77.25 |
+| IGTI11 |                       28.29 |                     28.65 |             0.05 |                     0.36 |                         0.0127 |                             50 |                        50.64 |
+| CMIG4  |                       12.63 |                     13.05 |             0.05 |                     0.42 |                         0.0333 |                             50 |                        51.67 |
+| PRIO3  |                       64.13 |                     62.63 |             0.05 |                    -1.5  |                        -0.0234 |                             50 |                        48.83 |
 
 ### 💬 Comentário sobre a carteira
-A carteira de investimentos apresentou uma variação de 1,35% no período analisado, entre 01/04/2026 e 23/04/2026. Considerando o valor inicial investido de R$1.000, o valor atual é de R$1.013,50. Embora o desempenho seja ligeiramente positivo, é fundamental avaliar se essa variação é satisfatória em relação ao mercado e às expectativas do investidor.
+A carteira de investimentos apresentou uma variação de 0,9% no período analisado, entre 01/04/2026 e 24/04/2026. Embora essa variação possa ser considerada modesta, é fundamental avaliar os componentes individuais da carteira para entender melhor seu desempenho.
 
-Uma análise detalhada das ações que compõem a carteira revela que as variações individuais são bastante distintas. As ações que apresentaram desempenho positivo incluem MULT3 (1,11%), ALOS3 (3,88%), CLSC4 (7,43%), ENEV3 (7,80%) e SBSP3 (10,22%), contribuindo para a valorização da carteira. Por outro lado, ações como BMOB3 (-2,91%), CGRA4 (-2,45%), WEGE3 (-5,35%), ALPA3 (-5,70%) e PRIO3 (-2,20%) apresentaram desempenho negativo, exercendo pressão contrária sobre o resultado geral.
+A análise dos ativos individuais revela uma diversidade de desempenhos. Alguns ativos, como CLSC4 (7,25%), ENEV3 (9,36%) e SBSP3 (10,36%), apresentaram desempenhos positivos significativos, contribuindo para o resultado geral da carteira. Por outro lado, ativos como WEGE3 (-6,29%), ALPA3 (-5,7%) e CGRA4 (-4,4%) registraram perdas, o que impactou negativamente o desempenho geral.
 
-A composição da carteira, em termos de pesos, indica que as ações com maior peso são MULT3 (18%), BMOB3 (9%) e ALOS3 (9%). Embora MULT3 e ALOS3 tenham contribuído positivamente, o desempenho negativo de BMOB3 (-2,91%) impactou o resultado geral. Além disso, as ações com menor peso, como IGTI11 (5%) e CMIG4 (5%), apresentaram variações positivas, mas com menor impacto no resultado geral devido à sua menor participação na carteira.
+É notável que os ativos com maior peso na carteira, como MULT3 (18%), tiveram um desempenho relativamente estável, com uma variação de 0,74%. Já os ativos com menor peso, como IGTI11 (5%) e CMIG4 (5%), apresentaram variações de 1,27% e 3,33%, respectivamente, contribuindo positivamente para a carteira.
 
-Avaliando a contribuição de cada ação para o resultado geral da carteira, nota-se que as ações com maior impacto positivo foram CLSC4 e SBSP3, ambas com peso de 7%. CLSC4 contribuiu com uma valorização de 7,43%, enquanto SBSP3 apresentou uma valorização de 10,22%. Já as ações com maior impacto negativo foram WEGE3 e ALPA3, ambas com peso de 7%, apresentando desvalorizações de 5,35% e 5,70%, respectivamente.
+A diversificação da carteira é um ponto forte, com investimentos distribuídos em diferentes setores e ativos. Isso ajuda a mitigar riscos e a reduzir a exposição a flutuações de mercado. No entanto, é importante notar que alguns ativos com desempenho negativo têm pesos significativos na carteira, o que sugere oportunidades para ajustes.
 
-Considerando o desempenho geral da carteira e a composição das ações, pode-se concluir que o resultado de 1,35% é relativamente modesto. Embora algumas ações tenham apresentado desempenhos excepcionais, como SBSP3 e ENEV3, o impacto negativo de outras ações, como WEGE3 e ALPA3, limitou o potencial de valorização da carteira.
+Considerando o desempenho geral e a composição da carteira, podemos concluir que o resultado de 0,9% é satisfatório, dado o contexto de mercado e a diversificação dos investimentos. No entanto, é fundamental monitorar os ativos com desempenho negativo e avaliar se ajustes na composição da carteira são necessários para melhorar o desempenho futuro.
 
-Para melhorar o desempenho da carteira, seria recomendável reavaliar a composição das ações e considerar ajustes que possam mitigar os efeitos negativos das ações com pior desempenho. Além disso, é fundamental monitorar o desempenho das ações e realizar ajustes periódicos para garantir que a carteira esteja alinhada com as expectativas e objetivos do investidor.
+Além disso, é importante considerar os fatores macroeconômicos e de mercado que podem ter influenciado o desempenho da carteira durante o período. A análise desses fatores pode fornecer insights valiosos para ajustes estratégicos na carteira.
 
-Em resumo, o desempenho da carteira no período analisado é considerado neutro, com uma variação de 1,35%. Embora haja ações com desempenhos positivos, o impacto negativo de outras ações limita o potencial de valorização. É recomendável uma reavaliação da composição da carteira e ajustes para melhorar o desempenho futuro.
+Em resumo, a carteira apresentou um desempenho modesto, mas com potencial para melhoria. A diversificação é um ponto forte, mas é necessário monitorar e ajustar os ativos com desempenho negativo. Com uma gestão ativa e ajustes estratégicos, é possível melhorar o desempenho da carteira e alcançar os objetivos de investimento.
+
+A análise detalhada dos ativos e do contexto de mercado é essencial para tomar decisões informadas e maximizar o retorno dos investimentos. Portanto, é recomendável continuar monitorando o desempenho da carteira e realizar ajustes conforme necessário para garantir que os investimentos estejam alinhados com os objetivos e expectativas dos investidores.
 
 
 ## 🤖 Agentes e Fluxos de Trabalho
