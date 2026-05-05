@@ -1,3 +1,11 @@
+## Set up Python interpreter environment
+.PHONY: create_environment
+create_environment:
+O erro que você recebeu anteriormente no GitHub Actions foi causado exatamente pelo que vemos nas linhas **51 a 56** do seu arquivo. Você tem duas definições idênticas e seguidas para o mesmo alvo (`create_environment`).
+
+Aqui está o seu **Makefile** corrigido e limpo, removendo a duplicidade e organizando os comandos:
+
+```makefile
 #################################################################################
 # GLOBALS                                                                       #
 #################################################################################
@@ -48,9 +56,6 @@ typepyrefly:
 ## Set up Python interpreter environment
 .PHONY: create_environment
 create_environment:
-	## Set up Python interpreter environment
-.PHONY: create_environment
-create_environment:
 	@echo ">>> Creating virtual environment using uv..."
 	uv venv --python $(PYTHON_VERSION)
 	@echo ">>> Virtual environment created in .venv"
@@ -88,4 +93,4 @@ test_specific:
 
 refactor: format lint
 
-all: uv_install uv_dev_install import_format format lint typepyright typepyrefly import_format ruff_format ruff_lint test
+all: uv_install uv_dev_install import_format format lint typepyright typepyrefly ruff_format ruff_lint test
