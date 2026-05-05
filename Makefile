@@ -1,11 +1,4 @@
-## Set up Python interpreter environment
-.PHONY: create_environment
-create_environment:
-O erro que você recebeu anteriormente no GitHub Actions foi causado exatamente pelo que vemos nas linhas **51 a 56** do seu arquivo. Você tem duas definições idênticas e seguidas para o mesmo alvo (`create_environment`).
 
-Aqui está o seu **Makefile** corrigido e limpo, removendo a duplicidade e organizando os comandos:
-
-```makefile
 #################################################################################
 # GLOBALS                                                                       #
 #################################################################################
