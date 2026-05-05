@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 tracer_provider = register(
   project_name="Agente-Criador-Carteira",
   endpoint="https://app.phoenix.arize.com/s/sehnemjeferson/v1/traces",
-  auto_instrument=True,
+  auto_instrument=False,
   api_key=os.getenv("PHOENIX_API_KEY")
   
 )
