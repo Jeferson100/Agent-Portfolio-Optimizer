@@ -3,7 +3,7 @@ import time
 import logging
 import os
 from phoenix.otel import register
-#from openinference.instrumentation.langchain import LangChainInstrumentor # 
+from openinference.instrumentation.langchain import LangChainInstrumentor # 
 from portfolio_optimizer import BuildGraphAvaliacaoTics, StateClassification
 import json
 import datetime
@@ -14,15 +14,15 @@ from utils import run_all_tics
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-"""tracer_provider = register(
+tracer_provider = register(
   project_name="Agente-Criador-Carteira",
   endpoint="https://app.phoenix.arize.com/s/sehnemjeferson/v1/traces",
   auto_instrument=True,
   api_key=os.getenv("PHOENIX_API_KEY")
   
-)"""
+)
 
-#LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
 
 tics = ["PETR4", "ITUB4", "BBDC4", "ABEV3",]
 ["BBAS3", "GGBR4", "RENT3", "LREN3",
