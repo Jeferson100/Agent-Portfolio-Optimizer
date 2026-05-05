@@ -13,7 +13,7 @@ class TratandoDadosIndicadores(DadosIndicadoresTecnicos):
     def tratando_indicadores(self) -> pd.DataFrame:
         indicadores = self.coletando_indicadores()
         indicadores = indicadores.reset_index()
-        indicadores["Date"] = indicadores["Date"].dt.strftime("%Y-%m-%d")
+        indicadores["Date"] = indicadores["Date"].dt.strftime("%Y-%m-%d")  # type: ignore
         return indicadores
 
     def indicadores_data_loader(self) -> List[Any]:

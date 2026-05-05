@@ -24,7 +24,7 @@ class TratandoDadosIndicadoresComparacao:
     async def tratando_indicadores(self, ticker: str) -> pd.DataFrame:
         indicadores = await self.coletando_indicadores(ticker=ticker)
         indicadores = indicadores.reset_index()
-        indicadores["Date"] = indicadores["Date"].dt.strftime("%Y-%m-%d")
+        indicadores["Date"] = indicadores["Date"].dt.strftime("%Y-%m-%d")  # type: ignore
         indicadores["tickers"] = ticker
         return indicadores
 
