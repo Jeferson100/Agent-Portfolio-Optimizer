@@ -36,34 +36,30 @@ Primero um agente avalia os ativos classificando-os por qualidade atraves dos da
 
 ### 📊 Tabela Resultados
 
-|       |   preco_inicial(2026-04-01) |   preco_atual(2026-06-03) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
+|       |   preco_inicial(2026-04-01) |   preco_atual(2026-06-05) |   pesos_carteira |   diferenca_inicio_atual |   diferenca_inicio_atual(em %) |   valor_inicial_investido_1000 |   valor_atual_investido_1000 |
 |:------|----------------------------:|--------------------------:|-----------------:|-------------------------:|-------------------------------:|-------------------------------:|-----------------------------:|
-| EALT4 |                       12.75 |                     11.86 |              0.2 |                    -0.89 |                        -0.0698 |                            200 |                       186.04 |
+| EALT4 |                       12.75 |                     12.05 |              0.2 |                    -0.7  |                        -0.0549 |                            200 |                       189.02 |
 | BALM4 |                       18.47 |                     18.9  |              0.2 |                     0.43 |                         0.0233 |                            200 |                       204.66 |
-| FIQE3 |                        7.03 |                      6.33 |              0.2 |                    -0.7  |                        -0.0996 |                            200 |                       180.08 |
-| ECOR3 |                        8.72 |                      7.1  |              0.2 |                    -1.62 |                        -0.1858 |                            200 |                       162.84 |
-| KLBN3 |                        3.89 |                      3.37 |              0.2 |                    -0.52 |                        -0.1337 |                            200 |                       173.26 |
+| FIQE3 |                        7.03 |                      6.24 |              0.2 |                    -0.79 |                        -0.1124 |                            200 |                       177.52 |
+| ECOR3 |                        8.72 |                      7.22 |              0.2 |                    -1.5  |                        -0.172  |                            200 |                       165.6  |
+| KLBN3 |                        3.89 |                      3.45 |              0.2 |                    -0.44 |                        -0.1131 |                            200 |                       177.38 |
 
 ### 💬 Comentário sobre a carteira
-A carteira de investimentos apresentou uma variação negativa de -9,31% no período analisado, entre 01/04/2026 e 03/06/2026. Esse desempenho é considerado insatisfatório, uma vez que o retorno foi negativo, indicando uma perda de valor para o investidor.
+A carteira de investimentos apresentou uma variação negativa de -8,58% no período analisado, entre 01/04/2026 e 05/06/2026. Este desempenho é considerado insatisfatório, uma vez que o retorno foi negativo, indicando uma perda de valor para o investidor.
 
-A análise individual das ações que compõem a carteira revela que todas apresentaram desempenho negativo, exceto a BALM4, que teve um aumento de 2,33% em seu valor. As demais ações - EALT4, FIQE3, ECOR3 e KLBN3 - registraram quedas significativas, com perdas variando de -6,98% a -18,58%. 
+A análise individual das ações que compõem a carteira revela que todas apresentaram desempenho negativo, com exceção da BALM4, que teve um aumento de 2,33% em seu valor. As demais ações, EALT4, FIQE3, ECOR3 e KLBN3, registraram quedas de 5,49%, 11,24%, 17,20% e 11,31%, respectivamente.
 
-A distribuição igualitária dos pesos na carteira (20% para cada ação) não foi suficiente para compensar as perdas generalizadas. A ação BALM4, apesar de ter apresentado um desempenho positivo, não foi capaz de contrabalançar as perdas das outras ações, uma vez que seu ganho foi relativamente modesto.
+A composição da carteira é igualmente distribuída entre as cinco ações, com cada uma representando 20% do total. Isso significa que o desempenho negativo das quatro ações foi parcialmente compensado pelo ganho da BALM4, mas não o suficiente para resultar em um retorno positivo para a carteira como um todo.
 
-O valor inicial investido de R$1.000 na carteira foi distribuído proporcionalmente entre as cinco ações, totalizando R$200 em cada uma. Ao final do período, o valor total da carteira foi de R$906,88, representando uma perda de R$93,12 em relação ao valor inicial.
+Considerando o valor inicial investido de R$1.000, o valor atual é de R$914,18, representando uma perda de R$85,82. A ação com maior impacto negativo no desempenho da carteira foi a ECOR3, com uma queda de 17,20%, seguida pela FIQE3 e KLBN3, que tiveram quedas de 11,24% e 11,31%, respectivamente.
 
-A análise dos dados também revela que as ações com maiores perdas foram ECOR3 (-18,58%) e FIQE3 (-9,96%), que juntas representaram 40% da carteira. Essas perdas significativas contribuíram substancialmente para o desempenho negativo geral da carteira.
+O desempenho da BALM4, com um ganho de 2,33%, foi insuficiente para compensar as perdas das demais ações. Além disso, a correlação entre as ações da carteira não é apresentada, mas é possível que a falta de diversificação setorial ou a exposição a fatores de risco comuns tenham contribuído para o desempenho negativo.
 
-Em resumo, o desempenho da carteira no período foi insatisfatório devido à predominância de perdas entre as ações que a compõem. A exceção representada pela ação BALM4 não foi suficiente para compensar as perdas das demais ações. 
+Em resumo, o desempenho da carteira no período analisado é insatisfatório devido à predominância de retornos negativos entre as ações que a compõem. Embora a BALM4 tenha apresentado um desempenho positivo, não foi suficiente para compensar as perdas das demais ações. É recomendável uma revisão da estratégia de investimento e da composição da carteira para mitigar os riscos e melhorar o desempenho futuro.
 
-Diante desse cenário, é recomendável uma revisão da estratégia de investimento e da composição da carteira, considerando a possibilidade de readequar os pesos ou substituir as ações com desempenho negativo por outras com maior potencial de crescimento. Além disso, é fundamental monitorar o desempenho das ações e realizar ajustes periódicos para minimizar perdas e maximizar ganhos.
+Além disso, é fundamental realizar uma análise mais aprofundada das causas do desempenho negativo das ações, considerando fatores como o desempenho setorial, a conjuntura econômica e a gestão das empresas. Isso permitirá identificar oportunidades de melhoria e ajustar a carteira para melhor atender aos objetivos do investidor.
 
-A diversificação da carteira é um aspecto positivo, pois distribui o risco entre diferentes ações. No entanto, a escolha das ações específicas parece ter sido desafortunada nesse período. Uma análise mais aprofundada das causas das perdas e do potencial futuro das ações pode ser necessária para tomar decisões informadas sobre a carteira.
-
-Em termos de gestão de risco, a carteira apresentou uma exposição significativa às perdas, uma vez que todas as ações, exceto uma, tiveram desempenho negativo. Isso sugere que a diversificação, embora presente, não foi eficaz em mitigar os riscos nesse período específico.
-
-Portanto, é crucial reavaliar a carteira e considerar ajustes para melhorar seu desempenho futuro. Isso pode incluir a reponderação das ações, a inclusão de novos ativos ou a adoção de estratégias de hedge para mitigar possíveis perdas.
+Portanto, é necessário reavaliar a carteira e considerar ajustes para melhorar seu desempenho, seja através da reponderação das ações, da inclusão de novos ativos ou da adoção de estratégias de gestão de risco mais eficazes.
 
 
 ## 🤖 Agentes e Fluxos de Trabalho
