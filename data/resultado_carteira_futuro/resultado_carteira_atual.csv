@@ -1,6 +1,6 @@
-,preco_inicial(2026-07-01),preco_atual(2026-07-16),pesos_carteira,diferenca_inicio_atual,diferenca_inicio_atual(em %),valor_inicial_investido_1000,valor_atual_investido_1000
-EALT4,12.15,11.62,0.2,-0.5300000000000011,-0.0436,200.0,191.28
+,preco_inicial(2026-07-01),preco_atual(2026-07-17),pesos_carteira,diferenca_inicio_atual,diferenca_inicio_atual(em %),valor_inicial_investido_1000,valor_atual_investido_1000
+EALT4,12.15,11.45,0.2,-0.7000000000000011,-0.0576,200.0,188.48
 BALM4,16.04,16.04,0.2,0.0,0.0,200.0,200.0
-FIQE3,5.6,5.62,0.2,0.020000000000000462,0.0036,200.0,200.72
-ECOR3,7.26,7.22,0.2,-0.040000000000000036,-0.0055,200.0,198.9
-KLBN3,3.4,3.52,0.2,0.1200000000000001,0.0353,200.0,207.06
+FIQE3,5.6,5.59,0.2,-0.009999999999999787,-0.0018,200.0,199.64
+ECOR3,7.26,7.04,0.2,-0.21999999999999975,-0.0303,200.0,193.94
+KLBN3,3.4,3.53,0.2,0.1299999999999999,0.0382,200.0,207.64
