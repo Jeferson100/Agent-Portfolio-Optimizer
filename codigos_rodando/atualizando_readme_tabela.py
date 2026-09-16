@@ -65,13 +65,14 @@ Develop an objective commentary on the portfolio's performance, analyzing:
 
 PROMPT_FORMATADO = PROMPT.format(carteira=carteira_atual_markdown, variacao_carteira_porcentagem=variacao_carteira_porcentagem)
 
-llm = ChatNVIDIA(model="meta/muse-glimmer-30b",
-                 #"nvidia/nemotron-3.5-lightning-30b-a3b"
+llm = ChatNVIDIA(model="mistralai/mistral-nemotron",
+                 #"openai/gpt-oss-20b"
+                 #"nvidia/nemotron-3-ultra-550b-a55b"
                 )
 
 response = llm.invoke([{"role": "user", "content": PROMPT_FORMATADO}])
 
-logger.info("Comentário gerado com sucesso.")
+logger.info(f"Comentário gerado com sucesso: {response.content}")
 
 logger.info("Atualizando trimestre atual no README.md.")
 
