@@ -65,7 +65,7 @@ Develop an objective commentary on the portfolio's performance, analyzing:
 
 PROMPT_FORMATADO = PROMPT.format(carteira=carteira_atual_markdown, variacao_carteira_porcentagem=variacao_carteira_porcentagem)
 
-llm = ChatNVIDIA(model="meta/llama-4-maverick-17b-128e-instruct")
+llm = ChatNVIDIA(model="nvidia/nemotron-3-nano-30b-a3b")
 
 response = llm.invoke([{"role": "user", "content": PROMPT_FORMATADO}])
 
